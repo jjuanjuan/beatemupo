@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerBrain : MonoBehaviour, ICharacterBrain
 {
     public Vector2 MoveInput { get; private set; }
+    public Vector2 LookInput { get; private set; }
 
     public bool JumpPressed { get; private set; }
 
@@ -28,6 +29,7 @@ public class PlayerBrain : MonoBehaviour, ICharacterBrain
     void Update()
     {
         MoveInput = input.Player.Movement.ReadValue<Vector2>();
+        LookInput = input.Player.Look.ReadValue<Vector2>();
 
         JumpPressed = input.Player.Jump.WasPressedThisFrame();
 
