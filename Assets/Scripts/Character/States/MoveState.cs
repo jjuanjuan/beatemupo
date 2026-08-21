@@ -7,6 +7,11 @@ public class MoveState : CharacterState
     {
     }
 
+    public override void Enter()
+    {
+        context.Animator.Play("Move");
+    }
+
     public override void Update()
     {
         if (!context.Motor.Grounded)
@@ -29,6 +34,11 @@ public class MoveState : CharacterState
             return;
         }
 
+        float speed =
+            context.Motor.HorizontalSpeed /
+            context.Motor.MoveSpeed;
+
+        context.Animator.SetSpeed(speed);
         context.Motor.Move(input);
     }
 }

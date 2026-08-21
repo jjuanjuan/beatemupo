@@ -7,6 +7,11 @@ public class FallState : CharacterState
     {
     }
 
+    public override void Enter()
+    {
+        context.Animator.Play("Fall", .05f);
+    }
+
     public override void Update()
     {
         context.Motor.Move(context.Brain.MoveInput);

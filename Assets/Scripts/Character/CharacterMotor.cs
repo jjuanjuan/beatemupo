@@ -34,6 +34,13 @@ public class CharacterMotor : MonoBehaviour
     public bool Rising => velocity.y > 0f;
     public bool Falling => velocity.y <= 0f;
 
+    public float MoveSpeed => moveSpeed;
+
+    public float HorizontalSpeed =>
+        new Vector2(
+            velocity.x,
+            velocity.z).magnitude;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();

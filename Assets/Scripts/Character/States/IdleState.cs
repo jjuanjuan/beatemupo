@@ -23,4 +23,9 @@ public class IdleState : CharacterState
             return;
         }
     }
+
+    public override void Enter()
+    {
+        context.Animator.Play("Idle");
+    }
 }
