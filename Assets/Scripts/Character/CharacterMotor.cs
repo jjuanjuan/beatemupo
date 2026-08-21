@@ -31,6 +31,9 @@ public class CharacterMotor : MonoBehaviour
     private float lastGroundedTime;
     public bool CanJump => Time.time - lastGroundedTime < coyoteTime;
 
+    public bool Rising => velocity.y > 0f;
+    public bool Falling => velocity.y <= 0f;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -73,7 +76,7 @@ public class CharacterMotor : MonoBehaviour
     }
     public void Jump()
     {
-        if (!Grounded)
+        if (!CanJump)
             return;
 
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
