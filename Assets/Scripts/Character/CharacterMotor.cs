@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CharacterMotor : MonoBehaviour
 {
+    [SerializeField] Transform cameraTransform;
+
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 6f;
 
@@ -45,14 +47,30 @@ public class CharacterMotor : MonoBehaviour
         if (Grounded) lastGroundedTime = Time.time;
     }
 
-    public void Move(Vector3 direction)
+    public void Move(Vector2 input)
     {
-        direction.Normalize();
+        if (cameraTransform == null)
+            return;
 
-        desiredVelocity.x = direction.x * moveSpeed;
-        desiredVelocity.z = direction.z * moveSpeed;
+        Vector3 forward = cameraTransform.forward;
+        Vector3 right = cameraTransform.right;
+
+        // Ignorar la inclinación de la cámara
+        forward.y = 0f;
+        right.y = 0f;
+
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 direction = forward * input.y + right * input.x;
+
+        if (direction.sqrMagnitude > 1f)
+            direction.Normalize();
+
+        desiredVelocity = direction * moveSpeed;
+
+        RotateTowards(direction);
     }
-
     public void Jump()
     {
         if (!Grounded)

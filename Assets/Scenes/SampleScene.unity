@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6a7afd4ddcf6d418009429ef372eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
-  target: {fileID: 1551134706}
+  target: {fileID: 0}
   offset: {x: 0, y: 6, z: -9}
   smoothSpeed: 8
 --- !u!114 &330585549
@@ -1018,7 +1018,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShadowProjector
   groundMask:
-    serializedVersion: 2
     m_Bits: 0
   rayHeight: 5
   rayDistance: 20
@@ -1026,6 +1025,8 @@ MonoBehaviour:
   baseSize: 1
   minScale: 0.5
   maxHeight: 6
+  parent: {fileID: 0}
+  projector: {fileID: 0}
   controller: {fileID: 1449730102}
 --- !u!1 &1305139328
 GameObject:
@@ -1142,6 +1143,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1449730100}
   - component: {fileID: 1449730102}
+  - component: {fileID: 1449730105}
+  - component: {fileID: 1449730104}
+  - component: {fileID: 1449730103}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1163,7 +1167,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2027943057}
-  - {fileID: 1551134706}
   - {fileID: 1291799171}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1193,37 +1196,52 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &1551134705
-GameObject:
+--- !u!114 &1449730103
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1551134706}
-  m_Layer: 0
-  m_Name: CameraTarget
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1551134706
-Transform:
+  m_GameObject: {fileID: 1449730098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf24eaca2d4fd7c45a19e5b2c3d66c6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1449730104
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1551134705}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1449730100}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 1449730098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d821a842878aa041afdcd71bd3bfeb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1449730105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449730098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e47da5ac1f66aea4888b1369e0f7a9cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 330585546}
+  moveSpeed: 6
+  groundAcceleration: 35
+  airAcceleration: 12
+  groundDeceleration: 40
+  airDeceleration: 5
+  jumpHeight: 2
+  gravity: -25
+  coyoteTime: 0.1
+  rotationSpeed: 720
 --- !u!1 &1828081339
 GameObject:
   m_ObjectHideFlags: 0

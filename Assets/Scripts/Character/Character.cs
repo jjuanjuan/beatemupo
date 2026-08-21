@@ -4,29 +4,23 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private CharacterMotor motor;
-    [SerializeField] private CharacterAnimator animator;
-    [SerializeField] private CharacterCombat combat;
-    [SerializeField] private ICharacterBrain brain;
-    [SerializeField] private CharacterStats stats;
-
+    ICharacterBrain brain;
+    CharacterMotor motor;
+    CharacterAnimator animator;
+    CharacterCombat combat;
+    CharacterStats stats;
+    CharacterStates states;
     public CharacterContext Context { get; private set; }
-
     public CharacterStateMachine StateMachine { get; private set; }
 
     void Awake()
     {
-        brain = GetComponent<ICharacterBrain>();
-
-        if (brain == null)
-        {
-            Debug.LogError($"{name} has no ICharacterBrain.");
-            return;
-        }
-
         motor = GetComponent<CharacterMotor>();
-        combat = GetComponent<CharacterCombat>();
+        brain = GetComponent<ICharacterBrain>();
         animator = GetComponent<CharacterAnimator>();
+        combat = GetComponent<CharacterCombat>();
+
+        states = new CharacterStates();
 
         Context = new CharacterContext(
             this,
@@ -34,16 +28,24 @@ public class Character : MonoBehaviour
             animator,
             combat,
             brain,
-            stats);
+            stats,
+            states);
 
         StateMachine = new CharacterStateMachine();
+
+        states.Idle = new IdleState(Context, StateMachine);
+        states.Move = new MoveState(Context, StateMachine);
+        states.Jump = new JumpState(Context, StateMachine);
+        states.Fall = new FallState(Context, StateMachine);
+
+        StateMachine.ChangeState(states.Idle);
     }
 
     void Update()
     {
         StateMachine.Update();
 
-        motor.Tick();
+        Context.Motor.Tick();
     }
 
     void FixedUpdate()
