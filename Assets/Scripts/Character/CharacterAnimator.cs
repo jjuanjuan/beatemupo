@@ -28,26 +28,22 @@ public class CharacterAnimator : MonoBehaviour
 
     public void PlayAttack(
         string state,
-        float transitionDuration
-        )
+        float transition,
+        float normalizedTime)
     {
         int hash = Animator.StringToHash(state);
 
         currentState = hash;
 
-        float normalizedTime = 0f;
-
         animator.CrossFade(
             hash,
-            transitionDuration,
+            transition,
             0,
             normalizedTime);
     }
-
+    
     public void SetSpeed(float speed)
     {
-        animator.SetFloat(
-            SpeedHash,
-            speed);
+        animator.SetFloat(SpeedHash, speed);
     }
 }

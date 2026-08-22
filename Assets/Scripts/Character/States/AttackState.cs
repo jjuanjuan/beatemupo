@@ -42,7 +42,7 @@ public class AttackState : CharacterState
                 return;
         }
 
-        if (timer >= attack.duration)
+        if (timer >= attack.Duration)
         {
             FinishAttack();
         }
@@ -52,9 +52,9 @@ public class AttackState : CharacterState
     {
         AttackPhase previousPhase = Phase;
 
-        if (timer < attack.hitStart)
+        if (timer < attack.HitStart)
             Phase = AttackPhase.Startup;
-        else if (timer < attack.hitEnd)
+        else if (timer < attack.HitEnd)
             Phase = AttackPhase.Active;
         else
             Phase = AttackPhase.Recovery;
@@ -65,7 +65,6 @@ public class AttackState : CharacterState
         switch (Phase)
         {
             case AttackPhase.Startup:
-                context.Combat.EndHitbox();
                 break;
 
             case AttackPhase.Active:
@@ -81,8 +80,8 @@ public class AttackState : CharacterState
     private void UpdateComboWindow(AttackDefinition attack)
     {
         comboWindowOpen =
-            timer >= attack.comboStart &&
-            timer <= attack.comboEnd;
+            timer >= attack.ComboStart &&
+            timer <= attack.ComboEnd;
     }
 
     private void TryCombo(AttackDefinition attack)
@@ -114,6 +113,7 @@ public class AttackState : CharacterState
 
         context.Animator.PlayAttack(
             attack.animationState,
+            0f,
             0f);
 
         context.Motor.StartAttack();
@@ -128,7 +128,8 @@ public class AttackState : CharacterState
 
         context.Animator.PlayAttack(
             attack.animationState,
-            0.08f);
+            0.08f,
+            0f);
 
         context.Motor.StartAttack();
     }

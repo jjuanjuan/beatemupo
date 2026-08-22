@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: Punch_0
   m_EditorClassIdentifier: 
   animationState: Punch_0
-  animationClip: {fileID: 0}
-  duration: 0.67
-  hitStart: 0.4
-  hitEnd: 0.5
-  comboStart: 0.4
-  comboEnd: 0.65
-  comboEntryTime: 0.2
+  animationClip: {fileID: -203655887218126122, guid: 1485f067a59b6774b86cb218b7a3f66b,
+    type: 3}
+  hitStartFrame: 21
+  hitEndFrame: 27
+  comboStartFrame: 25
+  comboEndFrame: 40
   damage: 5
   hitbox: 1
