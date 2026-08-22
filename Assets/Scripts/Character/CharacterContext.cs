@@ -8,6 +8,7 @@ public class CharacterContext
     public CharacterMotor Motor { get; }
     public CharacterAnimator Animator { get; }
     public CharacterCombat Combat { get; }
+    public CharacterDamage Damage { get; }
     public ICharacterBrain Brain { get; }
     public CharacterStats Stats { get; }
     public CharacterStates States { get; }
@@ -17,14 +18,17 @@ public class CharacterContext
         CharacterMotor motor,
         CharacterAnimator animator,
         CharacterCombat combat,
+        CharacterDamage damage,
         ICharacterBrain brain,
         CharacterStats stats,
-        CharacterStates states)
+        CharacterStates states
+        )
     {
         Character = character;
         Motor = motor;
         Animator = animator;
         Combat = combat;
+        Damage = damage;
         Brain = brain;
         Stats = stats;
         States = states;

@@ -22,3 +22,4 @@ MonoBehaviour:
   comboEndFrame: 59
   damage: 20
   hitbox: 3
+  hitReaction: 3

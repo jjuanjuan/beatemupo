@@ -73,7 +73,8 @@ public class CharacterCombat : MonoBehaviour
             return;
 
         hitbox.Activate(
-            CurrentAttack.damage);
+            CurrentAttack.damage,
+            CurrentAttack.hitReaction);
     }
 
     public void EndHitbox()

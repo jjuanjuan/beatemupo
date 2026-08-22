@@ -8,6 +8,7 @@ public class Character : MonoBehaviour
     CharacterMotor motor;
     CharacterAnimator animator;
     CharacterCombat combat;
+    CharacterDamage damage;
     CharacterStats stats;
     CharacterStates states;
     public CharacterContext Context { get; private set; }
@@ -19,25 +20,34 @@ public class Character : MonoBehaviour
         brain = GetComponent<ICharacterBrain>();
         animator = GetComponent<CharacterAnimator>();
         combat = GetComponent<CharacterCombat>();
+        damage = GetComponent<CharacterDamage>();
 
         states = new CharacterStates();
+
+        StateMachine = new CharacterStateMachine();
 
         Context = new CharacterContext(
             this,
             motor,
             animator,
             combat,
+            damage,
             brain,
             stats,
             states);
 
-        StateMachine = new CharacterStateMachine();
+        if (damage != null)
+        {
+            damage.Initialize(Context);
+        }
 
         states.Idle = new IdleState(Context, StateMachine);
         states.Move = new MoveState(Context, StateMachine);
         states.Jump = new JumpState(Context, StateMachine);
         states.Fall = new FallState(Context, StateMachine);
         states.Attack = new AttackState(Context, StateMachine);
+        states.Hit = new HitState(Context, StateMachine);
+        states.Knockdown = new KnockdownState(Context, StateMachine);
 
         StateMachine.ChangeState(states.Idle);
     }

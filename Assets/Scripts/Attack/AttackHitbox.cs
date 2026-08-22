@@ -7,6 +7,7 @@ public class AttackHitbox : MonoBehaviour
     private SphereCollider hitbox;
     private int damage;
     private Character owner;
+    private HitReaction reaction;
 
     private readonly HashSet<IDamageable> hitTargets =
         new HashSet<IDamageable>();
@@ -26,15 +27,17 @@ public class AttackHitbox : MonoBehaviour
         this.owner = owner;
     }
 
-    public void Activate(int damage)
+    public void Activate(
+        int damage,
+        HitReaction reaction)
     {
         this.damage = damage;
+        this.reaction = reaction;
 
         hitTargets.Clear();
 
         hitbox.enabled = true;
     }
-
     public void Deactivate()
     {
         hitbox.enabled = false;
@@ -56,7 +59,7 @@ public class AttackHitbox : MonoBehaviour
 
         hitTargets.Add(damageable);
 
-        damageable.TakeDamage(damage);
+        damageable.TakeDamage(damage, reaction);
     }
 
     private void OnDrawGizmos()
@@ -75,8 +78,8 @@ public class AttackHitbox : MonoBehaviour
                 transform.lossyScale.z);
 
         Gizmos.color = hitbox.enabled
-            ? new Color(1f,0f,0f,.4f)
-            : new Color(.5f,.5f,.5f,.2f);
+            ? new Color(1f, 0f, 0f, .4f)
+            : new Color(.5f, .5f, .5f, .2f);
 
         Gizmos.DrawSphere(center, radius);
     }

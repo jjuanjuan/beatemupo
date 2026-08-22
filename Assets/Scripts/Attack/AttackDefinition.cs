@@ -29,6 +29,7 @@ public class AttackDefinition : ScriptableObject
     [Header("Combat")]
     public int damage = 10;
     public HitboxType hitbox;
+    public HitReaction hitReaction;
 
     public float Duration
     {
@@ -82,4 +83,12 @@ public class AttackDefinition : ScriptableObject
 
         return frame / animationClip.frameRate;
     }
+}
+
+public enum HitReaction
+{
+    None,
+    Head,
+    Chest,
+    Knockdown
 }

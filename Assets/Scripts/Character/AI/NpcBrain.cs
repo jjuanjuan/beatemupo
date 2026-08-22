@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NpcBrain : MonoBehaviour
+public class NpcBrain : MonoBehaviour, ICharacterBrain
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Vector2 MoveInput { get; private set; }
+    public Vector2 LookInput { get; private set; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public bool JumpPressed { get; private set; }
+
+    public bool PunchPressed { get; private set; }
+    public bool KickPressed { get; private set; }
 }
