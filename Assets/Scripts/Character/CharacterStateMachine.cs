@@ -12,7 +12,7 @@ public class CharacterStateMachine
 
         CurrentState = newState;
 
-        Debug.Log(CurrentState);
+        //Debug.Log(CurrentState);
         CurrentState.Enter();
     }
 

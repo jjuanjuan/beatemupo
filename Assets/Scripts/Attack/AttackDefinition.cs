@@ -9,14 +9,11 @@ public class AttackDefinition : ScriptableObject
     public string animationState;
 
     [Header("Timing")]
-    public float duration = 0.5f;
-
-    public float hitStart = 0.15f;
-    public float hitEnd = 0.3f;
-
-    [Header("Movement")]
-    public float movementSpeed = 0f;
+    public float duration = 0.8f;
+    public float hitStart = 0.2f;
+    public float hitEnd = 0.4f;
 
     [Header("Combat")]
     public int damage = 10;
+    public HitboxType hitbox;
 }

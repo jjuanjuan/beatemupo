@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationState: Kick_0
   duration: 1.3
-  hitStart: 0.15
-  hitEnd: 0.3
-  movementSpeed: 0
+  hitStart: 0.45
+  hitEnd: 0.65
   damage: 10
+  hitbox: 3

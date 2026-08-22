@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationState: Punch_0
   duration: 0.67
-  hitStart: 0.15
-  hitEnd: 0.3
-  movementSpeed: 0
-  damage: 10
+  hitStart: 0.4
+  hitEnd: 0.5
+  damage: 5
+  hitbox: 1
