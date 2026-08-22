@@ -72,6 +72,24 @@ public class AttackDefinitionEditor : Editor
             attack.ComboEndFrame,
             attack.ComboEnd);
 
+        EditorGUILayout.Space(4);
+
+        DrawTiming(
+            "Self Move Start",
+            attack.selfMoveStartFrame,
+            attack.SelfMoveStartFrame,
+            attack.SelfMoveStart);
+
+        DrawTiming(
+            "Self Move End",
+            attack.selfMoveEndFrame,
+            attack.SelfMoveEndFrame,
+            attack.SelfMoveEnd);
+
+        EditorGUILayout.LabelField(
+            "Self Move Force",
+            attack.selfMoveForce.ToString("F2"));
+
         EditorGUILayout.Space(8);
 
         DrawWarnings(attack);
@@ -154,6 +172,47 @@ public class AttackDefinitionEditor : Editor
         {
             EditorGUILayout.HelpBox(
                 "Combo End is before Combo Start.",
+                MessageType.Error);
+        }
+
+        if (attack.SelfMoveStartFrame < 0)
+        {
+            EditorGUILayout.HelpBox(
+                $"Self Move Start ({attack.selfMoveStartFrame}) " +
+                $"is before the animation start " +
+                $"({attack.animationStartFrame}).",
+                MessageType.Error);
+        }
+
+        if (attack.SelfMoveEndFrame < 0)
+        {
+            EditorGUILayout.HelpBox(
+                $"Self Move End ({attack.selfMoveEndFrame}) " +
+                $"is before the animation start " +
+                $"({attack.animationStartFrame}).",
+                MessageType.Error);
+        }
+
+        if (attack.SelfMoveStartFrame > frameCount)
+        {
+            EditorGUILayout.HelpBox(
+                $"Self Move Start ({attack.SelfMoveStartFrame}) " +
+                $"is outside the clip ({frameCount} frames).",
+                MessageType.Warning);
+        }
+
+        if (attack.SelfMoveEndFrame > frameCount)
+        {
+            EditorGUILayout.HelpBox(
+                $"Self Move End ({attack.SelfMoveEndFrame}) " +
+                $"is outside the clip ({frameCount} frames).",
+                MessageType.Warning);
+        }
+
+        if (attack.SelfMoveEndFrame < attack.SelfMoveStartFrame)
+        {
+            EditorGUILayout.HelpBox(
+                "Self Move End is before Self Move Start.",
                 MessageType.Error);
         }
     }

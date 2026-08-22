@@ -16,13 +16,10 @@ public class AttackDefinition : ScriptableObject
     [Header("Timing")]
     [Min(1)]
     public int hitStartFrame = 10;
-
     [Min(1)]
     public int hitEndFrame = 14;
-
     [Min(1)]
     public int comboStartFrame = 18;
-
     [Min(1)]
     public int comboEndFrame = 30;
 
@@ -35,6 +32,14 @@ public class AttackDefinition : ScriptableObject
     public float knockbackUp = 0f;
     public HitReaction hitReaction;
 
+    [Header("Movement")]
+    [Min(0)]
+    public int selfMoveStartFrame = 0;
+    [Min(0)]
+    public int selfMoveEndFrame = 0;
+    [Min(0f)]
+    public float selfMoveForce = 0f;
+
     public float Duration
     {
         get
@@ -43,6 +48,38 @@ public class AttackDefinition : ScriptableObject
                 return 0f;
 
             return animationClip.length;
+        }
+    }
+
+    public int SelfMoveStartFrame
+    {
+        get
+        {
+            return selfMoveStartFrame - animationStartFrame;
+        }
+    }
+
+    public int SelfMoveEndFrame
+    {
+        get
+        {
+            return selfMoveEndFrame - animationStartFrame;
+        }
+    }
+
+    public float SelfMoveStart
+    {
+        get
+        {
+            return FrameToTime(SelfMoveStartFrame);
+        }
+    }
+
+    public float SelfMoveEnd
+    {
+        get
+        {
+            return FrameToTime(SelfMoveEndFrame);
         }
     }
 

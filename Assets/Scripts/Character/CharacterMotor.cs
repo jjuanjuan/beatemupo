@@ -31,6 +31,7 @@ public class CharacterMotor : MonoBehaviour
     public bool Grounded => controller.isGrounded;
     private float lastGroundedTime;
     public bool CanJump => Time.time - lastGroundedTime < coyoteTime;
+    private Vector3 attackImpulseVelocity;
 
     public bool Rising => velocity.y > 0f;
     public bool Falling => velocity.y <= 0f;
@@ -59,7 +60,9 @@ public class CharacterMotor : MonoBehaviour
         ApplyGravity();
 
         Vector3 finalVelocity =
-            velocity + knockbackVelocity;
+            velocity +
+            knockbackVelocity +
+            attackImpulseVelocity;
 
         controller.Move(
             finalVelocity * Time.deltaTime);
@@ -238,7 +241,7 @@ public class CharacterMotor : MonoBehaviour
             $"Vertical: {verticalForce} | " +
             $"Velocity: {knockbackVelocity}");
     }
-    
+
     public void StopHorizontalMovement()
     {
         velocity.x = 0f;
@@ -246,5 +249,26 @@ public class CharacterMotor : MonoBehaviour
 
         desiredVelocity.x = 0f;
         desiredVelocity.z = 0f;
+    }
+
+    public void StartAttackMovement(float speed)
+    {
+        if (speed <= 0f)
+            return;
+
+        Vector3 direction = transform.forward;
+
+        attackImpulseVelocity =
+            direction * speed;
+    }
+    public void StopAttackMovement()
+    {
+        attackImpulseVelocity = Vector3.zero;
+    }
+
+    public void EndAttack()
+    {
+        movementInputLocked = false;
+        attackImpulseVelocity = Vector3.zero;
     }
 }

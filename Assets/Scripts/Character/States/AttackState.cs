@@ -33,6 +33,7 @@ public class AttackState : CharacterState
 
         UpdatePhase(attack);
         UpdateComboWindow(attack);
+        UpdateSelfMovement(attack);
 
         if (comboWindowOpen)
         {
@@ -83,6 +84,24 @@ public class AttackState : CharacterState
             timer <= attack.ComboEnd;
     }
 
+    private void UpdateSelfMovement(
+        AttackDefinition attack)
+    {
+        bool shouldMove =
+            timer >= attack.SelfMoveStart &&
+            timer < attack.SelfMoveEnd;
+
+        if (shouldMove)
+        {
+            context.Motor.StartAttackMovement(
+                attack.selfMoveForce);
+        }
+        else
+        {
+            context.Motor.StopAttackMovement();
+        }
+    }
+
     private void TryCombo(AttackDefinition attack)
     {
         if (context.Brain.PunchPressed)
@@ -129,7 +148,7 @@ public class AttackState : CharacterState
             0f,
             0f);
 
-        context.Motor.LockMovement();
+        context.Motor.LockMovementInput();
     }
     private void StartComboAttack(AttackDefinition attack)
     {
@@ -144,9 +163,9 @@ public class AttackState : CharacterState
             0.08f,
             0f);
 
-        context.Motor.LockMovement();
+        context.Motor.LockMovementInput();
     }
-
+    
     private void ExecuteNextAttack(
         AttackDefinition nextAttack)
     {
@@ -155,8 +174,11 @@ public class AttackState : CharacterState
 
     private void FinishAttack()
     {
+        context.Motor.StopAttackMovement();
+
+        context.Combat.EndHitbox();
         context.Combat.EndAttack();
-        context.Motor.UnlockMovement();
+        context.Motor.EndAttack();
 
         Vector2 input =
             context.Brain.MoveInput;
@@ -169,7 +191,8 @@ public class AttackState : CharacterState
 
     public override void Exit()
     {
-        context.Motor.UnlockMovement();
+        context.Motor.StopAttackMovement();
+        context.Motor.EndAttack();
     }
 }
 

@@ -25,3 +25,6 @@ MonoBehaviour:
   knockback: 20
   knockbackUp: 7.5
   hitReaction: 3
+  selfMoveStartFrame: 22
+  selfMoveEndFrame: 35
+  selfMoveForce: 5

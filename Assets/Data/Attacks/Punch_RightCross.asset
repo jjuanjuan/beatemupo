@@ -22,4 +22,9 @@ MonoBehaviour:
   comboEndFrame: 44
   damage: 10
   hitbox: 1
+  knockback: 7
+  knockbackUp: 0
   hitReaction: 1
+  selfMoveStartFrame: 17
+  selfMoveEndFrame: 26
+  selfMoveForce: 5
