@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class IdleState : CharacterState
 {
-    public IdleState(CharacterContext context, CharacterStateMachine stateMachine)
+    public IdleState(
+        CharacterContext context,
+        CharacterStateMachine stateMachine)
         : base(context, stateMachine)
     {
     }
@@ -13,7 +15,10 @@ public class IdleState : CharacterState
 
         if (context.Brain.PunchPressed)
         {
-            context.Combat.StartAttack(context.Combat.Punch);
+            context.Combat.ResetCombo();
+
+            context.Combat.StartAttack(
+                context.Combat.Punch);
 
             stateMachine.ChangeState(
                 context.States.Attack);
@@ -23,7 +28,10 @@ public class IdleState : CharacterState
 
         if (context.Brain.KickPressed)
         {
-            context.Combat.StartAttack(context.Combat.Kick);
+            context.Combat.ResetCombo();
+
+            context.Combat.StartAttack(
+                context.Combat.Kick);
 
             stateMachine.ChangeState(
                 context.States.Attack);
@@ -33,13 +41,18 @@ public class IdleState : CharacterState
 
         if (context.Brain.MoveInput.sqrMagnitude > 0.01f)
         {
-            stateMachine.ChangeState(context.States.Move);
+            stateMachine.ChangeState(
+                context.States.Move);
+
             return;
         }
 
-        if (context.Brain.JumpPressed && context.Motor.CanJump)
+        if (context.Brain.JumpPressed &&
+            context.Motor.CanJump)
         {
-            stateMachine.ChangeState(context.States.Jump);
+            stateMachine.ChangeState(
+                context.States.Jump);
+
             return;
         }
     }

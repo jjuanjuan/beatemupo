@@ -1952,8 +1952,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e222bca8c4e40c74aa16021938833d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  punch: {fileID: 11400000, guid: ded90e87f0150ea41aac4746cf89f717, type: 2}
-  kick: {fileID: 11400000, guid: c178cc3ffaa17a54fb9b9abd4cf8ce98, type: 2}
+  punches:
+  - {fileID: 11400000, guid: 30fad99b0faab5343a1b549d2013a895, type: 2}
+  - {fileID: 11400000, guid: ded90e87f0150ea41aac4746cf89f717, type: 2}
+  - {fileID: 11400000, guid: ded90e87f0150ea41aac4746cf89f717, type: 2}
+  - {fileID: 11400000, guid: 30fad99b0faab5343a1b549d2013a895, type: 2}
+  - {fileID: 11400000, guid: b0e158e3d5621704b8e5b301109e3afa, type: 2}
+  kicks:
+  - {fileID: 11400000, guid: c85af272b798b934a89ec8f731856308, type: 2}
+  - {fileID: 11400000, guid: a6a00ac5dedbf0e428bcb0fde739e81b, type: 2}
+  - {fileID: 11400000, guid: c178cc3ffaa17a54fb9b9abd4cf8ce98, type: 2}
   leftHandHitbox: {fileID: 1221130363}
   rightHandHitbox: {fileID: 1830699317}
   leftFootHitbox: {fileID: 1438128985}

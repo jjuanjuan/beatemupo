@@ -36,10 +36,10 @@ ModelImporter:
       name: Mma Kick
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 0
-      lastFrame: 95
+      firstFrame: 11
+      lastFrame: 64
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: -50.86
       level: 0
       cycleOffset: 0
       loop: 0

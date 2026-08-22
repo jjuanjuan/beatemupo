@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 140d6ee25bfff0e469ee8d8495d182ee, type: 3}
-  m_Name: Punch_0
+  m_Name: Punch_LeftJab
   m_EditorClassIdentifier: 
-  animationState: Punch_0
+  animationState: Punch_LeftJab
   animationClip: {fileID: -203655887218126122, guid: 1485f067a59b6774b86cb218b7a3f66b,
     type: 3}
-  hitStartFrame: 21
-  hitEndFrame: 27
-  comboStartFrame: 25
+  hitStartFrame: 10
+  hitEndFrame: 16
+  comboStartFrame: 12
   comboEndFrame: 40
   damage: 5
-  hitbox: 1
+  hitbox: 0

@@ -1,10 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterCombat : MonoBehaviour
 {
-    [Header("Attacks")]
-    [SerializeField] private AttackDefinition punch;
-    [SerializeField] private AttackDefinition kick;
+    [Header("Punch Combo")]
+    [SerializeField]
+    private List<AttackDefinition> punches;
+
+    [Header("Kick Combo")]
+    [SerializeField]
+    private List<AttackDefinition> kicks;
 
     [Header("Hitboxes")]
     [SerializeField] private AttackHitbox leftHandHitbox;
@@ -14,12 +19,27 @@ public class CharacterCombat : MonoBehaviour
 
     public AttackDefinition CurrentAttack { get; private set; }
 
-    public AttackDefinition Punch => punch;
-    public AttackDefinition Kick => kick;
+    public int ComboIndex { get; private set; }
+
+    public AttackDefinition Punch =>
+        GetAttack(punches);
+
+    public AttackDefinition Kick =>
+        GetAttack(kicks);
 
     public void StartAttack(AttackDefinition attack)
     {
         CurrentAttack = attack;
+    }
+
+    public void AdvanceCombo()
+    {
+        ComboIndex++;
+    }
+
+    public void ResetCombo()
+    {
+        ComboIndex = 0;
     }
 
     public void EndAttack()
@@ -43,6 +63,7 @@ public class CharacterCombat : MonoBehaviour
         hitbox.Activate(
             CurrentAttack.damage);
     }
+
     public void EndHitbox()
     {
         if (CurrentAttack == null)
@@ -55,6 +76,17 @@ public class CharacterCombat : MonoBehaviour
             return;
 
         hitbox.Deactivate();
+    }
+
+    private AttackDefinition GetAttack(
+        List<AttackDefinition> attacks)
+    {
+        if (attacks == null || attacks.Count == 0)
+            return null;
+
+        return attacks[
+            ComboIndex % attacks.Count
+        ];
     }
 
     private AttackHitbox GetHitbox(HitboxType type)

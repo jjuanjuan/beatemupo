@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 140d6ee25bfff0e469ee8d8495d182ee, type: 3}
-  m_Name: Kick_0
+  m_Name: Punch_RightCross
   m_EditorClassIdentifier: 
-  animationState: Kick_0
-  animationClip: {fileID: -203655887218126122, guid: f13ba259665bd774690d953abe6473f1,
+  animationState: Punch_RightCross
+  animationClip: {fileID: -203655887218126122, guid: 6f40f3b77a659014fa9a705c03be8a6c,
     type: 3}
-  hitStartFrame: 31
-  hitEndFrame: 40
-  comboStartFrame: 36
-  comboEndFrame: 66
+  hitStartFrame: 24
+  hitEndFrame: 31
+  comboStartFrame: 27
+  comboEndFrame: 44
   damage: 10
-  hitbox: 3
+  hitbox: 1

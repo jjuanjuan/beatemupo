@@ -88,21 +88,35 @@ public class AttackState : CharacterState
     {
         if (context.Brain.PunchPressed)
         {
-            ExecuteNextAttack(
-                context.Combat.Punch);
+            context.Combat.AdvanceCombo();
+
+            AttackDefinition nextAttack =
+                context.Combat.Punch;
+
+            if (nextAttack != null)
+            {
+                ExecuteNextAttack(nextAttack);
+            }
 
             return;
         }
 
         if (context.Brain.KickPressed)
         {
-            ExecuteNextAttack(
-                context.Combat.Kick);
+            context.Combat.AdvanceCombo();
+
+            AttackDefinition nextAttack =
+                context.Combat.Kick;
+
+            if (nextAttack != null)
+            {
+                ExecuteNextAttack(nextAttack);
+            }
 
             return;
         }
     }
-
+    
     private void StartAttack(AttackDefinition attack)
     {
         context.Combat.StartAttack(attack);
