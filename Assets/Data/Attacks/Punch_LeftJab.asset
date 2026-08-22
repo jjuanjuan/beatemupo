@@ -15,9 +15,10 @@ MonoBehaviour:
   animationState: Punch_LeftJab
   animationClip: {fileID: -203655887218126122, guid: 1485f067a59b6774b86cb218b7a3f66b,
     type: 3}
+  animationStartFrame: 0
   hitStartFrame: 10
   hitEndFrame: 16
   comboStartFrame: 12
-  comboEndFrame: 40
+  comboEndFrame: 20
   damage: 5
   hitbox: 0

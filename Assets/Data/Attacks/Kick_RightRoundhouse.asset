@@ -15,9 +15,10 @@ MonoBehaviour:
   animationState: Kick_RightRoundhouse
   animationClip: {fileID: -203655887218126122, guid: f13ba259665bd774690d953abe6473f1,
     type: 3}
+  animationStartFrame: 16
   hitStartFrame: 31
   hitEndFrame: 40
-  comboStartFrame: 36
-  comboEndFrame: 50
+  comboStartFrame: 47
+  comboEndFrame: 59
   damage: 20
   hitbox: 3

@@ -15,6 +15,7 @@ MonoBehaviour:
   animationState: Punch_RightStomach
   animationClip: {fileID: -203655887218126122, guid: 52fc46c33a82fdf4180d90d875bb9723,
     type: 3}
+  animationStartFrame: 5
   hitStartFrame: 21
   hitEndFrame: 27
   comboStartFrame: 25

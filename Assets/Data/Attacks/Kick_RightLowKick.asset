@@ -15,6 +15,7 @@ MonoBehaviour:
   animationState: Kick_RightLowKick
   animationClip: {fileID: -203655887218126122, guid: 49a9d19dbef84a147a917e4a2d4e87a4,
     type: 3}
+  animationStartFrame: 28
   hitStartFrame: 56
   hitEndFrame: 65
   comboStartFrame: 60

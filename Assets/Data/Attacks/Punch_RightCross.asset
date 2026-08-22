@@ -15,6 +15,7 @@ MonoBehaviour:
   animationState: Punch_RightCross
   animationClip: {fileID: -203655887218126122, guid: 6f40f3b77a659014fa9a705c03be8a6c,
     type: 3}
+  animationStartFrame: 12
   hitStartFrame: 24
   hitEndFrame: 31
   comboStartFrame: 27
