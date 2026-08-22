@@ -4,6 +4,7 @@ public class KnockdownState : CharacterState
 {
     private enum Phase
     {
+        Hit,
         Falling,
         Down,
         GettingUp
@@ -12,8 +13,9 @@ public class KnockdownState : CharacterState
     private Phase phase;
     private float timer;
 
-    private const float DownDuration = 1.5f;
-    private const float GetUpDuration = 1.5f;
+    private HitReactionDefinition hitAnimation;
+    private HitReactionDefinition downAnimation;
+    private HitReactionDefinition getUpAnimation;
 
     public KnockdownState(
         CharacterContext context,
@@ -25,19 +27,39 @@ public class KnockdownState : CharacterState
     public override void Enter()
     {
         timer = 0f;
-        phase = Phase.Falling;
+        phase = Phase.Hit;
+
+        hitAnimation =
+            context.Damage.CurrentHitDefinition;
+
+        downAnimation =
+            context.Damage.KnockedDownDefinition;
+
+        getUpAnimation =
+            context.Damage.GetUpDefinition;
 
         context.Motor.LockMovementInput();
 
-        context.Animator.Play(
-            "KnockdownFlying",
-            0f);
+        if (hitAnimation != null)
+        {
+            context.Animator.Play(
+                hitAnimation.animationState,
+                0f);
+        }
+        else
+        {
+            EnterFalling();
+        }
     }
 
     public override void Update()
     {
         switch (phase)
         {
+            case Phase.Hit:
+                UpdateHit();
+                break;
+
             case Phase.Falling:
                 UpdateFalling();
                 break;
@@ -50,6 +72,33 @@ public class KnockdownState : CharacterState
                 UpdateGettingUp();
                 break;
         }
+    }
+
+    private void UpdateHit()
+    {
+        timer += Time.deltaTime;
+
+        if (hitAnimation == null ||
+            hitAnimation.animationClip == null)
+        {
+            EnterFalling();
+            return;
+        }
+
+        if (timer >= hitAnimation.Duration)
+        {
+            EnterFalling();
+        }
+    }
+
+    private void EnterFalling()
+    {
+        phase = Phase.Falling;
+        timer = 0f;
+
+        context.Animator.Play(
+            "KnockdownFlying",
+            0.08f);
     }
 
     private void UpdateFalling()
@@ -67,22 +116,26 @@ public class KnockdownState : CharacterState
 
         context.Motor.StopHorizontalMovement();
 
-        var knockdown =
-            context.Damage.KnockedDownDefinition;
-
-        if (knockdown != null)
+        if (downAnimation != null)
         {
             context.Animator.Play(
-                knockdown.animationState,
-                0f);
+                downAnimation.animationState,
+                0.08f);
         }
     }
-    
+
     private void UpdateDown()
     {
         timer += Time.deltaTime;
 
-        if (timer >= DownDuration)
+        if (downAnimation == null ||
+            downAnimation.animationClip == null)
+        {
+            EnterGettingUp();
+            return;
+        }
+
+        if (timer >= downAnimation.Duration)
         {
             EnterGettingUp();
         }
@@ -93,16 +146,30 @@ public class KnockdownState : CharacterState
         phase = Phase.GettingUp;
         timer = 0f;
 
-        context.Animator.Play(
-            "GetUp",
-            0f);
+        if (getUpAnimation != null)
+        {
+            context.Animator.Play(
+                getUpAnimation.animationState,
+                0.08f);
+        }
+        else
+        {
+            Finish();
+        }
     }
 
     private void UpdateGettingUp()
     {
         timer += Time.deltaTime;
 
-        if (timer >= GetUpDuration)
+        if (getUpAnimation == null ||
+            getUpAnimation.animationClip == null)
+        {
+            Finish();
+            return;
+        }
+
+        if (timer >= getUpAnimation.Duration)
         {
             Finish();
         }

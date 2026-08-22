@@ -23,5 +23,5 @@ MonoBehaviour:
   damage: 20
   hitbox: 3
   knockback: 20
-  knockbackUp: 10
+  knockbackUp: 7.5
   hitReaction: 3

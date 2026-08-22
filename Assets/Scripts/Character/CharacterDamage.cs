@@ -8,6 +8,7 @@ public class CharacterDamage : MonoBehaviour, IDamageable
     [SerializeField] private HitReactionDefinition hitChest;
     [SerializeField] private HitReactionDefinition hitKnockdown;
     [SerializeField] private HitReactionDefinition knockedDown;
+    [SerializeField] private HitReactionDefinition getUp;
 
     private int currentHealth;
     private CharacterContext context;
@@ -37,13 +38,10 @@ public class CharacterDamage : MonoBehaviour, IDamageable
         }
     }
 
-    public HitReactionDefinition KnockedDownDefinition
-    {
-        get
-        {
-            return knockedDown;
-        }
-    }
+    public HitReactionDefinition KnockedDownDefinition =>
+        knockedDown;
+    public HitReactionDefinition GetUpDefinition =>
+        getUp;
 
     public void Initialize(CharacterContext context)
     {
@@ -112,5 +110,5 @@ public class CharacterDamage : MonoBehaviour, IDamageable
         Debug.Log($"{name} died.");
     }
 
-    
+
 }

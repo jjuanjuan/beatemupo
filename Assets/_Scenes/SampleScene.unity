@@ -1927,6 +1927,7 @@ MonoBehaviour:
   hitChest: {fileID: 11400000, guid: 9edd2c0b49e619b49811b3b20d863ab1, type: 2}
   hitKnockdown: {fileID: 11400000, guid: 3638a20145cdf5d4e9375b86de2a0bd9, type: 2}
   knockedDown: {fileID: 11400000, guid: 1cfff1623b6f48645aeda6e30eb21e92, type: 2}
+  getUp: {fileID: 11400000, guid: 5c6957737a68805469c6d1ec63435aee, type: 2}
 --- !u!1 &1291799170
 GameObject:
   m_ObjectHideFlags: 0
@@ -2228,6 +2229,7 @@ MonoBehaviour:
   hitChest: {fileID: 11400000, guid: 9edd2c0b49e619b49811b3b20d863ab1, type: 2}
   hitKnockdown: {fileID: 11400000, guid: 3638a20145cdf5d4e9375b86de2a0bd9, type: 2}
   knockedDown: {fileID: 11400000, guid: 1cfff1623b6f48645aeda6e30eb21e92, type: 2}
+  getUp: {fileID: 11400000, guid: 5c6957737a68805469c6d1ec63435aee, type: 2}
 --- !u!4 &1485111602 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: 8157b6fd660b45d4490706115e87a404,
