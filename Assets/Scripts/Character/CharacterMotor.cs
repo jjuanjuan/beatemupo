@@ -21,6 +21,9 @@ public class CharacterMotor : MonoBehaviour
     [Header("Rotation")]
     [SerializeField] private float rotationSpeed = 720f;
 
+    [Header("Knockback")]
+    [SerializeField] private float knockbackDeceleration = 15f;
+
     private CharacterController controller;
 
     private Vector3 desiredVelocity;
@@ -75,25 +78,25 @@ public class CharacterMotor : MonoBehaviour
 
     private void UpdateKnockback()
     {
-        knockbackVelocity.y +=
-            gravity * Time.deltaTime;
-
         knockbackVelocity.x = Mathf.MoveTowards(
             knockbackVelocity.x,
             0f,
-            groundDeceleration * Time.deltaTime);
+            knockbackDeceleration * Time.deltaTime);
 
         knockbackVelocity.z = Mathf.MoveTowards(
             knockbackVelocity.z,
             0f,
-            groundDeceleration * Time.deltaTime);
+            knockbackDeceleration * Time.deltaTime);
 
-        if (Grounded && knockbackVelocity.y < 0f)
+        if (knockbackVelocity.y != 0f)
         {
-            knockbackVelocity.y = 0f;
+            knockbackVelocity.y +=
+                gravity * Time.deltaTime;
 
-            knockbackVelocity.x = 0f;
-            knockbackVelocity.z = 0f;
+            if (Grounded && knockbackVelocity.y < 0f)
+            {
+                knockbackVelocity.y = 0f;
+            }
         }
     }
 
@@ -230,18 +233,22 @@ public class CharacterMotor : MonoBehaviour
         if (direction.sqrMagnitude > 0.001f)
             direction.Normalize();
 
-        knockbackVelocity =
-            direction * horizontalForce;
+        knockbackVelocity.x =
+            direction.x * horizontalForce;
 
-        knockbackVelocity.y = verticalForce;
+        knockbackVelocity.z =
+            direction.z * horizontalForce;
+
+        knockbackVelocity.y =
+            verticalForce;
 
         Debug.Log(
-            $"KNOCKBACK | Direction: {direction} | " +
+            $"KNOCKBACK | " +
+            $"Direction: {direction} | " +
             $"Horizontal: {horizontalForce} | " +
-            $"Vertical: {verticalForce} | " +
-            $"Velocity: {knockbackVelocity}");
+            $"Vertical: {verticalForce}");
     }
-
+    
     public void StopHorizontalMovement()
     {
         velocity.x = 0f;

@@ -1866,6 +1866,7 @@ MonoBehaviour:
   gravity: -9.8
   coyoteTime: 0.1
   rotationSpeed: 360
+  knockbackDeceleration: 15
 --- !u!143 &1287491309
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2176,6 +2177,7 @@ MonoBehaviour:
   gravity: -9.8
   coyoteTime: 0.1
   rotationSpeed: 360
+  knockbackDeceleration: 15
 --- !u!114 &1449730106
 MonoBehaviour:
   m_ObjectHideFlags: 0
