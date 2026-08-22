@@ -27,6 +27,18 @@ public class CharacterCombat : MonoBehaviour
     public AttackDefinition Kick =>
         GetAttack(kicks);
 
+    private Character character;
+
+    private void Awake()
+    {
+        character = GetComponent<Character>();
+
+        leftHandHitbox.Initialize(character);
+        rightHandHitbox.Initialize(character);
+        leftFootHitbox.Initialize(character);
+        rightFootHitbox.Initialize(character);
+    }
+
     public void StartAttack(AttackDefinition attack)
     {
         CurrentAttack = attack;

@@ -50,23 +50,22 @@ public class AttackState : CharacterState
 
     private void UpdatePhase(AttackDefinition attack)
     {
-        AttackPhase previousPhase = Phase;
+        AttackPhase newPhase;
 
         if (timer < attack.HitStart)
-            Phase = AttackPhase.Startup;
+            newPhase = AttackPhase.Startup;
         else if (timer < attack.HitEnd)
-            Phase = AttackPhase.Active;
+            newPhase = AttackPhase.Active;
         else
-            Phase = AttackPhase.Recovery;
+            newPhase = AttackPhase.Recovery;
 
-        if (previousPhase == Phase)
+        if (newPhase == Phase)
             return;
+
+        Phase = newPhase;
 
         switch (Phase)
         {
-            case AttackPhase.Startup:
-                break;
-
             case AttackPhase.Active:
                 context.Combat.BeginHitbox();
                 break;
@@ -116,7 +115,7 @@ public class AttackState : CharacterState
             return;
         }
     }
-    
+
     private void StartAttack(AttackDefinition attack)
     {
         context.Combat.StartAttack(attack);
@@ -156,7 +155,6 @@ public class AttackState : CharacterState
 
     private void FinishAttack()
     {
-        context.Combat.EndHitbox();
         context.Combat.EndAttack();
         context.Motor.EndAttack();
 

@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 3}
   hitStartFrame: 56
   hitEndFrame: 65
-  comboStartFrame: 65
-  comboEndFrame: 120
+  comboStartFrame: 60
+  comboEndFrame: 72
   damage: 15
   hitbox: 3

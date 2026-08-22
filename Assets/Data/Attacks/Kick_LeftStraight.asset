@@ -18,6 +18,6 @@ MonoBehaviour:
   hitStartFrame: 36
   hitEndFrame: 42
   comboStartFrame: 38
-  comboEndFrame: 66
+  comboEndFrame: 50
   damage: 10
   hitbox: 2
