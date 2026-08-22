@@ -16,5 +16,7 @@ MonoBehaviour:
   duration: 1.3
   hitStart: 0.45
   hitEnd: 0.65
+  comboStart: 2
+  comboEnd: 2
   damage: 10
   hitbox: 3

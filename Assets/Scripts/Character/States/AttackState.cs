@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class AttackState : CharacterState
 {
-    private float timer;
-
     public AttackPhase Phase { get; private set; }
+
+    float timer;
+    bool comboWindowOpen;
 
     public AttackState(
         CharacterContext context,
@@ -20,13 +21,7 @@ public class AttackState : CharacterState
         AttackDefinition attack =
             context.Combat.CurrentAttack;
 
-        Phase = AttackPhase.Startup;
-
-        context.Animator.Play(
-            attack.animationState,
-            0.05f);
-
-        context.Motor.StartAttack();
+        StartAttack(attack);
     }
 
     public override void Update()
@@ -37,6 +32,15 @@ public class AttackState : CharacterState
         timer += Time.deltaTime;
 
         UpdatePhase(attack);
+        UpdateComboWindow(attack);
+
+        if (comboWindowOpen)
+        {
+            TryCombo(attack);
+
+            if (stateMachine.CurrentState != this)
+                return;
+        }
 
         if (timer >= attack.duration)
         {
@@ -61,6 +65,7 @@ public class AttackState : CharacterState
         switch (Phase)
         {
             case AttackPhase.Startup:
+                context.Combat.EndHitbox();
                 break;
 
             case AttackPhase.Active:
@@ -71,6 +76,67 @@ public class AttackState : CharacterState
                 context.Combat.EndHitbox();
                 break;
         }
+    }
+
+    private void UpdateComboWindow(AttackDefinition attack)
+    {
+        comboWindowOpen =
+            timer >= attack.comboStart &&
+            timer <= attack.comboEnd;
+    }
+
+    private void TryCombo(AttackDefinition attack)
+    {
+        if (context.Brain.PunchPressed)
+        {
+            ExecuteNextAttack(
+                context.Combat.Punch);
+
+            return;
+        }
+
+        if (context.Brain.KickPressed)
+        {
+            ExecuteNextAttack(
+                context.Combat.Kick);
+
+            return;
+        }
+    }
+
+    private void StartAttack(AttackDefinition attack)
+    {
+        context.Combat.StartAttack(attack);
+
+        timer = 0f;
+
+        Phase = AttackPhase.Startup;
+
+        context.Animator.PlayAttack(
+            attack.animationState,
+            0f);
+
+        context.Motor.StartAttack();
+    }
+    private void StartComboAttack(AttackDefinition attack)
+    {
+        context.Combat.StartAttack(attack);
+
+        timer = 0f;
+
+        Phase = AttackPhase.Startup;
+
+        context.Animator.PlayAttack(
+            attack.animationState,
+            0.08f);
+
+        context.Motor.StartAttack();
+    }
+
+    private void ExecuteNextAttack(
+        AttackDefinition nextAttack)
+    {
+        StartComboAttack(nextAttack);
     }
 
     private void FinishAttack()

@@ -12,6 +12,8 @@ public class AttackDefinition : ScriptableObject
     public float duration = 0.8f;
     public float hitStart = 0.2f;
     public float hitEnd = 0.4f;
+    public float comboStart = 0.25f;
+    public float comboEnd = 0.55f;
 
     [Header("Combat")]
     public int damage = 10;

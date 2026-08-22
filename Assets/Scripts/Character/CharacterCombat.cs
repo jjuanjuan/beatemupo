@@ -43,7 +43,6 @@ public class CharacterCombat : MonoBehaviour
         hitbox.Activate(
             CurrentAttack.damage);
     }
-
     public void EndHitbox()
     {
         if (CurrentAttack == null)
