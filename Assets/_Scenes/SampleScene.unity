@@ -1774,7 +1774,8 @@ GameObject:
   - component: {fileID: 1287491305}
   - component: {fileID: 1287491304}
   - component: {fileID: 1287491311}
-  m_Layer: 0
+  - component: {fileID: 1287491312}
+  m_Layer: 6
   m_Name: DUMMY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1887,7 +1888,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 2
-  m_Radius: 0.5
+  m_Radius: 0.375
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -1929,6 +1930,23 @@ MonoBehaviour:
   hitKnockdown: {fileID: 11400000, guid: 3638a20145cdf5d4e9375b86de2a0bd9, type: 2}
   knockedDown: {fileID: 11400000, guid: 1cfff1623b6f48645aeda6e30eb21e92, type: 2}
   getUp: {fileID: 11400000, guid: 5c6957737a68805469c6d1ec63435aee, type: 2}
+--- !u!114 &1287491312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287491303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe3180f7c3447e4a9a424580fcb8ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visionRange: 3.5
+  visionAngle: 120
+  characterLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1291799170
 GameObject:
   m_ObjectHideFlags: 0
@@ -2079,7 +2097,8 @@ GameObject:
   - component: {fileID: 1449730106}
   - component: {fileID: 1449730107}
   - component: {fileID: 1449730108}
-  m_Layer: 0
+  - component: {fileID: 1449730109}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2124,7 +2143,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 2
-  m_Radius: 0.5
+  m_Radius: 0.375
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -2232,6 +2251,23 @@ MonoBehaviour:
   hitKnockdown: {fileID: 11400000, guid: 3638a20145cdf5d4e9375b86de2a0bd9, type: 2}
   knockedDown: {fileID: 11400000, guid: 1cfff1623b6f48645aeda6e30eb21e92, type: 2}
   getUp: {fileID: 11400000, guid: 5c6957737a68805469c6d1ec63435aee, type: 2}
+--- !u!114 &1449730109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449730098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe3180f7c3447e4a9a424580fcb8ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visionRange: 3.5
+  visionAngle: 120
+  characterLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!4 &1485111602 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: 8157b6fd660b45d4490706115e87a404,

@@ -248,7 +248,7 @@ public class CharacterMotor : MonoBehaviour
             $"Horizontal: {horizontalForce} | " +
             $"Vertical: {verticalForce}");
     }
-    
+
     public void StopHorizontalMovement()
     {
         velocity.x = 0f;
@@ -277,5 +277,18 @@ public class CharacterMotor : MonoBehaviour
     {
         movementInputLocked = false;
         attackImpulseVelocity = Vector3.zero;
+    }
+
+    public void FacePosition(Vector3 position)
+    {
+        Vector3 direction = position - transform.position;
+
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude < 0.001f)
+            return;
+
+        transform.rotation =
+            Quaternion.LookRotation(direction);
     }
 }

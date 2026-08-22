@@ -10,6 +10,7 @@ public class CharacterContext
     public CharacterCombat Combat { get; }
     public CharacterDamage Damage { get; }
     public ICharacterBrain Brain { get; }
+    public CharacterTargeting Targeting { get; }
     public CharacterStats Stats { get; }
     public CharacterStates States { get; }
 
@@ -20,6 +21,7 @@ public class CharacterContext
         CharacterCombat combat,
         CharacterDamage damage,
         ICharacterBrain brain,
+        CharacterTargeting targeting,
         CharacterStats stats,
         CharacterStates states
         )
@@ -30,6 +32,7 @@ public class CharacterContext
         Combat = combat;
         Damage = damage;
         Brain = brain;
+        Targeting = targeting;
         Stats = stats;
         States = states;
     }

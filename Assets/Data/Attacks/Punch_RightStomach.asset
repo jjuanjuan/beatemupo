@@ -27,4 +27,4 @@ MonoBehaviour:
   hitReaction: 2
   selfMoveStartFrame: 18
   selfMoveEndFrame: 24
-  selfMoveForce: 5
+  selfMoveForce: 7

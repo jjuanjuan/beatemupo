@@ -137,6 +137,8 @@ public class AttackState : CharacterState
 
     private void StartAttack(AttackDefinition attack)
     {
+        FaceAttackTarget();
+
         context.Combat.StartAttack(attack);
 
         timer = 0f;
@@ -152,6 +154,8 @@ public class AttackState : CharacterState
     }
     private void StartComboAttack(AttackDefinition attack)
     {
+        FaceAttackTarget();
+
         context.Combat.StartAttack(attack);
 
         timer = 0f;
@@ -165,7 +169,7 @@ public class AttackState : CharacterState
 
         context.Motor.LockMovementInput();
     }
-    
+
     private void ExecuteNextAttack(
         AttackDefinition nextAttack)
     {
@@ -193,6 +197,17 @@ public class AttackState : CharacterState
     {
         context.Motor.StopAttackMovement();
         context.Motor.EndAttack();
+    }
+
+    private void FaceAttackTarget()
+    {
+        Character target =
+            context.Targeting.FindClosestCharacter();
+
+        if (target != null)
+        {
+            context.Targeting.FaceTarget(target);
+        }
     }
 }
 

@@ -11,6 +11,7 @@ public class Character : MonoBehaviour
     CharacterDamage damage;
     CharacterStats stats;
     CharacterStates states;
+    CharacterTargeting targeting;
     public CharacterContext Context { get; private set; }
     public CharacterStateMachine StateMachine { get; private set; }
 
@@ -21,6 +22,7 @@ public class Character : MonoBehaviour
         animator = GetComponent<CharacterAnimator>();
         combat = GetComponent<CharacterCombat>();
         damage = GetComponent<CharacterDamage>();
+        targeting = GetComponent<CharacterTargeting>();
 
         states = new CharacterStates();
 
@@ -33,6 +35,7 @@ public class Character : MonoBehaviour
             combat,
             damage,
             brain,
+            targeting,
             stats,
             states);
 

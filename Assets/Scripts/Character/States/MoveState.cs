@@ -35,6 +35,8 @@ public class MoveState : CharacterState
 
         if (context.Brain.PunchPressed)
         {
+            FaceAttackTarget();
+
             context.Combat.ResetCombo();
 
             context.Combat.StartAttack(
@@ -48,6 +50,8 @@ public class MoveState : CharacterState
 
         if (context.Brain.KickPressed)
         {
+            FaceAttackTarget();
+
             context.Combat.ResetCombo();
 
             context.Combat.StartAttack(
@@ -76,5 +80,16 @@ public class MoveState : CharacterState
 
         context.Animator.SetSpeed(speed);
         context.Motor.Move(input);
+    }
+
+    private void FaceAttackTarget()
+    {
+        Character target =
+            context.Targeting.FindClosestCharacter();
+
+        if (target != null)
+        {
+            context.Targeting.FaceTarget(target);
+        }
     }
 }
