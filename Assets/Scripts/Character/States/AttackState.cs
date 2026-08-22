@@ -33,6 +33,7 @@ public class AttackState : CharacterState
         timer += Time.deltaTime;
 
         UpdatePhase(attack);
+        UpdateSelfMovement(attack);
         UpdateTrail(attack);
         UpdateComboWindow(attack);
 
