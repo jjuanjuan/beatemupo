@@ -4,10 +4,6 @@ public class HitState : CharacterState
 {
     private float timer;
 
-    // Por ahora, duración aproximada del hit.
-    // Después podemos obtenerla directamente del AnimationClip.
-    private const float HitDuration = 0.4f;
-
     public HitState(
         CharacterContext context,
         CharacterStateMachine stateMachine)
@@ -19,27 +15,36 @@ public class HitState : CharacterState
     {
         timer = 0f;
 
-        context.Motor.StartAttack();
+        HitReactionDefinition hit =
+            context.Damage.CurrentHitDefinition;
 
-        switch (context.Damage.CurrentHitReaction)
+        if (hit == null)
         {
-            case HitReaction.Head:
-                context.Animator.Play("HitHead", 0f);
-                break;
-
-            case HitReaction.Chest:
-                context.Animator.Play("HitChest", 0f);
-                break;
+            Finish();
+            return;
         }
+
+        context.Animator.Play(
+            hit.animationState,
+            0f);
+
+        context.Motor.LockMovement();
     }
 
     public override void Update()
     {
         timer += Time.deltaTime;
 
-        context.Motor.Move(Vector2.zero);
+        HitReactionDefinition hit =
+            context.Damage.CurrentHitDefinition;
 
-        if (timer >= HitDuration)
+        if (hit == null)
+        {
+            Finish();
+            return;
+        }
+
+        if (timer >= hit.Duration)
         {
             Finish();
         }
@@ -47,21 +52,25 @@ public class HitState : CharacterState
 
     private void Finish()
     {
-        context.Motor.EndAttack();
+        context.Motor.UnlockMovement();
 
         Vector2 input =
             context.Brain.MoveInput;
 
         if (input.sqrMagnitude > 0.01f)
+        {
             stateMachine.ChangeState(
                 context.States.Move);
+        }
         else
+        {
             stateMachine.ChangeState(
                 context.States.Idle);
+        }
     }
 
     public override void Exit()
     {
-        context.Motor.EndAttack();
+        context.Motor.UnlockMovement();
     }
 }

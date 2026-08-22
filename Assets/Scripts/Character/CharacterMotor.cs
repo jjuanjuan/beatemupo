@@ -41,9 +41,8 @@ public class CharacterMotor : MonoBehaviour
             velocity.x,
             velocity.z).magnitude;
 
-    private bool attackMovementLocked;
-
-    public bool AttackMovementLocked => attackMovementLocked;
+    private bool movementLocked;
+    public bool MovementLocked => movementLocked;
 
     void Awake()
     {
@@ -110,7 +109,7 @@ public class CharacterMotor : MonoBehaviour
 
     private void UpdateHorizontalVelocity()
     {
-        if (attackMovementLocked)
+        if (movementLocked)
         {
             velocity.x = Mathf.MoveTowards(
                 velocity.x,
@@ -153,15 +152,36 @@ public class CharacterMotor : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
     }
 
-    public void StartAttack()
+    public void LockMovement()
     {
-        attackMovementLocked = true;
+        movementLocked = true;
 
         desiredVelocity.x = 0f;
         desiredVelocity.z = 0f;
     }
-    public void EndAttack()
+
+    public void UnlockMovement()
     {
-        attackMovementLocked = false;
+        movementLocked = false;
+    }
+
+    public void AddImpulse(Vector3 impulse)
+    {
+        velocity += impulse;
+    }
+
+    public void ApplyKnockback(
+    Vector3 direction,
+    float horizontalForce,
+    float verticalForce)
+    {
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude > 0.001f)
+            direction.Normalize();
+
+        velocity.x = direction.x * horizontalForce;
+        velocity.z = direction.z * horizontalForce;
+        velocity.y = verticalForce;
     }
 }

@@ -29,6 +29,10 @@ public class AttackDefinition : ScriptableObject
     [Header("Combat")]
     public int damage = 10;
     public HitboxType hitbox;
+
+    [Header("Knockback")]
+    public float knockback = 3f;
+    public float knockbackUp = 0f;
     public HitReaction hitReaction;
 
     public float Duration

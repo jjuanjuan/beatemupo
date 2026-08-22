@@ -8,6 +8,10 @@ public class AttackHitbox : MonoBehaviour
     private int damage;
     private Character owner;
     private HitReaction reaction;
+    private Vector3 attackerPosition;
+    private float knockback;
+    private float knockbackUp;
+    private HitData hitData;
 
     private readonly HashSet<IDamageable> hitTargets =
         new HashSet<IDamageable>();
@@ -28,14 +32,19 @@ public class AttackHitbox : MonoBehaviour
     }
 
     public void Activate(
-        int damage,
-        HitReaction reaction)
+        AttackDefinition attack,
+        Vector3 attackerPosition)
     {
-        this.damage = damage;
-        this.reaction = reaction;
+        hitData = new HitData
+        {
+            damage = attack.damage,
+            reaction = attack.hitReaction,
+            attackerPosition = attackerPosition,
+            knockback = attack.knockback,
+            knockbackUp = attack.knockbackUp
+        };
 
         hitTargets.Clear();
-
         hitbox.enabled = true;
     }
     public void Deactivate()
@@ -59,7 +68,7 @@ public class AttackHitbox : MonoBehaviour
 
         hitTargets.Add(damageable);
 
-        damageable.TakeDamage(damage, reaction);
+        damageable.TakeDamage(hitData);
     }
 
     private void OnDrawGizmos()

@@ -129,7 +129,7 @@ public class AttackState : CharacterState
             0f,
             0f);
 
-        context.Motor.StartAttack();
+        context.Motor.LockMovement();
     }
     private void StartComboAttack(AttackDefinition attack)
     {
@@ -144,7 +144,7 @@ public class AttackState : CharacterState
             0.08f,
             0f);
 
-        context.Motor.StartAttack();
+        context.Motor.LockMovement();
     }
 
     private void ExecuteNextAttack(
@@ -156,7 +156,7 @@ public class AttackState : CharacterState
     private void FinishAttack()
     {
         context.Combat.EndAttack();
-        context.Motor.EndAttack();
+        context.Motor.UnlockMovement();
 
         Vector2 input =
             context.Brain.MoveInput;
@@ -169,7 +169,7 @@ public class AttackState : CharacterState
 
     public override void Exit()
     {
-        context.Motor.EndAttack();
+        context.Motor.UnlockMovement();
     }
 }
 

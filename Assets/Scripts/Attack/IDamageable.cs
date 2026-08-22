@@ -1,6 +1,4 @@
 public interface IDamageable
 {
-    void TakeDamage(
-        int damage,
-        HitReaction reaction);
+    void TakeDamage(HitData hit);
 }
