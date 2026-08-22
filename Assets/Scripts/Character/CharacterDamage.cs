@@ -6,6 +6,8 @@ public class CharacterDamage : MonoBehaviour, IDamageable
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private HitReactionDefinition hitHead;
     [SerializeField] private HitReactionDefinition hitChest;
+    [SerializeField] private HitReactionDefinition hitKnockdown;
+    [SerializeField] private HitReactionDefinition knockedDown;
 
     private int currentHealth;
     private CharacterContext context;
@@ -26,9 +28,20 @@ public class CharacterDamage : MonoBehaviour, IDamageable
                 case HitReaction.Chest:
                     return hitChest;
 
+                case HitReaction.Knockdown:
+                    return hitKnockdown;
+
                 default:
                     return null;
             }
+        }
+    }
+
+    public HitReactionDefinition KnockedDownDefinition
+    {
+        get
+        {
+            return knockedDown;
         }
     }
 
@@ -98,4 +111,6 @@ public class CharacterDamage : MonoBehaviour, IDamageable
     {
         Debug.Log($"{name} died.");
     }
+
+    
 }

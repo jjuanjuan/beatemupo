@@ -1862,8 +1862,8 @@ MonoBehaviour:
   airAcceleration: 12
   groundDeceleration: 40
   airDeceleration: 5
-  jumpHeight: 2
-  gravity: -25
+  jumpHeight: 3
+  gravity: -9.8
   coyoteTime: 0.1
   rotationSpeed: 360
 --- !u!143 &1287491309
@@ -1925,6 +1925,8 @@ MonoBehaviour:
   maxHealth: 1000
   hitHead: {fileID: 11400000, guid: 27a52593970a305498dfb29030743ed8, type: 2}
   hitChest: {fileID: 11400000, guid: 9edd2c0b49e619b49811b3b20d863ab1, type: 2}
+  hitKnockdown: {fileID: 11400000, guid: 3638a20145cdf5d4e9375b86de2a0bd9, type: 2}
+  knockedDown: {fileID: 11400000, guid: 1cfff1623b6f48645aeda6e30eb21e92, type: 2}
 --- !u!1 &1291799170
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,8 +2171,8 @@ MonoBehaviour:
   airAcceleration: 12
   groundDeceleration: 40
   airDeceleration: 5
-  jumpHeight: 2
-  gravity: -25
+  jumpHeight: 3
+  gravity: -9.8
   coyoteTime: 0.1
   rotationSpeed: 360
 --- !u!114 &1449730106
@@ -2204,8 +2206,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 30fad99b0faab5343a1b549d2013a895, type: 2}
   - {fileID: 11400000, guid: b0e158e3d5621704b8e5b301109e3afa, type: 2}
   kicks:
-  - {fileID: 11400000, guid: c85af272b798b934a89ec8f731856308, type: 2}
-  - {fileID: 11400000, guid: a6a00ac5dedbf0e428bcb0fde739e81b, type: 2}
   - {fileID: 11400000, guid: c178cc3ffaa17a54fb9b9abd4cf8ce98, type: 2}
   leftHandHitbox: {fileID: 1221130363}
   rightHandHitbox: {fileID: 1830699317}
@@ -2226,6 +2226,8 @@ MonoBehaviour:
   maxHealth: 100
   hitHead: {fileID: 11400000, guid: 27a52593970a305498dfb29030743ed8, type: 2}
   hitChest: {fileID: 11400000, guid: 9edd2c0b49e619b49811b3b20d863ab1, type: 2}
+  hitKnockdown: {fileID: 11400000, guid: 3638a20145cdf5d4e9375b86de2a0bd9, type: 2}
+  knockedDown: {fileID: 11400000, guid: 1cfff1623b6f48645aeda6e30eb21e92, type: 2}
 --- !u!4 &1485111602 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: 8157b6fd660b45d4490706115e87a404,

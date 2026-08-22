@@ -25,6 +25,7 @@ public class CharacterMotor : MonoBehaviour
 
     private Vector3 desiredVelocity;
     private Vector3 velocity;
+    private Vector3 knockbackVelocity;
 
     public Vector3 Velocity => velocity;
     public bool Grounded => controller.isGrounded;
@@ -43,6 +44,8 @@ public class CharacterMotor : MonoBehaviour
 
     private bool movementLocked;
     public bool MovementLocked => movementLocked;
+    private bool movementInputLocked;
+    public bool MovementInputLocked => movementInputLocked;
 
     void Awake()
     {
@@ -55,9 +58,40 @@ public class CharacterMotor : MonoBehaviour
 
         ApplyGravity();
 
-        controller.Move(velocity * Time.deltaTime);
+        Vector3 finalVelocity =
+            velocity + knockbackVelocity;
 
-        if (Grounded) lastGroundedTime = Time.time;
+        controller.Move(
+            finalVelocity * Time.deltaTime);
+
+        UpdateKnockback();
+
+        if (Grounded)
+            lastGroundedTime = Time.time;
+    }
+
+    private void UpdateKnockback()
+    {
+        knockbackVelocity.y +=
+            gravity * Time.deltaTime;
+
+        knockbackVelocity.x = Mathf.MoveTowards(
+            knockbackVelocity.x,
+            0f,
+            groundDeceleration * Time.deltaTime);
+
+        knockbackVelocity.z = Mathf.MoveTowards(
+            knockbackVelocity.z,
+            0f,
+            groundDeceleration * Time.deltaTime);
+
+        if (Grounded && knockbackVelocity.y < 0f)
+        {
+            knockbackVelocity.y = 0f;
+
+            knockbackVelocity.x = 0f;
+            knockbackVelocity.z = 0f;
+        }
     }
 
     public void Move(Vector2 input)
@@ -165,23 +199,52 @@ public class CharacterMotor : MonoBehaviour
         movementLocked = false;
     }
 
+    public void LockMovementInput()
+    {
+        movementInputLocked = true;
+
+        desiredVelocity.x = 0f;
+        desiredVelocity.z = 0f;
+    }
+
+    public void UnlockMovementInput()
+    {
+        movementInputLocked = false;
+    }
+
     public void AddImpulse(Vector3 impulse)
     {
         velocity += impulse;
     }
 
     public void ApplyKnockback(
-    Vector3 direction,
-    float horizontalForce,
-    float verticalForce)
+        Vector3 direction,
+        float horizontalForce,
+        float verticalForce)
     {
         direction.y = 0f;
 
         if (direction.sqrMagnitude > 0.001f)
             direction.Normalize();
 
-        velocity.x = direction.x * horizontalForce;
-        velocity.z = direction.z * horizontalForce;
-        velocity.y = verticalForce;
+        knockbackVelocity =
+            direction * horizontalForce;
+
+        knockbackVelocity.y = verticalForce;
+
+        Debug.Log(
+            $"KNOCKBACK | Direction: {direction} | " +
+            $"Horizontal: {horizontalForce} | " +
+            $"Vertical: {verticalForce} | " +
+            $"Velocity: {knockbackVelocity}");
+    }
+    
+    public void StopHorizontalMovement()
+    {
+        velocity.x = 0f;
+        velocity.z = 0f;
+
+        desiredVelocity.x = 0f;
+        desiredVelocity.z = 0f;
     }
 }
