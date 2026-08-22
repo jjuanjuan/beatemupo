@@ -291,4 +291,13 @@ public class CharacterMotor : MonoBehaviour
         transform.rotation =
             Quaternion.LookRotation(direction);
     }
+
+    public void DisableCharacterController()
+    {
+        controller.enabled = false;
+    }
+    public void EnableCharacterController()
+    {
+        controller.enabled = true;
+    }
 }

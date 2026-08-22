@@ -51,6 +51,7 @@ public class Character : MonoBehaviour
         states.Attack = new AttackState(Context, StateMachine);
         states.Hit = new HitState(Context, StateMachine);
         states.Knockdown = new KnockdownState(Context, StateMachine);
+        states.Death = new DeathState(Context, StateMachine);
 
         StateMachine.ChangeState(states.Idle);
     }

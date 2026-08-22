@@ -1797,7 +1797,6 @@ MonoBehaviour:
   punches:
   - {fileID: 11400000, guid: 30fad99b0faab5343a1b549d2013a895, type: 2}
   - {fileID: 11400000, guid: ded90e87f0150ea41aac4746cf89f717, type: 2}
-  - {fileID: 11400000, guid: ded90e87f0150ea41aac4746cf89f717, type: 2}
   - {fileID: 11400000, guid: 30fad99b0faab5343a1b549d2013a895, type: 2}
   - {fileID: 11400000, guid: b0e158e3d5621704b8e5b301109e3afa, type: 2}
   kicks:
@@ -1924,12 +1923,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebeeb3b3cef70124aa45d7f08847f509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
+  maxHealth: 100
   hitHead: {fileID: 11400000, guid: 27a52593970a305498dfb29030743ed8, type: 2}
   hitChest: {fileID: 11400000, guid: 9edd2c0b49e619b49811b3b20d863ab1, type: 2}
   hitKnockdown: {fileID: 11400000, guid: 3638a20145cdf5d4e9375b86de2a0bd9, type: 2}
   knockedDown: {fileID: 11400000, guid: 1cfff1623b6f48645aeda6e30eb21e92, type: 2}
   getUp: {fileID: 11400000, guid: 5c6957737a68805469c6d1ec63435aee, type: 2}
+  airDeathTimeout: 20
+  disableDelay: 20
 --- !u!114 &1287491312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2224,7 +2225,6 @@ MonoBehaviour:
   punches:
   - {fileID: 11400000, guid: 30fad99b0faab5343a1b549d2013a895, type: 2}
   - {fileID: 11400000, guid: ded90e87f0150ea41aac4746cf89f717, type: 2}
-  - {fileID: 11400000, guid: ded90e87f0150ea41aac4746cf89f717, type: 2}
   - {fileID: 11400000, guid: 30fad99b0faab5343a1b549d2013a895, type: 2}
   - {fileID: 11400000, guid: b0e158e3d5621704b8e5b301109e3afa, type: 2}
   kicks:
@@ -2251,6 +2251,8 @@ MonoBehaviour:
   hitKnockdown: {fileID: 11400000, guid: 3638a20145cdf5d4e9375b86de2a0bd9, type: 2}
   knockedDown: {fileID: 11400000, guid: 1cfff1623b6f48645aeda6e30eb21e92, type: 2}
   getUp: {fileID: 11400000, guid: 5c6957737a68805469c6d1ec63435aee, type: 2}
+  airDeathTimeout: 20
+  disableDelay: 20
 --- !u!114 &1449730109
 MonoBehaviour:
   m_ObjectHideFlags: 0

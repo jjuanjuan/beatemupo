@@ -18,7 +18,7 @@ MonoBehaviour:
   animationStartFrame: 12
   hitStartFrame: 24
   hitEndFrame: 31
-  comboStartFrame: 27
+  comboStartFrame: 35
   comboEndFrame: 44
   damage: 10
   hitbox: 1

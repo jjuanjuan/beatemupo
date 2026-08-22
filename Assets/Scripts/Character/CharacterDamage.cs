@@ -10,6 +10,13 @@ public class CharacterDamage : MonoBehaviour, IDamageable
     [SerializeField] private HitReactionDefinition knockedDown;
     [SerializeField] private HitReactionDefinition getUp;
 
+    [Header("Death")]
+    [SerializeField] private float airDeathTimeout = 5f;
+    [SerializeField] private float disableDelay = 2f;
+
+    public float AirDeathTimeout => airDeathTimeout;
+    public float DisableDelay => disableDelay;
+
     private int currentHealth;
     private CharacterContext context;
 
@@ -43,6 +50,8 @@ public class CharacterDamage : MonoBehaviour, IDamageable
     public HitReactionDefinition GetUpDefinition =>
         getUp;
 
+    public bool IsDead => currentHealth <= 0;
+
     public void Initialize(CharacterContext context)
     {
         this.context = context;
@@ -51,7 +60,7 @@ public class CharacterDamage : MonoBehaviour, IDamageable
 
     public void TakeDamage(HitData hit)
     {
-        if (currentHealth <= 0)
+        if (IsDead)
             return;
 
         currentHealth -= hit.damage;
@@ -74,7 +83,7 @@ public class CharacterDamage : MonoBehaviour, IDamageable
 
         Debug.Log($"{name} got hit for {hit.damage}.");
     }
-    
+
     private void ReactToHit(HitReaction reaction)
     {
         CurrentHitReaction = reaction;
@@ -110,8 +119,7 @@ public class CharacterDamage : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        Debug.Log($"{name} died.");
+        context.Character.StateMachine.ChangeState(
+            context.States.Death);
     }
-
-
 }

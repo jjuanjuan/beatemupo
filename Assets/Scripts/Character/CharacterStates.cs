@@ -11,4 +11,5 @@ public class CharacterStates
     public AttackState Attack { get; set; }
     public HitState Hit { get; set; }
     public KnockdownState Knockdown { get; set; }
+    public DeathState Death { get; set; }
 }
