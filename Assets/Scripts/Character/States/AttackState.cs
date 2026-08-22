@@ -6,6 +6,7 @@ public class AttackState : CharacterState
 
     float timer;
     bool comboWindowOpen;
+    bool trailActive;
 
     public AttackState(
         CharacterContext context,
@@ -32,8 +33,8 @@ public class AttackState : CharacterState
         timer += Time.deltaTime;
 
         UpdatePhase(attack);
+        UpdateTrail(attack);
         UpdateComboWindow(attack);
-        UpdateSelfMovement(attack);
 
         if (comboWindowOpen)
         {
@@ -102,6 +103,23 @@ public class AttackState : CharacterState
         }
     }
 
+    private void UpdateTrail(AttackDefinition attack)
+    {
+        bool shouldBeActive =
+            timer >= attack.TrailStart &&
+            timer < attack.TrailEnd;
+
+        if (shouldBeActive == trailActive)
+            return;
+
+        trailActive = shouldBeActive;
+
+        if (trailActive)
+            context.Combat.BeginTrail();
+        else
+            context.Combat.EndTrail();
+    }
+
     private void TryCombo(AttackDefinition attack)
     {
         if (context.Brain.PunchPressed)
@@ -137,6 +155,10 @@ public class AttackState : CharacterState
 
     private void StartAttack(AttackDefinition attack)
     {
+        context.Combat.EndHitbox();
+        context.Combat.EndTrail();
+        trailActive = false;
+
         FaceAttackTarget();
 
         context.Combat.StartAttack(attack);
@@ -154,6 +176,10 @@ public class AttackState : CharacterState
     }
     private void StartComboAttack(AttackDefinition attack)
     {
+        context.Combat.EndHitbox();
+        context.Combat.EndTrail();
+        trailActive = false;
+
         FaceAttackTarget();
 
         context.Combat.StartAttack(attack);
@@ -181,6 +207,8 @@ public class AttackState : CharacterState
         context.Motor.StopAttackMovement();
 
         context.Combat.EndHitbox();
+        context.Combat.EndTrail();
+        trailActive = false;
         context.Combat.EndAttack();
         context.Motor.EndAttack();
 
@@ -195,6 +223,8 @@ public class AttackState : CharacterState
 
     public override void Exit()
     {
+        context.Combat.EndTrail();
+        trailActive = false;
         context.Motor.StopAttackMovement();
         context.Motor.EndAttack();
     }

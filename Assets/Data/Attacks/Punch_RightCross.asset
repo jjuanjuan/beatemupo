@@ -28,3 +28,5 @@ MonoBehaviour:
   selfMoveStartFrame: 12
   selfMoveEndFrame: 17
   selfMoveForce: 7
+  trailStartFrame: 7
+  trailEndFrame: 15

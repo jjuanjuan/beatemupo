@@ -17,6 +17,12 @@ public class CharacterCombat : MonoBehaviour
     [SerializeField] private AttackHitbox leftFootHitbox;
     [SerializeField] private AttackHitbox rightFootHitbox;
 
+    [Header("Attack Trails")]
+    [SerializeField] private AttackTrail leftHandTrail;
+    [SerializeField] private AttackTrail rightHandTrail;
+    [SerializeField] private AttackTrail leftFootTrail;
+    [SerializeField] private AttackTrail rightFootTrail;
+
     public AttackDefinition CurrentAttack { get; private set; }
 
     public int ComboIndex { get; private set; }
@@ -121,5 +127,54 @@ public class CharacterCombat : MonoBehaviour
             default:
                 return null;
         }
+    }
+
+    private AttackTrail GetTrail(HitboxType type)
+    {
+        switch (type)
+        {
+            case HitboxType.LeftHand:
+                return leftHandTrail;
+
+            case HitboxType.RightHand:
+                return rightHandTrail;
+
+            case HitboxType.LeftFoot:
+                return leftFootTrail;
+
+            case HitboxType.RightFoot:
+                return rightFootTrail;
+
+            default:
+                return null;
+        }
+    }
+
+    public void BeginTrail()
+    {
+        if (CurrentAttack == null)
+            return;
+
+        AttackTrail trail =
+            GetTrail(CurrentAttack.hitbox);
+
+        if (trail == null)
+            return;
+
+        trail.Play();
+    }
+
+    public void EndTrail()
+    {
+        if (CurrentAttack == null)
+            return;
+
+        AttackTrail trail =
+            GetTrail(CurrentAttack.hitbox);
+
+        if (trail == null)
+            return;
+
+        trail.Stop();
     }
 }

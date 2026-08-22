@@ -40,6 +40,12 @@ public class AttackDefinition : ScriptableObject
     [Min(0f)]
     public float selfMoveForce = 0f;
 
+    [Header("Trail")]
+    [Min(0)]
+    public int trailStartFrame = 0;
+    [Min(0)]
+    public int trailEndFrame = 0;
+
     public float Duration
     {
         get
@@ -111,11 +117,15 @@ public class AttackDefinition : ScriptableObject
     public int HitEndFrame => hitEndFrame - animationStartFrame;
     public int ComboStartFrame => comboStartFrame - animationStartFrame;
     public int ComboEndFrame => comboEndFrame - animationStartFrame;
+    public int TrailStartFrame => trailStartFrame - animationStartFrame;
+    public int TrailEndFrame => trailEndFrame - animationStartFrame;
 
     public float HitStart => FrameToTime(HitStartFrame);
     public float HitEnd => FrameToTime(HitEndFrame);
     public float ComboStart => FrameToTime(ComboStartFrame);
     public float ComboEnd => FrameToTime(ComboEndFrame);
+    public float TrailStart => FrameToTime(TrailStartFrame);
+    public float TrailEnd => FrameToTime(TrailEndFrame);
 
     private float FrameToTime(int frame)
     {

@@ -90,6 +90,20 @@ public class AttackDefinitionEditor : Editor
             "Self Move Force",
             attack.selfMoveForce.ToString("F2"));
 
+        EditorGUILayout.Space(4);
+
+        DrawTiming(
+            "Trail Start",
+            attack.trailStartFrame,
+            attack.TrailStartFrame,
+            attack.TrailStart);
+
+        DrawTiming(
+            "Trail End",
+            attack.trailEndFrame,
+            attack.TrailEndFrame,
+            attack.TrailEnd);
+
         EditorGUILayout.Space(8);
 
         DrawWarnings(attack);
@@ -213,6 +227,13 @@ public class AttackDefinitionEditor : Editor
         {
             EditorGUILayout.HelpBox(
                 "Self Move End is before Self Move Start.",
+                MessageType.Error);
+        }
+
+        if (attack.TrailEndFrame < attack.TrailStartFrame)
+        {
+            EditorGUILayout.HelpBox(
+                "Trail End is before Trail Start.",
                 MessageType.Error);
         }
     }
