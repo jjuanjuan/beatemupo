@@ -5,5 +5,6 @@ public interface ICharacterBrain
     Vector2 MoveInput { get; }
     Vector2 LookInput { get; }
     bool JumpPressed { get; }
-    bool AttackPressed { get; }
+    bool PunchPressed { get; }
+    bool KickPressed { get; }
 }

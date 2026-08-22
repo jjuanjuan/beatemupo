@@ -11,6 +11,26 @@ public class IdleState : CharacterState
     {
         context.Motor.Move(Vector3.zero);
 
+        if (context.Brain.PunchPressed)
+        {
+            context.Combat.StartAttack(context.Combat.Punch);
+
+            stateMachine.ChangeState(
+                context.States.Attack);
+
+            return;
+        }
+
+        if (context.Brain.KickPressed)
+        {
+            context.Combat.StartAttack(context.Combat.Kick);
+
+            stateMachine.ChangeState(
+                context.States.Attack);
+
+            return;
+        }
+
         if (context.Brain.MoveInput.sqrMagnitude > 0.01f)
         {
             stateMachine.ChangeState(context.States.Move);

@@ -1512,6 +1512,7 @@ GameObject:
   - component: {fileID: 1449730104}
   - component: {fileID: 1449730103}
   - component: {fileID: 1449730106}
+  - component: {fileID: 1449730107}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1602,7 +1603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 330585546}
   moveSpeed: 10
-  groundAcceleration: 20
+  groundAcceleration: 35
   airAcceleration: 12
   groundDeceleration: 40
   airDeceleration: 5
@@ -1622,6 +1623,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92abd50858923a7409763cd8f2ab2029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1449730107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449730098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e222bca8c4e40c74aa16021938833d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  punch: {fileID: 11400000, guid: ded90e87f0150ea41aac4746cf89f717, type: 2}
+  kick: {fileID: 11400000, guid: c178cc3ffaa17a54fb9b9abd4cf8ce98, type: 2}
 --- !u!1 &2027943056
 GameObject:
   m_ObjectHideFlags: 0

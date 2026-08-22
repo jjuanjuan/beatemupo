@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 44d914c7ec7da4742a28a1a51630469d
+guid: f13ba259665bd774690d953abe6473f1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Mma Kick
+      name: Kick3
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 95
+      lastFrame: 78
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

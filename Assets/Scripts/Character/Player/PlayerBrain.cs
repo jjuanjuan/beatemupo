@@ -7,7 +7,8 @@ public class PlayerBrain : MonoBehaviour, ICharacterBrain
 
     public bool JumpPressed { get; private set; }
 
-    public bool AttackPressed { get; private set; }
+    public bool PunchPressed { get; private set; }
+    public bool KickPressed { get; private set; }
 
     private PlayerInput input;
 
@@ -33,6 +34,7 @@ public class PlayerBrain : MonoBehaviour, ICharacterBrain
 
         JumpPressed = input.Player.Jump.WasPressedThisFrame();
 
-        //AttackPressed = input.Player.Attack.WasPressedThisFrame();
+        PunchPressed = input.Player.Punch.WasPressedThisFrame();
+        KickPressed = input.Player.Kick.WasPressedThisFrame();
     }
 }

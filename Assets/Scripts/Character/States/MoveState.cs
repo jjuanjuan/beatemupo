@@ -26,6 +26,26 @@ public class MoveState : CharacterState
             return;
         }
 
+        if (context.Brain.PunchPressed)
+        {
+            context.Combat.StartAttack(context.Combat.Punch);
+
+            stateMachine.ChangeState(
+                context.States.Attack);
+
+            return;
+        }
+
+        if (context.Brain.KickPressed)
+        {
+            context.Combat.StartAttack(context.Combat.Kick);
+
+            stateMachine.ChangeState(
+                context.States.Attack);
+
+            return;
+        }
+
         Vector2 input = context.Brain.MoveInput;
 
         if (input.sqrMagnitude < 0.01f)

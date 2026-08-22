@@ -37,6 +37,7 @@ public class Character : MonoBehaviour
         states.Move = new MoveState(Context, StateMachine);
         states.Jump = new JumpState(Context, StateMachine);
         states.Fall = new FallState(Context, StateMachine);
+        states.Attack = new AttackState(Context, StateMachine);
 
         StateMachine.ChangeState(states.Idle);
     }

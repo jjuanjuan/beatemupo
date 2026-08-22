@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterCombat : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Attacks")]
+    [SerializeField] private AttackDefinition punch;
+    [SerializeField] private AttackDefinition kick;
+
+    public AttackDefinition CurrentAttack { get; private set; }
+
+    public AttackDefinition Punch => punch;
+    public AttackDefinition Kick => kick;
+
+    public void StartAttack(AttackDefinition attack)
     {
-        
+        CurrentAttack = attack;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void EndAttack()
     {
-        
+        CurrentAttack = null;
     }
 }

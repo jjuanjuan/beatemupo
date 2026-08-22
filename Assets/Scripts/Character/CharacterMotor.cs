@@ -41,6 +41,10 @@ public class CharacterMotor : MonoBehaviour
             velocity.x,
             velocity.z).magnitude;
 
+    private bool attackMovementLocked;
+
+    public bool AttackMovementLocked => attackMovementLocked;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -106,6 +110,21 @@ public class CharacterMotor : MonoBehaviour
 
     private void UpdateHorizontalVelocity()
     {
+        if (attackMovementLocked)
+        {
+            velocity.x = Mathf.MoveTowards(
+                velocity.x,
+                0f,
+                groundDeceleration * Time.deltaTime);
+
+            velocity.z = Mathf.MoveTowards(
+                velocity.z,
+                0f,
+                groundDeceleration * Time.deltaTime);
+
+            return;
+        }
+
         bool moving = desiredVelocity.sqrMagnitude > 0.01f;
 
         float accel;
@@ -132,5 +151,17 @@ public class CharacterMotor : MonoBehaviour
             velocity.y = -2f;
 
         velocity.y += gravity * Time.deltaTime;
+    }
+
+    public void StartAttack()
+    {
+        attackMovementLocked = true;
+
+        desiredVelocity.x = 0f;
+        desiredVelocity.z = 0f;
+    }
+    public void EndAttack()
+    {
+        attackMovementLocked = false;
     }
 }

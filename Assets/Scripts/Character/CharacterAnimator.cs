@@ -2,14 +2,16 @@ using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
 {
-    [SerializeField] Animator animator;
+    public Animator animator;
 
-    int currentState;
+    private int currentState;
 
-    static readonly int SpeedHash =
+    private static readonly int SpeedHash =
         Animator.StringToHash("Speed");
 
-    public void Play(string state, float transition = .1f)
+    public void Play(
+        string state,
+        float transition = 0.1f)
     {
         int hash = Animator.StringToHash(state);
 
@@ -18,9 +20,12 @@ public class CharacterAnimator : MonoBehaviour
 
         currentState = hash;
 
-        animator.CrossFade(hash, transition);
+        animator.CrossFade(
+            hash,
+            transition,
+            0);
     }
-
+    
     public void SetSpeed(float speed)
     {
         animator.SetFloat(SpeedHash, speed);
