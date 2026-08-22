@@ -13,20 +13,20 @@ MonoBehaviour:
   m_Name: Kick_RightRoundhouse
   m_EditorClassIdentifier: 
   animationState: Kick_RightRoundhouse
-  animationClip: {fileID: -203655887218126122, guid: f13ba259665bd774690d953abe6473f1,
+  animationClip: {fileID: -203655887218126122, guid: 61de4e6914bcf8d48ae4562357ac5c1b,
     type: 3}
-  animationStartFrame: 16
-  hitStartFrame: 31
-  hitEndFrame: 40
+  animationStartFrame: 0
+  hitStartFrame: 20
+  hitEndFrame: 25
   comboStartFrame: 47
-  comboEndFrame: 59
+  comboEndFrame: 50
   damage: 20
   hitbox: 3
   knockback: 10
   knockbackUp: 7.5
   hitReaction: 3
-  selfMoveStartFrame: 22
-  selfMoveEndFrame: 35
-  selfMoveForce: 5
-  trailStartFrame: 22
-  trailEndFrame: 47
+  selfMoveStartFrame: 14
+  selfMoveEndFrame: 30
+  selfMoveForce: 12
+  trailStartFrame: 17
+  trailEndFrame: 25

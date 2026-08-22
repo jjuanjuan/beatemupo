@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8157b6fd660b45d4490706115e87a404
+guid: 61de4e6914bcf8d48ae4562357ac5c1b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,7 +31,36 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Kick Roundhouse
+      takeName: mixamo.com
+      internalID: -203655887218126122
+      firstFrame: 0
+      lastFrame: 50
+      wrapMode: 0
+      orientationOffsetY: -20
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -77,42 +106,7 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips:
-  - 1b57c6be7ad33c3468d4a28b414eafbe
-  - 394a19fca9d37e64b9944c38281e81ad
-  - 16060f68c28162f4fb3ca926ea40be6a
-  - 82fb197a88d964341b9360adf7aa3911
-  - 09e2a49c8a6df814bb959cf22ebaf054
-  - 6f40f3b77a659014fa9a705c03be8a6c
-  - d7aeee01f542c06429829885a82275e3
-  - 78e1b18f28c9f474ea9b7ef19b149653
-  - acbaac02df6234042994324fafd5c6b7
-  - 6dce02116b7f4664b8324914c69936e4
-  - 7b0a781f69291874e9053a8d51477a34
-  - 4219d1821b246e649b629a2a79af40c7
-  - b9436dbd4a07c8c4ab20ad588357cf65
-  - eaab7c3f300ecc64dba5622305e1f5de
-  - 22a0ecd0b8ffad54aaa8e4a7d507dde6
-  - ef23a4c231d85fb48bf8a7f53cd6f801
-  - cde4bac8cfe0090438bfbf43a0d424b2
-  - 095d62b5a7007654b966c32b6162ad8a
-  - 098c36585e7ba5e43b0ec452f4a844aa
-  - 93ad5232f6daac34cb2276317fe74da8
-  - 93ff0bb1c9707524b8b031b45c4dad43
-  - 04adb1c87b8bd824182a70914b04907a
-  - 6aa3e3ebbe504d74ebb4c9c0973eeb8a
-  - 61de4e6914bcf8d48ae4562357ac5c1b
-  - f13ba259665bd774690d953abe6473f1
-  - 40965095c55d06e4e9d955bc1d37f16e
-  - 9f64fb9c0acca734e9c3fca630b7b4ab
-  - 9c6a4b27aa0950348b3363c1e8505f21
-  - 76aa370df495b9043b3ad2a6bb6add1d
-  - 49a9d19dbef84a147a917e4a2d4e87a4
-  - 8fa3f5450de4bb843b2629051559c8fe
-  - 4f7d578849f44cc44944e4935fa3c161
-  - f75916902d1cbca469176aeb1dafbe3f
-  - 8f3ae7a3814089c478408b581d4b57c4
-  - f71772727381183418a1a46e7df6c6e8
+  referencedClips: []
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
@@ -902,11 +896,12 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 8157b6fd660b45d4490706115e87a404,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
