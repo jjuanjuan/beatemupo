@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6f40f3b77a659014fa9a705c03be8a6c
+guid: cde4bac8cfe0090438bfbf43a0d424b2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,13 +33,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Cross Punch
+      name: Hit Head 1
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 52
+      lastFrame: 24
       wrapMode: 0
-      orientationOffsetY: -71.3
+      orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0

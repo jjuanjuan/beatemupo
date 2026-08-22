@@ -148,8 +148,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5349114}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2669336, y: 0.0000000067515153, z: -0.0000000018700614, w: 0.96371496}
-  m_LocalPosition: {x: 0, y: 7.5, z: -10}
+  m_LocalRotation: {x: 0.27568248, y: 0.000000038931617, z: -0.000000011165438, w: 0.96124876}
+  m_LocalPosition: {x: 0, y: 4, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 6, z: -10}
+  m_FollowOffset: {x: 0, y: 2.5, z: -4}
   m_XDamping: 0.3
   m_YDamping: 0.3
   m_ZDamping: 0.3
@@ -616,8 +616,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2669336, y: 0.0000000067515153, z: -0.0000000018700617, w: 0.96371496}
-  m_LocalPosition: {x: 0, y: 7.5, z: -10}
+  m_LocalRotation: {x: 0.2756825, y: 0.000000038931613, z: -0.000000011165439, w: 0.96124876}
+  m_LocalPosition: {x: 0, y: 4, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1795,13 +1795,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   punches:
-  - {fileID: 11400000, guid: 30fad99b0faab5343a1b549d2013a895, type: 2}
   - {fileID: 11400000, guid: ded90e87f0150ea41aac4746cf89f717, type: 2}
   - {fileID: 11400000, guid: 30fad99b0faab5343a1b549d2013a895, type: 2}
   - {fileID: 11400000, guid: b0e158e3d5621704b8e5b301109e3afa, type: 2}
   kicks:
-  - {fileID: 11400000, guid: c85af272b798b934a89ec8f731856308, type: 2}
-  - {fileID: 11400000, guid: a6a00ac5dedbf0e428bcb0fde739e81b, type: 2}
   - {fileID: 11400000, guid: c178cc3ffaa17a54fb9b9abd4cf8ce98, type: 2}
   leftHandHitbox: {fileID: 1521903295}
   rightHandHitbox: {fileID: 2082754640}
@@ -1857,15 +1854,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 330585546}
-  moveSpeed: 10
+  moveSpeed: 5
   groundAcceleration: 35
   airAcceleration: 12
   groundDeceleration: 40
   airDeceleration: 5
-  jumpHeight: 3
-  gravity: -9.8
+  jumpHeight: 2
+  gravity: -25
   coyoteTime: 0.1
-  rotationSpeed: 360
+  rotationSpeed: 720
   knockbackDeceleration: 15
 --- !u!143 &1287491309
 CharacterController:
@@ -1923,9 +1920,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebeeb3b3cef70124aa45d7f08847f509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  hitHead: {fileID: 11400000, guid: 27a52593970a305498dfb29030743ed8, type: 2}
-  hitChest: {fileID: 11400000, guid: 9edd2c0b49e619b49811b3b20d863ab1, type: 2}
+  maxHealth: 1000
+  headHits:
+  - {fileID: 11400000, guid: 27a52593970a305498dfb29030743ed8, type: 2}
+  - {fileID: 11400000, guid: 9e7f698809eef784cbad9c90ad4f3201, type: 2}
+  - {fileID: 11400000, guid: 68755012a9804b94999c55a000226ace, type: 2}
+  - {fileID: 11400000, guid: 87f6d4453666b954d9fcc31549c81de3, type: 2}
+  - {fileID: 11400000, guid: 774a0c6ef90cb5e43b831978f7547d07, type: 2}
+  - {fileID: 11400000, guid: 53917b8a77dc1f64f84fc2e6a6003978, type: 2}
+  bodyHits:
+  - {fileID: 11400000, guid: 9edd2c0b49e619b49811b3b20d863ab1, type: 2}
+  - {fileID: 11400000, guid: ff0b7e02c5cce9c43948c7892774a454, type: 2}
+  - {fileID: 11400000, guid: 7c9c26200560e5a4192873d81250df8f, type: 2}
   hitKnockdown: {fileID: 11400000, guid: 3638a20145cdf5d4e9375b86de2a0bd9, type: 2}
   knockedDown: {fileID: 11400000, guid: 1cfff1623b6f48645aeda6e30eb21e92, type: 2}
   getUp: {fileID: 11400000, guid: 5c6957737a68805469c6d1ec63435aee, type: 2}
@@ -2188,15 +2194,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 330585546}
-  moveSpeed: 10
+  moveSpeed: 5
   groundAcceleration: 35
   airAcceleration: 12
   groundDeceleration: 40
   airDeceleration: 5
-  jumpHeight: 3
-  gravity: -9.8
+  jumpHeight: 2
+  gravity: -25
   coyoteTime: 0.1
-  rotationSpeed: 360
+  rotationSpeed: 720
   knockbackDeceleration: 15
 --- !u!114 &1449730106
 MonoBehaviour:
@@ -2223,7 +2229,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   punches:
-  - {fileID: 11400000, guid: 30fad99b0faab5343a1b549d2013a895, type: 2}
   - {fileID: 11400000, guid: ded90e87f0150ea41aac4746cf89f717, type: 2}
   - {fileID: 11400000, guid: 30fad99b0faab5343a1b549d2013a895, type: 2}
   - {fileID: 11400000, guid: b0e158e3d5621704b8e5b301109e3afa, type: 2}
@@ -2246,8 +2251,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  hitHead: {fileID: 11400000, guid: 27a52593970a305498dfb29030743ed8, type: 2}
-  hitChest: {fileID: 11400000, guid: 9edd2c0b49e619b49811b3b20d863ab1, type: 2}
+  headHits:
+  - {fileID: 11400000, guid: 27a52593970a305498dfb29030743ed8, type: 2}
+  - {fileID: 11400000, guid: 9e7f698809eef784cbad9c90ad4f3201, type: 2}
+  - {fileID: 11400000, guid: 68755012a9804b94999c55a000226ace, type: 2}
+  - {fileID: 11400000, guid: 87f6d4453666b954d9fcc31549c81de3, type: 2}
+  - {fileID: 11400000, guid: 774a0c6ef90cb5e43b831978f7547d07, type: 2}
+  - {fileID: 11400000, guid: 53917b8a77dc1f64f84fc2e6a6003978, type: 2}
+  bodyHits:
+  - {fileID: 11400000, guid: 9edd2c0b49e619b49811b3b20d863ab1, type: 2}
+  - {fileID: 11400000, guid: ff0b7e02c5cce9c43948c7892774a454, type: 2}
+  - {fileID: 11400000, guid: 7c9c26200560e5a4192873d81250df8f, type: 2}
   hitKnockdown: {fileID: 11400000, guid: 3638a20145cdf5d4e9375b86de2a0bd9, type: 2}
   knockedDown: {fileID: 11400000, guid: 1cfff1623b6f48645aeda6e30eb21e92, type: 2}
   getUp: {fileID: 11400000, guid: 5c6957737a68805469c6d1ec63435aee, type: 2}

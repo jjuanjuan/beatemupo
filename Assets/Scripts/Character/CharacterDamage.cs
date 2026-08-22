@@ -1,11 +1,14 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class CharacterDamage : MonoBehaviour, IDamageable
 {
     [Header("Health")]
     [SerializeField] private int maxHealth = 100;
-    [SerializeField] private HitReactionDefinition hitHead;
-    [SerializeField] private HitReactionDefinition hitChest;
+
+    [Header("Hit Reactions")]
+    [SerializeField] private List<HitReactionDefinition> headHits = new();
+    [SerializeField] private List<HitReactionDefinition> bodyHits = new();
     [SerializeField] private HitReactionDefinition hitKnockdown;
     [SerializeField] private HitReactionDefinition knockedDown;
     [SerializeField] private HitReactionDefinition getUp;
@@ -23,28 +26,14 @@ public class CharacterDamage : MonoBehaviour, IDamageable
     public int CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
 
+    private HitReactionDefinition lastHeadHit;
+    private HitReactionDefinition lastBodyHit;
+
     public HitReaction CurrentHitReaction { get; private set; }
-    public HitReactionDefinition CurrentHitDefinition
-    {
-        get
-        {
-            switch (CurrentHitReaction)
-            {
-                case HitReaction.Head:
-                    return hitHead;
+    private HitReactionDefinition currentHitDefinition;
 
-                case HitReaction.Chest:
-                    return hitChest;
-
-                case HitReaction.Knockdown:
-                    return hitKnockdown;
-
-                default:
-                    return null;
-            }
-        }
-    }
-
+    public HitReactionDefinition CurrentHitDefinition =>
+        currentHitDefinition;
     public HitReactionDefinition KnockedDownDefinition =>
         knockedDown;
     public HitReactionDefinition GetUpDefinition =>
@@ -91,16 +80,58 @@ public class CharacterDamage : MonoBehaviour, IDamageable
         switch (reaction)
         {
             case HitReaction.Head:
+                currentHitDefinition =
+                    GetRandomVariation(
+                        headHits,
+                        ref lastHeadHit);
+
+                context.Character.StateMachine.ChangeState(
+                    context.States.Hit);
+                break;
+
             case HitReaction.Chest:
+                currentHitDefinition =
+                    GetRandomVariation(
+                        bodyHits,
+                        ref lastBodyHit);
+
                 context.Character.StateMachine.ChangeState(
                     context.States.Hit);
                 break;
 
             case HitReaction.Knockdown:
+                currentHitDefinition = hitKnockdown;
+
                 context.Character.StateMachine.ChangeState(
                     context.States.Knockdown);
                 break;
         }
+    }
+
+    private HitReactionDefinition GetRandomVariation(
+        List<HitReactionDefinition> variations,
+        ref HitReactionDefinition lastHit)
+    {
+        if (variations == null || variations.Count == 0)
+            return null;
+
+        if (variations.Count == 1)
+        {
+            lastHit = variations[0];
+            return lastHit;
+        }
+
+        int index;
+
+        do
+        {
+            index = Random.Range(0, variations.Count);
+        }
+        while (variations[index] == lastHit);
+
+        lastHit = variations[index];
+
+        return lastHit;
     }
 
     private void ApplyKnockback(

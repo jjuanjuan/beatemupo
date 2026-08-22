@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Punch_RightStomach
   m_EditorClassIdentifier: 
   animationState: Punch_RightStomach
-  animationClip: {fileID: -203655887218126122, guid: 52fc46c33a82fdf4180d90d875bb9723,
+  animationClip: {fileID: -203655887218126122, guid: 76aa370df495b9043b3ad2a6bb6add1d,
     type: 3}
-  animationStartFrame: 5
-  hitStartFrame: 21
-  hitEndFrame: 27
-  comboStartFrame: 25
-  comboEndFrame: 40
-  damage: 7
+  animationStartFrame: 0
+  hitStartFrame: 6
+  hitEndFrame: 10
+  comboStartFrame: 8
+  comboEndFrame: 15
+  damage: 5
   hitbox: 1
-  knockback: 2.5
+  knockback: 1.5
   knockbackUp: 0
   hitReaction: 2
-  selfMoveStartFrame: 18
-  selfMoveEndFrame: 24
+  selfMoveStartFrame: 3
+  selfMoveEndFrame: 6
   selfMoveForce: 7

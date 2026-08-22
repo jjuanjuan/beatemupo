@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: Punch_LeftJab
   m_EditorClassIdentifier: 
   animationState: Punch_LeftJab
-  animationClip: {fileID: -203655887218126122, guid: 1485f067a59b6774b86cb218b7a3f66b,
+  animationClip: {fileID: -203655887218126122, guid: 40965095c55d06e4e9d955bc1d37f16e,
     type: 3}
   animationStartFrame: 0
   hitStartFrame: 10
   hitEndFrame: 16
-  comboStartFrame: 12
-  comboEndFrame: 30
-  damage: 5
+  comboStartFrame: 14
+  comboEndFrame: 31
+  damage: 7
   hitbox: 0
-  knockback: 1.5
+  knockback: 2.5
   knockbackUp: 0
   hitReaction: 1
   selfMoveStartFrame: 5

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 581afdbc997334e42b07b3569a83f354, type: 3}
-  m_Name: Hit_Head
+  m_Name: Hit_Chest_1
   m_EditorClassIdentifier: 
-  animationState: HitHead
-  animationClip: {fileID: -203655887218126122, guid: c0e88d673497b5d48846db5009479634,
+  animationState: HitChest_1
+  animationClip: {fileID: -203655887218126122, guid: eaab7c3f300ecc64dba5622305e1f5de,
     type: 3}

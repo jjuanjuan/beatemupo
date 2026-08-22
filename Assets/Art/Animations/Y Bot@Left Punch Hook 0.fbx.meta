@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6f40f3b77a659014fa9a705c03be8a6c
+guid: 40965095c55d06e4e9d955bc1d37f16e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,13 +33,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Cross Punch
+      name: Left Punch Hook 0
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 52
+      lastFrame: 32
       wrapMode: 0
-      orientationOffsetY: -71.3
+      orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
@@ -48,7 +48,7 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0

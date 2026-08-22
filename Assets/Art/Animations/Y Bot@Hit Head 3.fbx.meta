@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 44d914c7ec7da4742a28a1a51630469d
+guid: 098c36585e7ba5e43b0ec452f4a844aa
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,13 +33,13 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Mma Kick
+      name: Hit Head 3
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 11
-      lastFrame: 64
+      firstFrame: 0
+      lastFrame: 25
       wrapMode: 0
-      orientationOffsetY: -50.86
+      orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0

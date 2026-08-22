@@ -15,16 +15,16 @@ MonoBehaviour:
   animationState: Punch_RightCross
   animationClip: {fileID: -203655887218126122, guid: 6f40f3b77a659014fa9a705c03be8a6c,
     type: 3}
-  animationStartFrame: 12
-  hitStartFrame: 24
-  hitEndFrame: 31
+  animationStartFrame: 0
+  hitStartFrame: 12
+  hitEndFrame: 17
   comboStartFrame: 35
-  comboEndFrame: 44
+  comboEndFrame: 40
   damage: 10
   hitbox: 1
-  knockback: 10
+  knockback: 4
   knockbackUp: 0
   hitReaction: 1
-  selfMoveStartFrame: 17
-  selfMoveEndFrame: 26
-  selfMoveForce: 10
+  selfMoveStartFrame: 12
+  selfMoveEndFrame: 17
+  selfMoveForce: 7
