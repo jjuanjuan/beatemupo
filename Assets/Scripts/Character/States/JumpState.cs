@@ -13,10 +13,20 @@ public class JumpState : CharacterState
 
         context.Motor.Jump();
     }
-    
+
     public override void Update()
     {
-        context.Motor.Move(context.Brain.MoveInput);
+        if (context.Motor.WallJumpWindowOpen &&
+            context.Brain.JumpPressed)
+        {
+            context.Motor.WallJump();
+
+            context.Animator.Play(
+                "WallJump",
+                0.05f);
+
+            return;
+        }
 
         if (context.Motor.Falling)
             stateMachine.ChangeState(context.States.Fall);

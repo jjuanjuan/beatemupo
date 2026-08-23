@@ -14,7 +14,20 @@ public class FallState : CharacterState
 
     public override void Update()
     {
-        context.Motor.Move(context.Brain.MoveInput);
+        if (context.Motor.WallJumpWindowOpen &&
+            context.Brain.JumpPressed)
+        {
+            context.Motor.WallJump();
+
+            context.Animator.Play(
+                "WallJump",
+                0.05f);
+
+            stateMachine.ChangeState(
+                context.States.Jump);
+
+            return;
+        }
 
         if (context.Motor.Grounded)
         {

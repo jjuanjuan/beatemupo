@@ -23,7 +23,9 @@ public class CharacterMotor : MonoBehaviour
     [SerializeField] private float wallCheckHeight = 1f;
     [SerializeField] private float wallJumpHorizontalForce = 7f;
     [SerializeField] private float wallJumpVerticalForce = 7f;
-    [SerializeField] private float wallJumpApexWindow = 0.15f;
+    [SerializeField] private float wallJumpWindowTime = 2f;
+    [SerializeField] private float wallJumpRefreshTime = .5f;
+    [SerializeField] private LayerMask wallLayers;
 
     [Header("Rotation")]
     [SerializeField] private float rotationSpeed = 720f;
@@ -60,9 +62,15 @@ public class CharacterMotor : MonoBehaviour
 
     private bool wallDetected;
     private Vector3 wallNormal;
-
     public bool WallDetected => wallDetected;
     public Vector3 WallNormal => wallNormal;
+    private bool wallJumpAvailable = true;
+    public bool WallJumpAvailable => wallJumpAvailable;
+    private float wallJumpRefreshTimer;
+    private bool wallJumpWindowOpen;
+    private float wallJumpWindowTimer;
+    public bool WallJumpWindowOpen =>
+        wallJumpWindowOpen;
 
     void Awake()
     {
@@ -84,9 +92,33 @@ public class CharacterMotor : MonoBehaviour
             finalVelocity * Time.deltaTime);
 
         UpdateKnockback();
+        UpdateWallJumpRefresh();
+        UpdateWallJumpWindow();
 
         if (Grounded)
+        {
             lastGroundedTime = Time.time;
+        }
+    }
+
+    private void UpdateWallJumpRefresh()
+    {
+        if (wallJumpAvailable)
+            return;
+
+        if (Grounded)
+        {
+            wallJumpAvailable = true;
+            return;
+        }
+
+        wallJumpRefreshTimer += Time.deltaTime;
+
+        if (wallJumpRefreshTimer >= wallJumpRefreshTime)
+        {
+            wallJumpAvailable = true;
+            wallJumpRefreshTimer = 0f;
+        }
     }
 
     private void UpdateKnockback()
@@ -316,6 +348,8 @@ public class CharacterMotor : MonoBehaviour
 
     public void CheckWall()
     {
+        bool wasWallDetected = wallDetected;
+
         wallDetected = false;
 
         Vector3 origin =
@@ -336,7 +370,8 @@ public class CharacterMotor : MonoBehaviour
                 origin,
                 direction,
                 out RaycastHit hit,
-                wallCheckDistance))
+                wallCheckDistance,
+                wallLayers))
             {
                 if (hit.collider.transform == transform)
                     continue;
@@ -344,8 +379,101 @@ public class CharacterMotor : MonoBehaviour
                 wallDetected = true;
                 wallNormal = hit.normal;
 
-                return;
+                break;
             }
         }
+
+        if (Grounded)
+        {
+            wallJumpWindowOpen = false;
+            wallJumpWindowTimer = 0f;
+            return;
+        }
+
+        if (wallDetected && !wasWallDetected)
+        {
+            wallJumpWindowOpen = true;
+            wallJumpWindowTimer = 0f;
+        }
+    }
+
+    private void UpdateWallJumpWindow()
+    {
+        if (!wallJumpWindowOpen)
+            return;
+
+        if (Grounded)
+        {
+            wallJumpWindowOpen = false;
+            wallJumpWindowTimer = 0f;
+            return;
+        }
+
+        wallJumpWindowTimer += Time.deltaTime;
+
+        if (wallJumpWindowTimer >= wallJumpWindowTime)
+        {
+            wallJumpWindowOpen = false;
+            wallJumpWindowTimer = 0f;
+        }
+    }
+
+    public void WallJump()
+    {
+        if (!wallJumpWindowOpen ||
+            !wallJumpAvailable)
+            return;
+
+        Vector3 direction = wallNormal;
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude < 0.001f)
+            return;
+
+        direction.Normalize();
+
+        velocity.x =
+            direction.x * wallJumpHorizontalForce;
+
+        velocity.z =
+            direction.z * wallJumpHorizontalForce;
+
+        velocity.y =
+            wallJumpVerticalForce;
+
+        desiredVelocity = Vector3.zero;
+
+        wallJumpAvailable = false;
+        wallJumpRefreshTimer = 0f;
+
+        wallJumpWindowOpen = false;
+        wallJumpWindowTimer = 0f;
+
+        RotateTowards(direction);
+    }
+    
+    private void OnDrawGizmosSelected()
+    {
+        Vector3 origin =
+            transform.position +
+            Vector3.up * wallCheckHeight;
+
+        Gizmos.color = Color.blue;
+
+        Gizmos.DrawLine(
+            origin,
+            origin + transform.forward * wallCheckDistance);
+
+        Gizmos.DrawLine(
+            origin,
+            origin - transform.forward * wallCheckDistance);
+
+        Gizmos.DrawLine(
+            origin,
+            origin + transform.right * wallCheckDistance);
+
+        Gizmos.DrawLine(
+            origin,
+            origin - transform.right * wallCheckDistance);
     }
 }
