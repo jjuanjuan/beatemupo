@@ -230,6 +230,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Debug",
+            "id": "da0723fe-46e8-4cb1-81c9-3c7a0f6c1a9a",
+            "actions": [
+                {
+                    "name": "Reset",
+                    "type": "Button",
+                    "id": "3f5bed73-3fe3-4842-ae5a-ec0e93d5ca46",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5b04efef-18e3-4496-bf72-0649a15a67b2",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

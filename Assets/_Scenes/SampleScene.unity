@@ -977,8 +977,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.5720005, y: 8, z: 3.0479996}
-  m_Center: {x: 0.0000002384186, y: 0.00000023841858, z: 0.000000040978193}
+  m_Size: {x: 5.432161, y: 8, z: 3.0479996}
+  m_Center: {x: 0.0104266405, y: 5.908175e-10, z: -3.1073805e-10}
 --- !u!4 &429513294 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7748278406718104806, guid: 4427fc60e0b441440ace26a6f88806b7,
@@ -1333,7 +1333,7 @@ Transform:
   m_GameObject: {fileID: 601106089}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7358325, z: -0, w: 0.6771636}
-  m_LocalPosition: {x: -8.071737, y: 0.44000006, z: 7.0856133}
+  m_LocalPosition: {x: -8.071737, y: -0.35, z: 7.0856133}
   m_LocalScale: {x: 1, y: 7.9355, z: 8.3531}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1499,6 +1499,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: building_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7741860992360458819, guid: 4427fc60e0b441440ace26a6f88806b7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -2070,6 +2075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 66968535}
+  ledgeClimbAnimation: {fileID: 0}
 --- !u!114 &1287491307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2114,6 +2120,14 @@ MonoBehaviour:
     m_Bits: 0
   rotationSpeed: 720
   knockbackDeceleration: 15
+  ledgeCheckDistance: 0.7
+  ledgeCheckHeight: 1.2
+  ledgeTopHeight: 1.8
+  ledgeHangOffset: {x: 0, y: -0.35, z: -0.35}
+  ledgeClimbOffset: {x: 0, y: 0, z: 0.2}
+  ledgeLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!143 &1287491309
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2134,7 +2148,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 2
-  m_Radius: 0.375
+  m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -2418,7 +2432,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 2
-  m_Radius: 0.375
+  m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -2437,6 +2451,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 488173410}
+  ledgeClimbAnimation: {fileID: 11400000, guid: a436e1c227e029d45a85fe274f2050b1,
+    type: 2}
 --- !u!114 &1449730104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2478,9 +2494,17 @@ MonoBehaviour:
   wallJumpRefreshTime: 0.5
   wallLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
   rotationSpeed: 720
   knockbackDeceleration: 15
+  ledgeCheckDistance: 0.6
+  ledgeCheckHeight: 1.2
+  ledgeTopHeight: 1.8
+  ledgeHangOffset: {x: 0, y: -1.35, z: -0.15}
+  ledgeClimbOffset: {x: 0, y: 1, z: 0.33}
+  ledgeLayers:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &1449730106
 MonoBehaviour:
   m_ObjectHideFlags: 0

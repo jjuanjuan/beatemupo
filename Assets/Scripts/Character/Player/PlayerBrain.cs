@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBrain : MonoBehaviour, ICharacterBrain
 {
@@ -36,5 +37,10 @@ public class PlayerBrain : MonoBehaviour, ICharacterBrain
 
         PunchPressed = input.Player.Punch.WasPressedThisFrame();
         KickPressed = input.Player.Kick.WasPressedThisFrame();
+
+        if (input.Debug.Reset.WasPressedThisFrame())
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }

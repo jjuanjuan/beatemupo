@@ -1,8 +1,13 @@
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
 {
     public Animator animator;
+
+    [Header("Definitions")]
+    [SerializeField]
+    public AnimationDefinition ledgeClimbAnimation;
 
     private int currentState;
 
@@ -41,7 +46,7 @@ public class CharacterAnimator : MonoBehaviour
             0,
             normalizedTime);
     }
-    
+
     public void SetSpeed(float speed)
     {
         animator.SetFloat(SpeedHash, speed);

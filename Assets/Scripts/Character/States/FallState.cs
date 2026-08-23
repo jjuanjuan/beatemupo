@@ -14,6 +14,14 @@ public class FallState : CharacterState
 
     public override void Update()
     {
+        if (context.Motor.LedgeDetected)
+        {
+            stateMachine.ChangeState(
+                context.States.LedgeHang);
+
+            return;
+        }
+
         if (context.Motor.WallJumpWindowOpen &&
             context.Brain.JumpPressed)
         {

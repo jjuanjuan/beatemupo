@@ -52,6 +52,8 @@ public class Character : MonoBehaviour
         states.Hit = new HitState(Context, StateMachine);
         states.Knockdown = new KnockdownState(Context, StateMachine);
         states.Death = new DeathState(Context, StateMachine);
+        states.LedgeHang = new LedgeHangState(Context, StateMachine);
+        states.LedgeClimb = new LedgeClimbState(Context, StateMachine);
 
         StateMachine.ChangeState(states.Idle);
     }

@@ -33,6 +33,13 @@ public class CharacterMotor : MonoBehaviour
     [Header("Knockback")]
     [SerializeField] private float knockbackDeceleration = 15f;
 
+    [Header("Ledge")]
+    [SerializeField] private float ledgeCheckDistance = 0.7f;
+    [SerializeField] private float ledgeCheckHeight = 1.2f;
+    [SerializeField] private float ledgeTopHeight = 1.8f;
+    [SerializeField] Vector3 ledgeHangOffset = new Vector3(0f, -0.35f, -0.35f);
+    [SerializeField] Vector3 ledgeClimbOffset = new Vector3(0f, 0f, 0.2f);
+    [SerializeField] private LayerMask ledgeLayers;
     private CharacterController controller;
 
     private Vector3 desiredVelocity;
@@ -72,6 +79,18 @@ public class CharacterMotor : MonoBehaviour
     public bool WallJumpWindowOpen =>
         wallJumpWindowOpen;
 
+    private bool ledgeDetected;
+    private Vector3 ledgeHangPosition;
+    private Vector3 ledgeNormal;
+    private Vector3 ledgeClimbPosition;
+    private bool ledgeHanging;
+
+    public bool LedgeDetected => ledgeDetected;
+    public Vector3 LedgeHangPosition => ledgeHangPosition;
+    public Vector3 LedgeNormal => ledgeNormal;
+    public Vector3 LedgeClimbPosition => ledgeClimbPosition;
+    public bool LedgeHanging => ledgeHanging;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -80,8 +99,12 @@ public class CharacterMotor : MonoBehaviour
     public void Tick()
     {
         UpdateHorizontalVelocity();
-        ApplyGravity();
+
+        if (!ledgeHanging)
+            ApplyGravity();
+
         CheckWall();
+        CheckLedge();
 
         Vector3 finalVelocity =
             velocity +
@@ -229,6 +252,48 @@ public class CharacterMotor : MonoBehaviour
             accel * Time.deltaTime);
     }
 
+    public void SetLedgeClimbPosition(
+        Vector3 startPosition,
+        Vector3 targetPosition,
+        Vector3 ledgeRight,
+        Vector3 ledgeForward,
+        float progressX,
+        float progressY,
+        float progressZ)
+    {
+        Vector3 totalMovement =
+            targetPosition - startPosition;
+
+        float lateralMovement =
+            Vector3.Dot(
+                totalMovement,
+                ledgeRight);
+
+        float verticalMovement =
+            totalMovement.y;
+
+        float forwardMovement =
+            Vector3.Dot(
+                totalMovement,
+                ledgeForward);
+
+        Vector3 position =
+            startPosition
+            + ledgeRight *
+              (lateralMovement * progressX)
+            + Vector3.up *
+              (verticalMovement * progressY)
+            + ledgeForward *
+              (forwardMovement * progressZ);
+
+        SetPosition(position);
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        transform.position = position;
+    }
+
     private void ApplyGravity()
     {
         if (Grounded && velocity.y < 0f)
@@ -301,6 +366,11 @@ public class CharacterMotor : MonoBehaviour
 
         desiredVelocity.x = 0f;
         desiredVelocity.z = 0f;
+    }
+    public void StopVerticalMovement()
+    {
+        velocity.y = 0f;
+        knockbackVelocity.y = 0f;
     }
 
     public void StartAttackMovement(float speed)
@@ -451,8 +521,155 @@ public class CharacterMotor : MonoBehaviour
 
         RotateTowards(direction);
     }
-    
+
+    public void CheckLedge()
+    {
+        ledgeDetected = false;
+
+        if (Grounded)
+            return;
+
+        Vector3 lowerOrigin =
+            transform.position +
+            Vector3.up * ledgeCheckHeight;
+
+        Vector3 upperOrigin =
+            transform.position +
+            Vector3.up * ledgeTopHeight;
+
+        // Tiene que existir una pared delante del personaje.
+        if (!Physics.Raycast(
+            lowerOrigin,
+            transform.forward,
+            out RaycastHit wallHit,
+            ledgeCheckDistance,
+            ledgeLayers))
+        {
+            return;
+        }
+
+        // Por encima de la pared tiene que existir espacio libre.
+        if (Physics.Raycast(
+            upperOrigin,
+            transform.forward,
+            ledgeCheckDistance,
+            ledgeLayers))
+        {
+            return;
+        }
+
+        // Buscamos la superficie superior del ledge.
+        Vector3 topRayOrigin =
+            wallHit.point +
+            Vector3.up * 0.05f;
+
+        if (!Physics.Raycast(
+            topRayOrigin,
+            Vector3.down,
+            out RaycastHit topHit,
+            ledgeTopHeight,
+            ledgeLayers))
+        {
+            return;
+        }
+
+        ledgeNormal = wallHit.normal;
+
+        ledgeHangPosition =
+            topHit.point +
+            transform.right * ledgeHangOffset.x +
+            Vector3.up * ledgeHangOffset.y +
+            transform.forward * ledgeHangOffset.z;
+
+        ledgeClimbPosition =
+            topHit.point
+            + transform.right * ledgeClimbOffset.x
+            + Vector3.up * ledgeClimbOffset.y
+            + transform.forward * ledgeClimbOffset.z;
+
+        ledgeDetected = true;
+    }
+
+    public void StartLedgeHang()
+    {
+        ledgeHanging = true;
+
+        LockMovement();
+
+        velocity = Vector3.zero;
+        knockbackVelocity = Vector3.zero;
+        attackImpulseVelocity = Vector3.zero;
+
+        desiredVelocity = Vector3.zero;
+
+        Vector3 facingDirection = -ledgeNormal;
+        facingDirection.y = 0f;
+
+        if (facingDirection.sqrMagnitude > 0.001f)
+        {
+            transform.rotation =
+                Quaternion.LookRotation(facingDirection);
+        }
+    }
+
+    public void EndLedgeHang()
+    {
+        EnableCharacterController();
+        ledgeHanging = false;
+        UnlockMovementInput();
+        UnlockMovement();
+    }
+
+    public void SetLedgeHangPosition()
+    {
+        DisableCharacterController();
+
+        transform.position =
+            ledgeHangPosition;
+    }
+
+    public void SetLedgeClimbPosition()
+    {
+        DisableCharacterController();
+
+        transform.position =
+            ledgeClimbPosition;
+
+        EnableCharacterController();
+    }
+
+    public Vector3 InputToWorldDirection(Vector2 input)
+    {
+        if (cameraTransform == null)
+            return Vector3.zero;
+
+        Vector3 forward = cameraTransform.forward;
+        Vector3 right = cameraTransform.right;
+
+        forward.y = 0f;
+        right.y = 0f;
+
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 direction =
+            forward * input.y +
+            right * input.x;
+
+        if (direction.sqrMagnitude > 1f)
+            direction.Normalize();
+
+        return direction;
+    }
+
+    /// GIZMOS /////////////////////////////////////////
     private void OnDrawGizmosSelected()
+    {
+        DrawWallCheckGizmos();
+        DrawLedgeCheckGizmos();
+    }
+
+    private void DrawWallCheckGizmos()
     {
         Vector3 origin =
             transform.position +
@@ -475,5 +692,73 @@ public class CharacterMotor : MonoBehaviour
         Gizmos.DrawLine(
             origin,
             origin - transform.right * wallCheckDistance);
+    }
+
+    private void DrawLedgeCheckGizmos()
+    {
+        Vector3 lowerOrigin =
+            transform.position +
+            Vector3.up * ledgeCheckHeight;
+
+        Vector3 upperOrigin =
+            transform.position +
+            Vector3.up * ledgeTopHeight;
+
+        // ------------------------------------------------
+        // 1. Wall check
+        // ------------------------------------------------
+
+        Gizmos.color = Color.yellow;
+
+        Gizmos.DrawLine(
+            lowerOrigin,
+            lowerOrigin +
+            transform.forward * ledgeCheckDistance);
+
+        Gizmos.DrawWireSphere(
+            lowerOrigin +
+            transform.forward * ledgeCheckDistance,
+            0.04f);
+
+        // ------------------------------------------------
+        // 2. Upper clearance check
+        // ------------------------------------------------
+
+        Gizmos.color = Color.cyan;
+
+        Gizmos.DrawLine(
+            upperOrigin,
+            upperOrigin +
+            transform.forward * ledgeCheckDistance);
+
+        Gizmos.DrawWireSphere(
+            upperOrigin +
+            transform.forward * ledgeCheckDistance,
+            0.04f);
+
+        // ------------------------------------------------
+        // 4. Posición de hang
+        // ------------------------------------------------
+
+        Gizmos.color = Color.magenta;
+
+        Gizmos.DrawWireSphere(
+            ledgeHangPosition,
+            0.12f);
+
+        // ------------------------------------------------
+        // 5. Posición de climb
+        // ------------------------------------------------
+
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(
+            ledgeClimbPosition,
+            0.12f);
+
+        // Línea entre hang y climb.
+        Gizmos.DrawLine(
+            ledgeHangPosition,
+            ledgeClimbPosition);
     }
 }
