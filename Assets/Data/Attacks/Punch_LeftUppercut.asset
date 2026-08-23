@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 140d6ee25bfff0e469ee8d8495d182ee, type: 3}
-  m_Name: Punch_RightCross
+  m_Name: Punch_LeftUppercut
   m_EditorClassIdentifier: 
-  animationState: Punch_RightCross
-  animationClip: {fileID: -203655887218126122, guid: 6f40f3b77a659014fa9a705c03be8a6c,
+  animationState: Punch_LeftUppercut
+  animationClip: {fileID: -203655887218126122, guid: c977ac8002d47454a8ff6594666b3aec,
     type: 3}
   animationStartFrame: 0
   hitStartFrame: 12
   hitEndFrame: 17
-  comboStartFrame: 35
-  comboEndFrame: 40
-  damage: 10
-  hitbox: 1
-  knockback: 10
-  knockbackUp: 2
-  hitReaction: 3
-  selfMoveStartFrame: 12
-  selfMoveEndFrame: 17
-  selfMoveForce: 12
-  trailStartFrame: 7
-  trailEndFrame: 15
+  comboStartFrame: 22
+  comboEndFrame: 34
+  damage: 7
+  hitbox: 0
+  knockback: 5
+  knockbackUp: 4
+  hitReaction: 1
+  selfMoveStartFrame: 10
+  selfMoveEndFrame: 15
+  selfMoveForce: 5
+  trailStartFrame: 10
+  trailEndFrame: 17

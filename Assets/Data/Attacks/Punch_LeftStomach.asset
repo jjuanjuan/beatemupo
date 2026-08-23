@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 140d6ee25bfff0e469ee8d8495d182ee, type: 3}
-  m_Name: Punch_RightCross
+  m_Name: Punch_LeftStomach
   m_EditorClassIdentifier: 
-  animationState: Punch_RightCross
-  animationClip: {fileID: -203655887218126122, guid: 6f40f3b77a659014fa9a705c03be8a6c,
+  animationState: Punch_LeftStomach
+  animationClip: {fileID: -203655887218126122, guid: 24f8aa478503dcb418d2434177c293c8,
     type: 3}
   animationStartFrame: 0
-  hitStartFrame: 12
-  hitEndFrame: 17
-  comboStartFrame: 35
-  comboEndFrame: 40
-  damage: 10
-  hitbox: 1
-  knockback: 10
-  knockbackUp: 2
-  hitReaction: 3
-  selfMoveStartFrame: 12
-  selfMoveEndFrame: 17
-  selfMoveForce: 12
-  trailStartFrame: 7
-  trailEndFrame: 15
+  hitStartFrame: 6
+  hitEndFrame: 10
+  comboStartFrame: 8
+  comboEndFrame: 15
+  damage: 3
+  hitbox: 0
+  knockback: 1.5
+  knockbackUp: 0
+  hitReaction: 2
+  selfMoveStartFrame: 3
+  selfMoveEndFrame: 6
+  selfMoveForce: 7
+  trailStartFrame: 2
+  trailEndFrame: 8

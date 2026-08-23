@@ -173,7 +173,7 @@ AnimatorStateMachine:
     m_Position: {x: 350, y: 430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2275905907893940797}
-    m_Position: {x: 350, y: 550, z: 0}
+    m_Position: {x: 350, y: 610, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6733801092243604289}
     m_Position: {x: 720, y: 490, z: 0}
@@ -219,6 +219,12 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 2320973264316840739}
     m_Position: {x: 1500, y: 190, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -673462098513923873}
+    m_Position: {x: 350, y: 550, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 4069481648797604824}
+    m_Position: {x: 350, y: 670, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -304,6 +310,33 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: -203655887218126122, guid: 04adb1c87b8bd824182a70914b04907a,
+    type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &-673462098513923873
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Punch_LeftStomach
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: -203655887218126122, guid: 24f8aa478503dcb418d2434177c293c8,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -521,6 +554,33 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: -203655887218126122, guid: 098c36585e7ba5e43b0ec452f4a844aa,
+    type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &4069481648797604824
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Punch_LeftUppercut
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: -203655887218126122, guid: c977ac8002d47454a8ff6594666b3aec,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 

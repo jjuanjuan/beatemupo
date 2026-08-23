@@ -18,6 +18,13 @@ public class CharacterMotor : MonoBehaviour
     [SerializeField] private float gravity = -25f;
     [SerializeField] float coyoteTime = .1f;
 
+    [Header("Wall Jump")]
+    [SerializeField] private float wallCheckDistance = 0.6f;
+    [SerializeField] private float wallCheckHeight = 1f;
+    [SerializeField] private float wallJumpHorizontalForce = 7f;
+    [SerializeField] private float wallJumpVerticalForce = 7f;
+    [SerializeField] private float wallJumpApexWindow = 0.15f;
+
     [Header("Rotation")]
     [SerializeField] private float rotationSpeed = 720f;
 
@@ -51,6 +58,12 @@ public class CharacterMotor : MonoBehaviour
     private bool movementInputLocked;
     public bool MovementInputLocked => movementInputLocked;
 
+    private bool wallDetected;
+    private Vector3 wallNormal;
+
+    public bool WallDetected => wallDetected;
+    public Vector3 WallNormal => wallNormal;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -59,8 +72,8 @@ public class CharacterMotor : MonoBehaviour
     public void Tick()
     {
         UpdateHorizontalVelocity();
-
         ApplyGravity();
+        CheckWall();
 
         Vector3 finalVelocity =
             velocity +
@@ -299,5 +312,40 @@ public class CharacterMotor : MonoBehaviour
     public void EnableCharacterController()
     {
         controller.enabled = true;
+    }
+
+    public void CheckWall()
+    {
+        wallDetected = false;
+
+        Vector3 origin =
+            transform.position +
+            Vector3.up * wallCheckHeight;
+
+        Vector3[] directions =
+        {
+        transform.forward,
+        -transform.forward,
+        transform.right,
+        -transform.right
+    };
+
+        foreach (Vector3 direction in directions)
+        {
+            if (Physics.Raycast(
+                origin,
+                direction,
+                out RaycastHit hit,
+                wallCheckDistance))
+            {
+                if (hit.collider.transform == transform)
+                    continue;
+
+                wallDetected = true;
+                wallNormal = hit.normal;
+
+                return;
+            }
+        }
     }
 }
