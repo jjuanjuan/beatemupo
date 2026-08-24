@@ -37,6 +37,17 @@ public class JumpState : CharacterState
         }
 
         if (context.Motor.Falling)
+        {
             stateMachine.ChangeState(context.States.Fall);
+        }
+
+        Vector2 input = context.Brain.MoveInput;
+
+        float speed =
+            context.Motor.HorizontalSpeed /
+            context.Motor.MoveSpeed;
+
+        context.Animator.SetSpeed(speed);
+        context.Motor.Move(input);
     }
 }
