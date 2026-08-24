@@ -9,11 +9,18 @@ public class FallState : CharacterState
 
     public override void Enter()
     {
+        context.Motor.StartFall();
+
         context.Animator.Play("Fall", .05f);
     }
 
     public override void Update()
     {
+        context.Motor.UpdateFallTime();
+
+        context.Animator.SetFallTime(
+            context.Motor.FallTime);
+
         if (context.Motor.LedgeDetected)
         {
             stateMachine.ChangeState(

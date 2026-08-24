@@ -13,6 +13,8 @@ public class CharacterAnimator : MonoBehaviour
 
     private static readonly int SpeedHash =
         Animator.StringToHash("Speed");
+    private static readonly int FallTimeHash =
+        Animator.StringToHash("FallTime");
 
     public void Play(
         string state,
@@ -50,5 +52,12 @@ public class CharacterAnimator : MonoBehaviour
     public void SetSpeed(float speed)
     {
         animator.SetFloat(SpeedHash, speed);
+    }
+    
+    public void SetFallTime(float time)
+    {
+        animator.SetFloat(
+            FallTimeHash,
+            time);
     }
 }

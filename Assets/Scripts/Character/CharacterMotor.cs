@@ -91,6 +91,10 @@ public class CharacterMotor : MonoBehaviour
     public Vector3 LedgeClimbPosition => ledgeClimbPosition;
     public bool LedgeHanging => ledgeHanging;
 
+    private float fallTime;
+
+    public float FallTime => fallTime;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -99,6 +103,7 @@ public class CharacterMotor : MonoBehaviour
     public void Tick()
     {
         UpdateHorizontalVelocity();
+        UpdateFallTime();
 
         if (!ledgeHanging)
             ApplyGravity();
@@ -122,6 +127,16 @@ public class CharacterMotor : MonoBehaviour
         {
             lastGroundedTime = Time.time;
         }
+    }
+
+    public void StartFall()
+    {
+        fallTime = 0f;
+    }
+
+    public void UpdateFallTime()
+    {
+        fallTime += Time.deltaTime;
     }
 
     private void UpdateWallJumpRefresh()
