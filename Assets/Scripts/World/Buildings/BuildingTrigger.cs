@@ -6,25 +6,17 @@ public class BuildingTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        CharacterMotor motor =
-            other.GetComponent<CharacterMotor>();
-
-        if (motor == null)
+        if (!other.CompareTag("Player"))
             return;
 
-        BuildingVisibilityManager.Instance
-            .EnterBuilding(building);
+        building.EnterBuilding();
     }
 
     private void OnTriggerExit(Collider other)
     {
-        CharacterMotor motor =
-            other.GetComponent<CharacterMotor>();
-
-        if (motor == null)
+        if (!other.CompareTag("Player"))
             return;
 
-        BuildingVisibilityManager.Instance
-            .ExitBuilding(building);
+        building.ExitBuilding();
     }
 }
