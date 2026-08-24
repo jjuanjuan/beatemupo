@@ -1,5 +1,64 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!206 &-9163232719411604631
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Blend Tree
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: 04adb1c87b8bd824182a70914b04907a,
+      type: 3}
+    m_Threshold: -0.3
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Speed
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: ef4ed6bc39805364ba34ff3eb3d7c152,
+      type: 3}
+    m_Threshold: 0.8
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Speed
+    m_Mirror: 0
+  m_BlendParameter: LandingIntensity
+  m_BlendParameterY: Speed
+  m_MinThreshold: -0.3
+  m_MaxThreshold: 0.8
+  m_UseAutomaticThresholds: 0
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
+--- !u!1102 &-8230636097601469509
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Landing
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: -9163232719411604631}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &-7425575435953946768
 AnimatorState:
   serializedVersion: 6
@@ -242,7 +301,7 @@ AnimatorStateMachine:
     m_Position: {x: 350, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7110864971879993077}
-    m_Position: {x: 1000, y: 740, z: 0}
+    m_Position: {x: 1000, y: 700, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4656443470034768318}
     m_Position: {x: 350, y: 490, z: 0}
@@ -269,13 +328,13 @@ AnimatorStateMachine:
     m_Position: {x: 1070, y: 490, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 802098564725299770}
-    m_Position: {x: 1300, y: 800, z: 0}
+    m_Position: {x: 1300, y: 870, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -527935599291219891}
-    m_Position: {x: 1300, y: 860, z: 0}
+    m_Position: {x: 1300, y: 930, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7502538683140046703}
-    m_Position: {x: 1300, y: 920, z: 0}
+    m_Position: {x: 1300, y: 990, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2015843946363481189}
     m_Position: {x: 580, y: 300, z: 0}
@@ -317,13 +376,16 @@ AnimatorStateMachine:
     m_Position: {x: 1280, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5238046591656689994}
-    m_Position: {x: 1000, y: 800, z: 0}
+    m_Position: {x: 1000, y: 870, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2599997421595353599}
-    m_Position: {x: 1000, y: 920, z: 0}
+    m_Position: {x: 1000, y: 990, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3232155580674838202}
-    m_Position: {x: 1000, y: 860, z: 0}
+    m_Position: {x: 1000, y: 930, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -8230636097601469509}
+    m_Position: {x: 1000, y: 760, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -512,6 +574,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: FallTime
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: LandingIntensity
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -712,7 +780,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: c5b2782079089d540a7ce1314dd554d6,
       type: 3}
-    m_Threshold: 3
+    m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 2
     m_CycleOffset: 0
@@ -721,7 +789,7 @@ BlendTree:
   m_BlendParameter: FallTime
   m_BlendParameterY: Speed
   m_MinThreshold: 0
-  m_MaxThreshold: 3
+  m_MaxThreshold: 1
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0

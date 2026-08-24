@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class FallState : CharacterState
 {
-    public FallState(CharacterContext context, CharacterStateMachine stateMachine)
+    public FallState(
+        CharacterContext context,
+        CharacterStateMachine stateMachine)
         : base(context, stateMachine)
     {
     }
@@ -11,7 +13,9 @@ public class FallState : CharacterState
     {
         context.Motor.StartFall();
 
-        context.Animator.Play("Fall", .05f);
+        context.Animator.Play(
+            "Fall",
+            0.05f);
     }
 
     public override void Update()
@@ -46,10 +50,12 @@ public class FallState : CharacterState
 
         if (context.Motor.Grounded)
         {
-            if (context.Brain.MoveInput.sqrMagnitude > 0.01f)
-                stateMachine.ChangeState(context.States.Move);
-            else
-                stateMachine.ChangeState(context.States.Idle);
+            context.Motor.EndFall();
+
+            stateMachine.ChangeState(
+                context.States.Landing);
+
+            return;
         }
     }
 }

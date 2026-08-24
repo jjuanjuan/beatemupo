@@ -6,8 +6,7 @@ public class CharacterAnimator : MonoBehaviour
     public Animator animator;
 
     [Header("Definitions")]
-    [SerializeField]
-    public AnimationDefinition ledgeClimbAnimation;
+    [SerializeField] public AnimationDefinition ledgeClimbAnimation;
 
     private int currentState;
 
@@ -15,6 +14,8 @@ public class CharacterAnimator : MonoBehaviour
         Animator.StringToHash("Speed");
     private static readonly int FallTimeHash =
         Animator.StringToHash("FallTime");
+    private static readonly int LandingIntensityHash =
+        Animator.StringToHash("LandingIntensity");
 
     public void Play(
         string state,
@@ -53,11 +54,19 @@ public class CharacterAnimator : MonoBehaviour
     {
         animator.SetFloat(SpeedHash, speed);
     }
-    
+
     public void SetFallTime(float time)
     {
         animator.SetFloat(
             FallTimeHash,
             time);
     }
+
+    public void SetLandingIntensity(float intensity)
+    {
+        animator.SetFloat(
+            LandingIntensityHash,
+            intensity);
+    }
+
 }

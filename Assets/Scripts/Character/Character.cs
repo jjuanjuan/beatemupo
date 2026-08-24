@@ -48,6 +48,7 @@ public class Character : MonoBehaviour
         states.Move = new MoveState(Context, StateMachine);
         states.Jump = new JumpState(Context, StateMachine);
         states.Fall = new FallState(Context, StateMachine);
+        states.Landing = new LandingState(Context, StateMachine);
         states.Attack = new AttackState(Context, StateMachine);
         states.Hit = new HitState(Context, StateMachine);
         states.Knockdown = new KnockdownState(Context, StateMachine);

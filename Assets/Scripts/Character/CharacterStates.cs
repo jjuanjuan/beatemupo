@@ -8,6 +8,7 @@ public class CharacterStates
     public MoveState Move { get; set; }
     public JumpState Jump { get; set; }
     public FallState Fall { get; set; }
+    public LandingState Landing { get; set; }
     public AttackState Attack { get; set; }
     public HitState Hit { get; set; }
     public KnockdownState Knockdown { get; set; }

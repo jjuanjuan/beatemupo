@@ -17,6 +17,12 @@ public class CharacterMotor : MonoBehaviour
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private float gravity = -25f;
     [SerializeField] float coyoteTime = .1f;
+    [SerializeField] private float MinLandingDeceleration = 2f;
+    [SerializeField] private float MaxLandingDeceleration = 12f;
+    [SerializeField] float minFallTime = 0.15f;
+    [SerializeField] float maxFallTime = 2.5f;
+    [SerializeField] float minLandingDuration = 0.1f;
+    [SerializeField] float maxLandingDuration = 0.75f;
 
     [Header("Wall Jump")]
     [SerializeField] private float wallCheckDistance = 0.6f;
@@ -92,8 +98,17 @@ public class CharacterMotor : MonoBehaviour
     public bool LedgeHanging => ledgeHanging;
 
     private float fallTime;
+    private float lastFallTime;
+    private bool landingMovement;
 
     public float FallTime => fallTime;
+    public float LastFallTime => lastFallTime;
+    public bool LandingMovement => landingMovement;
+    public float MinFallTime => minFallTime;
+    public float MaxFallTime => maxFallTime;
+    public float MinLandingDuration => minLandingDuration;
+    public float MaxLandingDuration => maxLandingDuration;
+
 
     void Awake()
     {
@@ -103,7 +118,6 @@ public class CharacterMotor : MonoBehaviour
     public void Tick()
     {
         UpdateHorizontalVelocity();
-        UpdateFallTime();
 
         if (!ledgeHanging)
             ApplyGravity();
@@ -137,6 +151,21 @@ public class CharacterMotor : MonoBehaviour
     public void UpdateFallTime()
     {
         fallTime += Time.deltaTime;
+    }
+
+    public void EndFall()
+    {
+        lastFallTime = fallTime;
+    }
+
+    public void StartLandingMovement()
+    {
+        landingMovement = true;
+    }
+
+    public void EndLandingMovement()
+    {
+        landingMovement = false;
     }
 
     private void UpdateWallJumpRefresh()
@@ -243,6 +272,33 @@ public class CharacterMotor : MonoBehaviour
                 velocity.z,
                 0f,
                 groundDeceleration * Time.deltaTime);
+
+            return;
+        }
+
+        if (landingMovement)
+        {
+            float fallIntensity =
+                Mathf.InverseLerp(
+                    minFallTime,
+                    maxFallTime,
+                    lastFallTime);
+
+            float landingDeceleration =
+                Mathf.Lerp(
+                    MinLandingDeceleration,
+                    MaxLandingDeceleration,
+                    fallIntensity);
+
+            velocity.x = Mathf.MoveTowards(
+                velocity.x,
+                0f,
+                landingDeceleration * Time.deltaTime);
+
+            velocity.z = Mathf.MoveTowards(
+                velocity.z,
+                0f,
+                landingDeceleration * Time.deltaTime);
 
             return;
         }
