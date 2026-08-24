@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
@@ -9,21 +6,34 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] float speed = 2f;
     [SerializeField] float stopTime = 1f;
 
-    Vector3 originPosition;
-    bool stopped;
-    float timer;
-    bool goingToEnd;
+    private Vector3 originPosition;
+    private bool stopped;
+    private float timer;
+    private bool goingToEnd;
+
+    private Vector3 previousPosition;
+
+    public Vector3 FrameDelta { get; private set; }
 
     void Awake()
     {
         originPosition = transform.position;
+
+        previousPosition = transform.position;
+
         timer = 0f;
         goingToEnd = true;
         stopped = true;
+
+        FrameDelta = Vector3.zero;
     }
 
     void Update()
     {
+        FrameDelta = Vector3.zero;
+
+        Vector3 previousPosition = transform.position;
+
         if (stopped)
         {
             timer += Time.deltaTime;
@@ -33,7 +43,6 @@ public class MovingPlatform : MonoBehaviour
                 timer = 0f;
                 stopped = false;
             }
-            return;
         }
         else
         {
@@ -50,7 +59,6 @@ public class MovingPlatform : MonoBehaviour
                     goingToEnd = false;
                     stopped = true;
                     timer = 0f;
-                    return;
                 }
             }
             else
@@ -66,36 +74,47 @@ public class MovingPlatform : MonoBehaviour
                     goingToEnd = true;
                     stopped = true;
                     timer = 0f;
-                    return;
                 }
             }
         }
+
+        FrameDelta = transform.position - previousPosition;
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = new Color(1f, 0f, 0f, .5f);
+
         if (Application.isPlaying)
         {
-            Gizmos.DrawLine(originPosition, EndPosition
-                + originPosition);
+            Gizmos.DrawLine(
+                originPosition,
+                EndPosition + originPosition);
         }
         else
         {
-            Gizmos.DrawLine(transform.position, EndPosition
-                + transform.position);
+            Gizmos.DrawLine(
+                transform.position,
+                EndPosition + transform.position);
         }
+
         Gizmos.color = new Color(.2f, .2f, .5f, .5f);
+
         if (Application.isPlaying)
         {
-            Gizmos.DrawWireCube(EndPosition + originPosition,
+            Gizmos.DrawWireCube(
+                EndPosition + originPosition,
                 transform.localScale);
-            Gizmos.DrawWireCube(originPosition, transform.localScale);
+
+            Gizmos.DrawWireCube(
+                originPosition,
+                transform.localScale);
         }
         else
         {
-            Gizmos.DrawWireCube(EndPosition + transform.position,
-                            transform.localScale);
+            Gizmos.DrawWireCube(
+                EndPosition + transform.position,
+                transform.localScale);
         }
     }
 }

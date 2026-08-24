@@ -47,6 +47,20 @@ public class CharacterMotor : MonoBehaviour
     [SerializeField] Vector3 ledgeHangOffset = new Vector3(0f, -0.35f, -0.35f);
     [SerializeField] Vector3 ledgeClimbOffset = new Vector3(0f, 0f, 0.2f);
     [SerializeField] private LayerMask ledgeLayers;
+
+    [Header("Moving Platform")]
+    [SerializeField] private float platformCheckDistance = 0.15f;
+    [SerializeField] private LayerMask platformLayers;
+
+    private MovingPlatform currentPlatform;
+    private Vector3 platformDelta;
+
+    private bool platformDetected;
+    private RaycastHit platformHit;
+
+    public bool PlatformDetected => platformDetected;
+    public MovingPlatform CurrentPlatform => currentPlatform;
+
     private CharacterController controller;
 
     private Vector3 desiredVelocity;
@@ -118,6 +132,10 @@ public class CharacterMotor : MonoBehaviour
 
     public void Tick()
     {
+        CheckMovingPlatform();
+
+        ApplyMovingPlatformMovement();
+
         UpdateHorizontalVelocity();
 
         if (!ledgeHanging)
@@ -735,11 +753,125 @@ public class CharacterMotor : MonoBehaviour
         return direction;
     }
 
+    private void CheckMovingPlatform()
+    {
+        platformDetected = false;
+
+        if (ledgeHanging)
+        {
+            currentPlatform = null;
+            return;
+        }
+
+        if (!Grounded)
+        {
+            currentPlatform = null;
+            return;
+        }
+
+        Vector3 origin =
+            transform.TransformPoint(controller.center);
+
+        float distance =
+            controller.height * 0.5f +
+            platformCheckDistance;
+
+        if (Physics.Raycast(
+            origin,
+            Vector3.down,
+            out RaycastHit hit,
+            distance,
+            platformLayers,
+            QueryTriggerInteraction.Ignore))
+        {
+            MovingPlatform platform =
+                hit.collider.GetComponentInParent<MovingPlatform>();
+
+            if (platform != null)
+            {
+                currentPlatform = platform;
+                platformDetected = true;
+                platformHit = hit;
+
+                return;
+            }
+        }
+
+        currentPlatform = null;
+    }
+
+    private void ApplyMovingPlatformMovement()
+    {
+        if (currentPlatform == null)
+            return;
+
+        Vector3 platformDelta =
+            currentPlatform.FrameDelta;
+
+        if (platformDelta.sqrMagnitude < 0.0000001f)
+            return;
+
+        controller.Move(platformDelta);
+    }
+
     /// GIZMOS /////////////////////////////////////////
     private void OnDrawGizmosSelected()
     {
         DrawWallCheckGizmos();
         DrawLedgeCheckGizmos();
+        DrawMovingPlatformGizmos();
+    }
+
+    private void DrawMovingPlatformGizmos()
+    {
+        if (controller == null)
+            controller = GetComponent<CharacterController>();
+
+        if (controller == null)
+            return;
+
+        Vector3 origin =
+            transform.TransformPoint(controller.center);
+
+        float distance =
+            controller.height * 0.5f +
+            platformCheckDistance;
+
+        Gizmos.color =
+            platformDetected
+                ? Color.green
+                : Color.white;
+
+        Gizmos.DrawLine(
+            origin,
+            origin + Vector3.down * distance);
+
+        Gizmos.DrawWireSphere(
+            origin + Vector3.down * distance,
+            0.04f);
+
+        if (platformDetected)
+        {
+            Gizmos.color = Color.green;
+
+            Gizmos.DrawWireSphere(
+                platformHit.point,
+                0.08f);
+
+            Gizmos.DrawLine(
+                platformHit.point,
+                platformHit.point +
+                platformHit.normal * 0.3f);
+
+            if (currentPlatform != null)
+            {
+                Gizmos.color = Color.green;
+
+                Gizmos.DrawLine(
+                    transform.position,
+                    currentPlatform.transform.position);
+            }
+        }
     }
 
     private void DrawWallCheckGizmos()
