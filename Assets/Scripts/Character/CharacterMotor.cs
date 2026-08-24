@@ -23,6 +23,7 @@ public class CharacterMotor : MonoBehaviour
     [SerializeField] float maxFallTime = 2.5f;
     [SerializeField] float minLandingDuration = 0.1f;
     [SerializeField] float maxLandingDuration = 0.75f;
+    [SerializeField] private float hardFallThreshold = 2f;
 
     [Header("Wall Jump")]
     [SerializeField] private float wallCheckDistance = 0.6f;
@@ -108,7 +109,7 @@ public class CharacterMotor : MonoBehaviour
     public float MaxFallTime => maxFallTime;
     public float MinLandingDuration => minLandingDuration;
     public float MaxLandingDuration => maxLandingDuration;
-
+    public float HardFallThreshold => hardFallThreshold;
 
     void Awake()
     {
@@ -156,6 +157,7 @@ public class CharacterMotor : MonoBehaviour
     public void EndFall()
     {
         lastFallTime = fallTime;
+        Debug.Log("last fall time: " + lastFallTime);
     }
 
     public void StartLandingMovement()

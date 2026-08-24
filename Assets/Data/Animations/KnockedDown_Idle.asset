@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 581afdbc997334e42b07b3569a83f354, type: 3}
-  m_Name: GetUp
+  m_Name: KnockedDown_Idle
   m_EditorClassIdentifier: 
-  animationState: GetUp
-  animationClip: {fileID: -203655887218126122, guid: f75916902d1cbca469176aeb1dafbe3f,
+  animationState: KnockedDown
+  animationClip: {fileID: -203655887218126122, guid: 78e1b18f28c9f474ea9b7ef19b149653,
     type: 3}

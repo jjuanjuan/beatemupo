@@ -2078,6 +2078,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 66968535}
   ledgeClimbAnimation: {fileID: 0}
+  SplatAnimation: {fileID: 0}
+  SplatDownAnimation: {fileID: 0}
+  SplatGetUpAnimation: {fileID: 0}
 --- !u!114 &1287491307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2117,6 +2120,7 @@ MonoBehaviour:
   maxFallTime: 2.5
   minLandingDuration: 0.1
   maxLandingDuration: 0.75
+  hardFallThreshold: 2
   wallCheckDistance: 0.6
   wallCheckHeight: 1
   wallJumpHorizontalForce: 7
@@ -2461,6 +2465,10 @@ MonoBehaviour:
   animator: {fileID: 488173410}
   ledgeClimbAnimation: {fileID: 11400000, guid: a436e1c227e029d45a85fe274f2050b1,
     type: 2}
+  SplatAnimation: {fileID: 11400000, guid: b5dd304b2fdb8564cbf23de49649970c, type: 2}
+  SplatDownAnimation: {fileID: 11400000, guid: ce2bf83eb57785c4a9b0a15afd253a32, type: 2}
+  SplatGetUpAnimation: {fileID: 11400000, guid: 5e91c24719bd5d14c9e03919da53ac6e,
+    type: 2}
 --- !u!114 &1449730104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2500,6 +2508,7 @@ MonoBehaviour:
   maxFallTime: 0.8
   minLandingDuration: 0.05
   maxLandingDuration: 0.8
+  hardFallThreshold: 0.9
   wallCheckDistance: 0.6
   wallCheckHeight: 0.25
   wallJumpHorizontalForce: 7

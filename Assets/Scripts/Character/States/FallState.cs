@@ -52,6 +52,15 @@ public class FallState : CharacterState
         {
             context.Motor.EndFall();
 
+            if (context.Motor.LastFallTime >=
+                context.Motor.HardFallThreshold)
+            {
+                stateMachine.ChangeState(
+                    context.States.Splat);
+
+                return;
+            }
+
             stateMachine.ChangeState(
                 context.States.Landing);
 

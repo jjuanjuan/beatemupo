@@ -8,6 +8,10 @@ public class CharacterAnimator : MonoBehaviour
     [Header("Definitions")]
     [SerializeField] public AnimationDefinition ledgeClimbAnimation;
 
+    [SerializeField] public AnimationDefinition SplatAnimation;
+    [SerializeField] public AnimationDefinition SplatDownAnimation;
+    [SerializeField] public AnimationDefinition SplatGetUpAnimation;
+
     private int currentState;
 
     private static readonly int SpeedHash =

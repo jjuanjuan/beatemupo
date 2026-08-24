@@ -12,6 +12,7 @@ public class CharacterStates
     public AttackState Attack { get; set; }
     public HitState Hit { get; set; }
     public KnockdownState Knockdown { get; set; }
+    public SplatState Splat { get; set; }
     public DeathState Death { get; set; }
     public LedgeHangState LedgeHang { get; set; }
     public LedgeClimbState LedgeClimb { get; set; }

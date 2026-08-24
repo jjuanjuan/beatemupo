@@ -29,14 +29,9 @@ public class KnockdownState : CharacterState
         timer = 0f;
         phase = Phase.Hit;
 
-        hitAnimation =
-            context.Damage.CurrentHitDefinition;
-
-        downAnimation =
-            context.Damage.KnockedDownDefinition;
-
-        getUpAnimation =
-            context.Damage.GetUpDefinition;
+        hitAnimation = context.Damage.CurrentHitDefinition;
+        downAnimation = context.Damage.KnockedDownDefinition;
+        getUpAnimation = context.Damage.GetUpDefinition;
 
         context.Motor.LockMovementInput();
 
