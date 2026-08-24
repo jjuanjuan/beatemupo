@@ -2175,10 +2175,6 @@ MonoBehaviour:
   ledgeLayers:
     serializedVersion: 2
     m_Bits: 0
-  platformCheckDistance: 0.15
-  platformLayers:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!143 &1287491309
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2573,10 +2569,6 @@ MonoBehaviour:
   ledgeLayers:
     serializedVersion: 2
     m_Bits: 1664
-  platformCheckDistance: 0.2
-  platformLayers:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!114 &1449730106
 MonoBehaviour:
   m_ObjectHideFlags: 0
