@@ -16,7 +16,8 @@ public class MoveState : CharacterState
 
     public override void Update()
     {
-        if (!context.Motor.Grounded)
+        if (!context.Motor.Grounded &&
+             !context.Motor.CanJump)
         {
             stateMachine.ChangeState(
                 context.States.Fall);
