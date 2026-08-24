@@ -736,6 +736,18 @@ public class CharacterMotor : MonoBehaviour
         return direction;
     }
 
+    private void OnControllerColliderHit(
+        ControllerColliderHit hit)
+    {
+        if (velocity.y <= 0f)
+            return;
+
+        if (hit.normal.y < -0.5f)
+        {
+            velocity.y = 0f;
+        }
+    }
+
     /// GIZMOS /////////////////////////////////////////
     private void OnDrawGizmosSelected()
     {
