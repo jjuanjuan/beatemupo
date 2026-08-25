@@ -16,7 +16,7 @@ public class Building : MonoBehaviour
         exteriorRenderers =
             exteriorRoot.GetComponentsInChildren<Renderer>(true);
 
-        SetInteriorVisible(false);
+        //SetInteriorVisible(false);
     }
 
     public void EnterBuilding()
@@ -26,8 +26,7 @@ public class Building : MonoBehaviour
 
         playerInside = true;
 
-        SetInteriorVisible(true);
-
+        VisibilityManager.Instance.SetInteriorBuilding(this);
         VisibilityManager.Instance.SetExteriorVisible(false);
     }
 
@@ -38,17 +37,19 @@ public class Building : MonoBehaviour
 
         playerInside = false;
 
-        SetInteriorVisible(false);
-
+        VisibilityManager.Instance.ResetBuildingInteriors();
         VisibilityManager.Instance.SetExteriorVisible(true);
     }
 
-    private void SetInteriorVisible(bool visible)
+    public void SetInteriorVisible(bool visible)
     {
         foreach (Renderer renderer in interiorRenderers)
         {
             if (renderer != null)
-                renderer.enabled = visible;
+            {
+                if (renderer.gameObject.tag != "IgnoreVisibilityChange")
+                    renderer.enabled = visible;
+            }
         }
     }
     public void SetExteriorVisible(bool visible)
@@ -56,7 +57,10 @@ public class Building : MonoBehaviour
         foreach (Renderer renderer in exteriorRenderers)
         {
             if (renderer != null)
-                renderer.enabled = visible;
+            {
+                if (renderer.gameObject.tag != "IgnoreVisibilityChange")
+                    renderer.enabled = visible;
+            }
         }
     }
 }

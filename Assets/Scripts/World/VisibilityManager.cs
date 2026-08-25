@@ -29,6 +29,15 @@ public class VisibilityManager : MonoBehaviour
         SetExteriorVisible(true);
     }
 
+    public void SetInteriorBuilding(Building building)
+    {
+        foreach (Building b in buildings)
+        {
+            if (b != building)
+                b.SetInteriorVisible(false);
+        }
+    }
+    
     public void SetExteriorVisible(bool visible)
     {
         foreach (Renderer renderer in exteriorRenderers)
@@ -39,6 +48,14 @@ public class VisibilityManager : MonoBehaviour
         foreach (Building b in buildings)
         {
             b.SetExteriorVisible(visible);
+        }
+    }
+
+    public void ResetBuildingInteriors()
+    {
+        foreach (Building b in buildings)
+        {
+            b.SetInteriorVisible(true);
         }
     }
 }
