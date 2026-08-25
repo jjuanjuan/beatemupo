@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a779548e572bfe844b933d1a96326412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 10
   Model: {fileID: 5273229498265705321}
   HitModel: {fileID: 2619559521139108722}
   ShakeIntensity: 0.1
