@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GroundPound_GetUp
   m_EditorClassIdentifier: 
   animationState: GroundPound_GetUp
-  duration: 1.42
-  optionalDuration: 2.44
+  duration: 0.94
+  optionalDuration: 1.6
   movementX:
     serializedVersion: 2
     m_Curve:

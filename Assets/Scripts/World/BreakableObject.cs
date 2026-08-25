@@ -7,6 +7,7 @@ public class BreakableObject : MonoBehaviour, IDamageable
     [SerializeField] int maxHealth = 10;
     [SerializeField] GameObject Model;
     [SerializeField] GameObject HitModel;
+    [Tooltip("Puede ser null")][SerializeField] GameObject DestroyedModel;
     [SerializeField] float ShakeIntensity = .1f;
     [SerializeField] float ShakeTime = .1f;
     [SerializeField] ParticleSystem DestroyParticles;
@@ -23,6 +24,8 @@ public class BreakableObject : MonoBehaviour, IDamageable
     void Awake()
     {
         HitModel.SetActive(false);
+        if (DestroyedModel != null)
+            DestroyedModel.SetActive(false);
         currentHealth = maxHealth;
         Collider = GetComponent<Collider>();
         timer = ShakeTime;
@@ -71,6 +74,9 @@ public class BreakableObject : MonoBehaviour, IDamageable
     private void Die()
     {
         Model.SetActive(false);
+        HitModel.SetActive(false);
+        if (DestroyedModel != null)
+            DestroyedModel.SetActive(true);
         Collider.enabled = false;
         if (DestroyParticles)
             DestroyParticles.Play();

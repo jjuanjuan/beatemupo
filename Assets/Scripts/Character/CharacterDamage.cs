@@ -42,7 +42,7 @@ public class CharacterDamage : MonoBehaviour, IDamageable
     bool isImmune;
 
     public bool IsDead => currentHealth <= 0;
-    public bool IsImmune => IsImmune;
+    public bool IsImmune => isImmune;
 
     public void Initialize(CharacterContext context)
     {
