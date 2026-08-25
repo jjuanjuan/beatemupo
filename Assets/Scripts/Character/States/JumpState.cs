@@ -36,6 +36,22 @@ public class JumpState : CharacterState
             return;
         }
 
+        if (!context.Motor.AerialAttackUsed &&
+            context.Brain.KickPressed)
+        {
+            stateMachine.ChangeState(
+                context.States.AerialKick);
+            return;
+        }
+
+        if (!context.Motor.AerialAttackUsed &&
+            context.Brain.PunchPressed)
+        {
+            stateMachine.ChangeState(
+                context.States.GroundPound);
+            return;
+        }
+
         if (context.Motor.Falling)
         {
             stateMachine.ChangeState(context.States.Fall);

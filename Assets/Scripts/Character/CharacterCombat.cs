@@ -11,6 +11,10 @@ public class CharacterCombat : MonoBehaviour
     [SerializeField]
     private List<AttackDefinition> kicks;
 
+    [Header("Aerial Attacks")]
+    [SerializeField] private AttackDefinition aerialKick;
+    [SerializeField] private AttackDefinition groundPound;
+
     [Header("Hitboxes")]
     [SerializeField] private AttackHitbox leftHandHitbox;
     [SerializeField] private AttackHitbox rightHandHitbox;
@@ -34,6 +38,9 @@ public class CharacterCombat : MonoBehaviour
         GetAttack(kicks);
 
     private Character character;
+
+    public AttackDefinition AerialKick => aerialKick;
+    public AttackDefinition GroundPound => groundPound;
 
     private void Awake()
     {

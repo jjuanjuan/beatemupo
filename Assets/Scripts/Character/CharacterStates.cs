@@ -16,4 +16,6 @@ public class CharacterStates
     public DeathState Death { get; set; }
     public LedgeHangState LedgeHang { get; set; }
     public LedgeClimbState LedgeClimb { get; set; }
+    public AerialKickState AerialKick { get; set; }
+    public GroundPoundState GroundPound { get; set; }
 }

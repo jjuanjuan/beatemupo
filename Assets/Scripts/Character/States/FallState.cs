@@ -67,6 +67,22 @@ public class FallState : CharacterState
             return;
         }
 
+        if (!context.Motor.AerialAttackUsed &&
+            context.Brain.KickPressed)
+        {
+            stateMachine.ChangeState(
+                context.States.AerialKick);
+            return;
+        }
+
+        if (!context.Motor.AerialAttackUsed &&
+            context.Brain.PunchPressed)
+        {
+            stateMachine.ChangeState(
+                context.States.GroundPound);
+            return;
+        }
+
         Vector2 input = context.Brain.MoveInput;
 
         float speed =

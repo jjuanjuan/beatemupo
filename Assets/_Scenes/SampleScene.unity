@@ -822,6 +822,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b0e158e3d5621704b8e5b301109e3afa, type: 2}
   kicks:
   - {fileID: 11400000, guid: c178cc3ffaa17a54fb9b9abd4cf8ce98, type: 2}
+  aerialKick: {fileID: 0}
+  groundPound: {fileID: 0}
   leftHandHitbox: {fileID: 423540110}
   rightHandHitbox: {fileID: 672454856}
   leftFootHitbox: {fileID: 657450152}
@@ -908,6 +910,8 @@ MonoBehaviour:
   ledgeLayers:
     serializedVersion: 2
     m_Bits: 1664
+  aerialKickForce: 9
+  groundPoundForce: 20
 --- !u!143 &88513463
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5464,6 +5468,8 @@ MonoBehaviour:
   ledgeLayers:
     serializedVersion: 2
     m_Bits: 640
+  aerialKickForce: 9
+  groundPoundForce: 20
 --- !u!114 &1449730106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5499,6 +5505,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b0e158e3d5621704b8e5b301109e3afa, type: 2}
   kicks:
   - {fileID: 11400000, guid: c178cc3ffaa17a54fb9b9abd4cf8ce98, type: 2}
+  aerialKick: {fileID: 11400000, guid: f811fc61a647d3549ab1a9377e65cf70, type: 2}
+  groundPound: {fileID: 11400000, guid: 3d5ed6261d58af84485a28504bdf4801, type: 2}
   leftHandHitbox: {fileID: 1221130363}
   rightHandHitbox: {fileID: 1830699317}
   leftFootHitbox: {fileID: 1438128985}

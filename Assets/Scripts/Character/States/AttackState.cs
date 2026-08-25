@@ -19,33 +19,27 @@ public class AttackState : CharacterState
     {
         timer = 0f;
 
-        AttackDefinition attack =
-            context.Combat.CurrentAttack;
-
-        StartAttack(attack);
+        StartAttack(context.Combat.CurrentAttack);
     }
 
     public override void Update()
     {
-        AttackDefinition attack =
-            context.Combat.CurrentAttack;
-
         timer += Time.deltaTime;
 
-        UpdatePhase(attack);
-        UpdateSelfMovement(attack);
-        UpdateTrail(attack);
-        UpdateComboWindow(attack);
+        UpdatePhase(context.Combat.CurrentAttack);
+        UpdateSelfMovement(context.Combat.CurrentAttack);
+        UpdateTrail(context.Combat.CurrentAttack);
+        UpdateComboWindow(context.Combat.CurrentAttack);
 
         if (comboWindowOpen)
         {
-            TryCombo(attack);
+            TryCombo(context.Combat.CurrentAttack);
 
             if (stateMachine.CurrentState != this)
                 return;
         }
 
-        if (timer >= attack.Duration)
+        if (timer >= context.Combat.CurrentAttack.Duration)
         {
             FinishAttack();
         }

@@ -48,6 +48,10 @@ public class CharacterMotor : MonoBehaviour
     [SerializeField] Vector3 ledgeClimbOffset = new Vector3(0f, 0f, 0.2f);
     [SerializeField] private LayerMask ledgeLayers;
 
+    [Header("Aerial Attacks")]
+    [SerializeField] private float aerialKickForce = 9f;
+    [SerializeField] private float groundPoundForce = 20f;
+
     private CharacterController controller;
 
     private Vector3 desiredVelocity;
@@ -112,6 +116,11 @@ public class CharacterMotor : MonoBehaviour
     public float MaxLandingDuration => maxLandingDuration;
     public float HardFallThreshold => hardFallThreshold;
 
+    private bool aerialAttackUsed;
+
+    public bool AerialAttackUsed => aerialAttackUsed;
+
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -142,6 +151,7 @@ public class CharacterMotor : MonoBehaviour
         if (Grounded)
         {
             lastGroundedTime = Time.time;
+            ResetAerialAttack();
         }
     }
 
@@ -594,6 +604,8 @@ public class CharacterMotor : MonoBehaviour
         wallJumpWindowTimer = 0f;
 
         RotateTowards(direction);
+
+        ResetAerialAttack();
     }
 
     public void CheckLedge()
@@ -742,10 +754,42 @@ public class CharacterMotor : MonoBehaviour
         if (velocity.y <= 0f)
             return;
 
+        // si te pegás en la cabeza saltando, dejá de ascender
         if (hit.normal.y < -0.5f)
         {
             velocity.y = 0f;
         }
+    }
+
+    public void ConsumeAerialAttack()
+    {
+        aerialAttackUsed = true;
+    }
+
+    public void ResetAerialAttack()
+    {
+        aerialAttackUsed = false;
+    }
+
+    public void AerialKick()
+    {
+        velocity.y = aerialKickForce;
+    }
+
+    public void GroundPound()
+    {
+        velocity.x = 0f;
+        velocity.z = 0f;
+
+        desiredVelocity.x = 0f;
+        desiredVelocity.z = 0f;
+
+        knockbackVelocity.x = 0f;
+        knockbackVelocity.z = 0f;
+
+        attackImpulseVelocity = Vector3.zero;
+
+        velocity.y = -groundPoundForce;
     }
 
     /// GIZMOS /////////////////////////////////////////
