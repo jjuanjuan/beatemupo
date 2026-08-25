@@ -847,9 +847,6 @@ public class CharacterMotor : MonoBehaviour
 
     public bool TryRoll()
     {
-        if (!RollBuffered)
-            return false;
-
         rollBufferTimer = 0f;
 
         Vector3 impulse =

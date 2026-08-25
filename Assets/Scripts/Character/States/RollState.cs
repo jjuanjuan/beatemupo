@@ -22,6 +22,8 @@ public class RollState : CharacterState
             0.15f);
 
         context.Motor.TryRoll();
+
+        context.Damage.SetImmunity(true);
     }
 
     public override void Update()
@@ -62,6 +64,7 @@ public class RollState : CharacterState
 
     public override void Exit()
     {
+        context.Damage.SetImmunity(false);
         context.Motor.UnlockMovementInput();
     }
 }

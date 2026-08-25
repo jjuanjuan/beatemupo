@@ -5802,7 +5802,7 @@ MonoBehaviour:
   wallLayers:
     serializedVersion: 2
     m_Bits: 384
-  rotationSpeed: 720
+  rotationSpeed: 1200
   knockbackDeceleration: 15
   ledgeCheckDistance: 0.6
   ledgeCheckHeight: 1.2

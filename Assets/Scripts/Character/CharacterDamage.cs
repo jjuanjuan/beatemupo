@@ -39,7 +39,10 @@ public class CharacterDamage : MonoBehaviour, IDamageable
     public HitReactionDefinition GetUpDefinition =>
         getUp;
 
+    bool isImmune;
+
     public bool IsDead => currentHealth <= 0;
+    public bool IsImmune => IsImmune;
 
     public void Initialize(CharacterContext context)
     {
@@ -49,7 +52,7 @@ public class CharacterDamage : MonoBehaviour, IDamageable
 
     public void TakeDamage(HitData hit)
     {
-        if (IsDead)
+        if (IsDead || IsImmune)
             return;
 
         currentHealth -= hit.damage;
@@ -152,5 +155,10 @@ public class CharacterDamage : MonoBehaviour, IDamageable
     {
         context.Character.StateMachine.ChangeState(
             context.States.Death);
+    }
+
+    public void SetImmunity(bool value)
+    {
+        isImmune = value;
     }
 }
