@@ -5779,7 +5779,7 @@ MonoBehaviour:
   airDeceleration: 5
   jumpHeight: 3
   gravity: -25
-  coyoteTime: 0.1
+  coyoteTime: 0.167
   MinLandingDeceleration: 7
   MaxLandingDeceleration: 12
   minFallTime: 0.5

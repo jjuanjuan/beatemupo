@@ -63,6 +63,8 @@ public class CharacterMotor : MonoBehaviour
     public bool Grounded => controller.isGrounded;
     private float lastGroundedTime;
     public bool CanJump => Time.time - lastGroundedTime < coyoteTime;
+    public bool InCoyoteTime => !Grounded &&
+        Time.time - lastGroundedTime < coyoteTime;
     private Vector3 attackImpulseVelocity;
 
     public bool Rising => velocity.y > 0f;
@@ -382,12 +384,20 @@ public class CharacterMotor : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if (Grounded && velocity.y < 0f)
-            velocity.y = -2f;
+        if (Grounded)
+        {
+            if (velocity.y < 0f)
+                velocity.y = -2f;
+
+            return;
+        }
+
+        if (InCoyoteTime)
+            return;
 
         velocity.y += gravity * Time.deltaTime;
     }
-
+    
     public void LockMovement()
     {
         movementLocked = true;
