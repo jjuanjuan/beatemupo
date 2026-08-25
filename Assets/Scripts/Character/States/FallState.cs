@@ -13,9 +13,7 @@ public class FallState : CharacterState
     {
         context.Motor.StartFall();
 
-        context.Animator.Play(
-            "Fall",
-            0.05f);
+        context.Animator.Play("Fall", .25f);
     }
 
     public override void Update()
