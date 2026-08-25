@@ -23,7 +23,7 @@ MonoBehaviour:
   damage: 10
   hitbox: 2
   knockback: 10
-  knockbackUp: 2
+  knockbackUp: 7.5
   hitReaction: 3
   selfMoveStartFrame: 7
   selfMoveEndFrame: 19

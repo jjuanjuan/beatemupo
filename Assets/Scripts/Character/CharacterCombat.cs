@@ -14,18 +14,25 @@ public class CharacterCombat : MonoBehaviour
     [Header("Aerial Attacks")]
     [SerializeField] private AttackDefinition aerialKick;
     [SerializeField] private AttackDefinition groundPound;
+    [SerializeField] private AnimationDefinition groundPoundStart;
+    [SerializeField] private AnimationDefinition groundPoundGetUp;
+    [SerializeField] ParticleSystem groundPoundParticles;
 
     [Header("Hitboxes")]
     [SerializeField] private AttackHitbox leftHandHitbox;
     [SerializeField] private AttackHitbox rightHandHitbox;
     [SerializeField] private AttackHitbox leftFootHitbox;
     [SerializeField] private AttackHitbox rightFootHitbox;
+    [SerializeField] private AttackHitbox headHitbox;
+    [SerializeField] private AttackHitbox bodyHitbox;
 
     [Header("Attack Trails")]
     [SerializeField] private AttackTrail leftHandTrail;
     [SerializeField] private AttackTrail rightHandTrail;
     [SerializeField] private AttackTrail leftFootTrail;
     [SerializeField] private AttackTrail rightFootTrail;
+    [SerializeField] private AttackTrail headTrail;
+    [SerializeField] private AttackTrail bodyTrail;
 
     public AttackDefinition CurrentAttack { get; private set; }
 
@@ -41,6 +48,12 @@ public class CharacterCombat : MonoBehaviour
 
     public AttackDefinition AerialKick => aerialKick;
     public AttackDefinition GroundPound => groundPound;
+    public AnimationDefinition GroundPoundStart =>
+        groundPoundStart;
+    public AnimationDefinition GroundPoundGetUp =>
+        groundPoundGetUp;
+    public ParticleSystem GroundPoundParticles =>
+        groundPoundParticles;
 
     private void Awake()
     {
@@ -50,6 +63,9 @@ public class CharacterCombat : MonoBehaviour
         rightHandHitbox.Initialize(character);
         leftFootHitbox.Initialize(character);
         rightFootHitbox.Initialize(character);
+        headHitbox.Initialize(character);
+        bodyHitbox.Initialize(character);
+        groundPoundParticles.Stop();
     }
 
     public void StartAttack(AttackDefinition attack)
@@ -90,6 +106,22 @@ public class CharacterCombat : MonoBehaviour
             transform.position);
     }
 
+    public void BeginImpactHitbox()
+    {
+        if (CurrentAttack == null)
+            return;
+
+        AttackHitbox hitbox =
+            GetHitbox(CurrentAttack.impactHitbox);
+
+        if (hitbox == null)
+            return;
+
+        hitbox.Activate(
+            CurrentAttack,
+            transform.position);
+    }
+
     public void EndHitbox()
     {
         if (CurrentAttack == null)
@@ -97,6 +129,14 @@ public class CharacterCombat : MonoBehaviour
 
         AttackHitbox hitbox =
             GetHitbox(CurrentAttack.hitbox);
+
+        if (hitbox == null)
+            return;
+
+        hitbox.Deactivate();
+
+        hitbox =
+            GetHitbox(CurrentAttack.impactHitbox);
 
         if (hitbox == null)
             return;
@@ -131,6 +171,12 @@ public class CharacterCombat : MonoBehaviour
             case HitboxType.RightFoot:
                 return rightFootHitbox;
 
+            case HitboxType.Head:
+                return headHitbox;
+
+            case HitboxType.Body:
+                return bodyHitbox;
+
             default:
                 return null;
         }
@@ -151,6 +197,12 @@ public class CharacterCombat : MonoBehaviour
 
             case HitboxType.RightFoot:
                 return rightFootTrail;
+
+            case HitboxType.Head:
+                return headTrail;
+
+            case HitboxType.Body:
+                return bodyTrail;
 
             default:
                 return null;

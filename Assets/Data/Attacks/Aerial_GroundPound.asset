@@ -20,10 +20,12 @@ MonoBehaviour:
   hitEndFrame: 30
   comboStartFrame: 30
   comboEndFrame: 30
-  damage: 5
-  hitbox: 0
-  knockback: 5
-  knockbackUp: 2
+  damage: 20
+  hitbox: 4
+  impactHitbox: 5
+  impactAdditionalDuration: 0.1
+  knockback: 10
+  knockbackUp: 5
   hitReaction: 3
   selfMoveStartFrame: 0
   selfMoveEndFrame: 0

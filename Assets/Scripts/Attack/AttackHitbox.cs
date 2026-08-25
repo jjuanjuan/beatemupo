@@ -99,5 +99,7 @@ public enum HitboxType
     LeftHand,
     RightHand,
     LeftFoot,
-    RightFoot
+    RightFoot,
+    Head,
+    Body
 }

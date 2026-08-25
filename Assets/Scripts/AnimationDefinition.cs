@@ -8,6 +8,7 @@ public class AnimationDefinition : ScriptableObject
     [Header("Animation")]
     public string animationState;
     public float duration = .5f;
+    [Tooltip("Alternative duration")] public float optionalDuration = 1f;
 
     [Header("Movement")]
     public AnimationCurve movementX =

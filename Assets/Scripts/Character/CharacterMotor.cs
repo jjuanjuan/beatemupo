@@ -51,6 +51,7 @@ public class CharacterMotor : MonoBehaviour
     [Header("Aerial Attacks")]
     [SerializeField] private float aerialKickForce = 9f;
     [SerializeField] private float groundPoundForce = 20f;
+    [SerializeField] float groundPoundHardFallThreshold = .25f;
 
     private CharacterController controller;
 
@@ -119,6 +120,7 @@ public class CharacterMotor : MonoBehaviour
     private bool aerialAttackUsed;
 
     public bool AerialAttackUsed => aerialAttackUsed;
+    public float GroundPoundHardFallThreshold => groundPoundHardFallThreshold;
 
 
     void Awake()

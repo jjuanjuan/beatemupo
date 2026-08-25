@@ -26,6 +26,10 @@ public class AttackDefinition : ScriptableObject
     [Header("Combat")]
     public int damage = 10;
     public HitboxType hitbox;
+    [Tooltip("If it has an impact like GroundPound use another hitbox")]
+    public HitboxType impactHitbox;
+    [Tooltip("Add this time after impact")]
+    public float impactAdditionalDuration = 0;
 
     [Header("Knockback")]
     public float knockback = 3f;
