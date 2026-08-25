@@ -7,4 +7,5 @@ public interface ICharacterBrain
     bool JumpPressed { get; }
     bool PunchPressed { get; }
     bool KickPressed { get; }
+    bool RollPressed { get; }
 }

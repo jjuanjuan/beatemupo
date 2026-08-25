@@ -11,6 +11,8 @@ public class CharacterAnimator : MonoBehaviour
     [SerializeField] public AnimationDefinition SplatAnimation;
     [SerializeField] public AnimationDefinition SplatDownAnimation;
     [SerializeField] public AnimationDefinition SplatGetUpAnimation;
+    
+    [SerializeField] public AnimationDefinition RollAnimation;
 
     private int currentState;
 
@@ -23,7 +25,7 @@ public class CharacterAnimator : MonoBehaviour
 
     public void Play(
         string state,
-        float transition = 0.1f)
+        float transition = 0.15f)
     {
         int hash = Animator.StringToHash(state);
 

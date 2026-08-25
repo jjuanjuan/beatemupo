@@ -18,4 +18,5 @@ public class CharacterStates
     public LedgeClimbState LedgeClimb { get; set; }
     public AerialKickState AerialKick { get; set; }
     public GroundPoundState GroundPound { get; set; }
+    public RollState Roll { get; set; }
 }

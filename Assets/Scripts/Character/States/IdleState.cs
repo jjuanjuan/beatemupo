@@ -59,6 +59,20 @@ public class IdleState : CharacterState
 
             return;
         }
+
+        if (context.Brain.RollPressed)
+        {
+            context.Motor.BufferRoll();
+        }
+
+        if (context.Motor.RollBuffered &&
+            context.Motor.Grounded)
+        {
+            stateMachine.ChangeState(
+                context.States.Roll);
+
+            return;
+        }
     }
 
     public override void Enter()

@@ -33,8 +33,13 @@ public class FallState : CharacterState
             return;
         }
 
+        if (context.Brain.JumpPressed)
+        {
+            context.Motor.BufferJump();
+        }
+
         if (context.Motor.WallJumpWindowOpen &&
-            context.Brain.JumpPressed)
+            context.Motor.JumpBuffered)
         {
             context.Motor.WallJump();
 
@@ -44,6 +49,29 @@ public class FallState : CharacterState
 
             stateMachine.ChangeState(
                 context.States.Jump);
+
+            return;
+        }
+
+        if (context.Brain.JumpPressed &&
+            context.Motor.CanJump)
+        {
+            stateMachine.ChangeState(
+                context.States.Jump);
+
+            return;
+        }
+
+        if (context.Brain.RollPressed)
+        {
+            context.Motor.BufferRoll();
+        }
+
+        if (context.Motor.RollBuffered &&
+            context.Motor.Grounded)
+        {
+            stateMachine.ChangeState(
+                context.States.Roll);
 
             return;
         }

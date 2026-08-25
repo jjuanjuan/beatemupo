@@ -24,14 +24,45 @@ public class JumpState : CharacterState
             return;
         }
 
+        if (context.Brain.JumpPressed)
+        {
+            context.Motor.BufferJump();
+        }
+
         if (context.Motor.WallJumpWindowOpen &&
-            context.Brain.JumpPressed)
+            context.Motor.JumpBuffered)
         {
             context.Motor.WallJump();
 
             context.Animator.Play(
                 "WallJump",
                 0.05f);
+
+            stateMachine.ChangeState(
+                context.States.Jump);
+
+            return;
+        }
+
+        if (context.Brain.JumpPressed &&
+            context.Motor.CanJump)
+        {
+            stateMachine.ChangeState(
+                context.States.Jump);
+
+            return;
+        }
+
+        if (context.Brain.RollPressed)
+        {
+            context.Motor.BufferRoll();
+        }
+
+        if (context.Motor.RollBuffered &&
+            context.Motor.Grounded)
+        {
+            stateMachine.ChangeState(
+                context.States.Roll);
 
             return;
         }
@@ -55,6 +86,7 @@ public class JumpState : CharacterState
         if (context.Motor.Falling)
         {
             stateMachine.ChangeState(context.States.Fall);
+            return;
         }
 
         Vector2 input = context.Brain.MoveInput;

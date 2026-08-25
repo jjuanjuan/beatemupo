@@ -58,6 +58,7 @@ public class Character : MonoBehaviour
         states.LedgeClimb = new LedgeClimbState(Context, StateMachine);
         states.AerialKick = new AerialKickState(Context, StateMachine);
         states.GroundPound = new GroundPoundState(Context, StateMachine);
+        states.Roll = new RollState(Context, StateMachine);
 
         StateMachine.ChangeState(states.Idle);
     }

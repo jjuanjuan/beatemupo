@@ -17,6 +17,7 @@ public class CharacterMotor : MonoBehaviour
     [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private float gravity = -25f;
     [SerializeField] float coyoteTime = .1f;
+    [SerializeField] float jumpBufferTime = 0.12f;
     [SerializeField] private float MinLandingDeceleration = 2f;
     [SerializeField] private float MaxLandingDeceleration = 12f;
     [SerializeField] float minFallTime = 0.15f;
@@ -52,6 +53,12 @@ public class CharacterMotor : MonoBehaviour
     [SerializeField] private float aerialKickForce = 9f;
     [SerializeField] private float groundPoundForce = 20f;
     [SerializeField] float groundPoundHardFallThreshold = .25f;
+
+    [Header("Roll")]
+    [SerializeField]
+    private Vector3 rollForce
+        = new Vector3(0f, 2f, 10f);
+    [SerializeField] private float rollBufferTime = 0.135f;
 
     private CharacterController controller;
 
@@ -124,6 +131,11 @@ public class CharacterMotor : MonoBehaviour
     public bool AerialAttackUsed => aerialAttackUsed;
     public float GroundPoundHardFallThreshold => groundPoundHardFallThreshold;
 
+    private float jumpBufferTimer;
+    private float rollBufferTimer;
+
+    public bool JumpBuffered => jumpBufferTimer > 0f;
+    public bool RollBuffered => rollBufferTimer > 0f;
 
     void Awake()
     {
@@ -132,6 +144,9 @@ public class CharacterMotor : MonoBehaviour
 
     public void Tick()
     {
+        UpdateJumpBuffer();
+        UpdateRollBuffer();
+
         UpdateHorizontalVelocity();
 
         if (!ledgeHanging)
@@ -397,7 +412,7 @@ public class CharacterMotor : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
     }
-    
+
     public void LockMovement()
     {
         movementLocked = true;
@@ -802,6 +817,51 @@ public class CharacterMotor : MonoBehaviour
         attackImpulseVelocity = Vector3.zero;
 
         velocity.y = -groundPoundForce;
+    }
+
+    public void BufferJump()
+    {
+        jumpBufferTimer = jumpBufferTime;
+    }
+
+    private void UpdateJumpBuffer()
+    {
+        if (jumpBufferTimer <= 0f)
+            return;
+
+        jumpBufferTimer -= Time.deltaTime;
+    }
+
+    public void BufferRoll()
+    {
+        rollBufferTimer = rollBufferTime;
+    }
+
+    private void UpdateRollBuffer()
+    {
+        if (rollBufferTimer <= 0f)
+            return;
+
+        rollBufferTimer -= Time.deltaTime;
+    }
+
+    public bool TryRoll()
+    {
+        if (!RollBuffered)
+            return false;
+
+        rollBufferTimer = 0f;
+
+        Vector3 impulse =
+            transform.forward * rollForce.z;
+
+        velocity += impulse;
+        velocity = new Vector3(velocity.x, rollForce.y, velocity.z);
+
+        desiredVelocity.x = 0f;
+        desiredVelocity.z = 0f;
+
+        return true;
     }
 
     /// GIZMOS /////////////////////////////////////////

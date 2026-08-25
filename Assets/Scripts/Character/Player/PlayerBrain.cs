@@ -11,6 +11,8 @@ public class PlayerBrain : MonoBehaviour, ICharacterBrain
     public bool PunchPressed { get; private set; }
     public bool KickPressed { get; private set; }
 
+    public bool RollPressed { get; private set; }
+
     private PlayerInput input;
 
     void Awake()
@@ -37,6 +39,8 @@ public class PlayerBrain : MonoBehaviour, ICharacterBrain
 
         PunchPressed = input.Player.Punch.WasPressedThisFrame();
         KickPressed = input.Player.Kick.WasPressedThisFrame();
+
+        RollPressed = input.Player.Roll.WasPressedThisFrame();
 
         if (input.Debug.Reset.WasPressedThisFrame())
         {

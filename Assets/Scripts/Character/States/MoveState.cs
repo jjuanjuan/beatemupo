@@ -64,6 +64,20 @@ public class MoveState : CharacterState
             return;
         }
 
+        if (context.Brain.RollPressed)
+        {
+            context.Motor.BufferRoll();
+        }
+
+        if (context.Motor.RollBuffered &&
+            context.Motor.Grounded)
+        {
+            stateMachine.ChangeState(
+                context.States.Roll);
+
+            return;
+        }
+
         Vector2 input =
             context.Brain.MoveInput;
 

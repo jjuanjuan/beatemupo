@@ -2725,6 +2725,7 @@ MonoBehaviour:
   SplatDownAnimation: {fileID: 11400000, guid: ce2bf83eb57785c4a9b0a15afd253a32, type: 2}
   SplatGetUpAnimation: {fileID: 11400000, guid: 5e91c24719bd5d14c9e03919da53ac6e,
     type: 2}
+  RollAnimation: {fileID: 0}
 --- !u!114 &558409361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2758,6 +2759,7 @@ MonoBehaviour:
   jumpHeight: 1.85
   gravity: -25
   coyoteTime: 0.1
+  jumpBufferTime: 0.1
   MinLandingDeceleration: 7
   MaxLandingDeceleration: 12
   minFallTime: 0.5
@@ -2787,6 +2789,8 @@ MonoBehaviour:
   aerialKickForce: 9
   groundPoundForce: 5
   groundPoundHardFallThreshold: 0.25
+  rollForce: {x: 0, y: 2, z: 10}
+  rollBufferTime: 0.135
 --- !u!143 &558409363
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5747,6 +5751,7 @@ MonoBehaviour:
   SplatDownAnimation: {fileID: 11400000, guid: ce2bf83eb57785c4a9b0a15afd253a32, type: 2}
   SplatGetUpAnimation: {fileID: 11400000, guid: 5e91c24719bd5d14c9e03919da53ac6e,
     type: 2}
+  RollAnimation: {fileID: 11400000, guid: 6e6944c9d2299f0449403510a3e92559, type: 2}
 --- !u!114 &1449730104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5777,16 +5782,17 @@ MonoBehaviour:
   airAcceleration: 12
   groundDeceleration: 40
   airDeceleration: 5
-  jumpHeight: 3
+  jumpHeight: 1.5
   gravity: -25
   coyoteTime: 0.167
+  jumpBufferTime: 0.135
   MinLandingDeceleration: 7
   MaxLandingDeceleration: 12
   minFallTime: 0.5
   maxFallTime: 0.8
   minLandingDuration: 0.05
   maxLandingDuration: 0.8
-  hardFallThreshold: 0.9
+  hardFallThreshold: 0.8
   wallCheckDistance: 0.6
   wallCheckHeight: 0.25
   wallJumpHorizontalForce: 7
@@ -5809,6 +5815,8 @@ MonoBehaviour:
   aerialKickForce: 9
   groundPoundForce: 16
   groundPoundHardFallThreshold: 0.34
+  rollForce: {x: 0, y: 1.25, z: 7.5}
+  rollBufferTime: 0.135
 --- !u!114 &1449730106
 MonoBehaviour:
   m_ObjectHideFlags: 0
