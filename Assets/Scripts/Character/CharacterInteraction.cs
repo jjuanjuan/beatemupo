@@ -5,7 +5,6 @@ public class CharacterInteraction : MonoBehaviour
     [Header("Interaction")]
     [SerializeField] private Faction faction;
 
-    [SerializeField] private float watchDistance = 6f;
     [SerializeField] private float talkDistance = 2f;
     [SerializeField] private float targetRefreshTime = 0.1f;
 
@@ -33,11 +32,7 @@ public class CharacterInteraction : MonoBehaviour
             FindTarget();
         }
 
-        if (target == null)
-        {
-            StopLooking();
-            return;
-        }
+        if (target == null) return;
 
         float distance =
             Vector3.Distance(
@@ -48,34 +43,18 @@ public class CharacterInteraction : MonoBehaviour
         {
             HandleTalkDistance();
         }
-        else if (distance <= watchDistance)
-        {
-            HandleWatchDistance();
-        }
-        else
-        {
-            StopLooking();
-        }
+
     }
 
     private void FindTarget()
     {
         target =
             context.Targeting.FindClosestCharacter(
-                watchDistance);
-    }
-
-    private void HandleWatchDistance()
-    {
-        context.Animator.LookAtCharacter(
-            target);
+                talkDistance);
     }
 
     private void HandleTalkDistance()
     {
-        context.Animator.LookAtCharacter(
-            target);
-
         if (!CanTalkTo(target))
             return;
 
@@ -86,11 +65,6 @@ public class CharacterInteraction : MonoBehaviour
         {
             StartDialogue();
         }
-    }
-
-    private void StopLooking()
-    {
-        context.Animator.ClearLookTarget();
     }
 
     private void StartDialogue()
