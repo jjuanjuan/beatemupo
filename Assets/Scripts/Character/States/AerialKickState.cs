@@ -63,16 +63,9 @@ public class AerialKickState : CharacterState
         context.Combat.EndAttack();
         context.Motor.EndAttack();
 
-        if (context.Motor.Rising)
-        {
-            stateMachine.ChangeState(
-                context.States.Jump);
-        }
-        else
-        {
-            stateMachine.ChangeState(
-                context.States.Fall);
-        }
+
+        stateMachine.ChangeState(
+            context.States.Fall);
     }
 
     public override void Exit()
