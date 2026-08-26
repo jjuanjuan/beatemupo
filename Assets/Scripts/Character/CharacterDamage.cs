@@ -58,7 +58,7 @@ public class CharacterDamage : MonoBehaviour, IDamageable
         currentHealth -= hit.damage;
 
         context.Motor.FacePosition(
-            hit.attackerPosition);
+            hit.attackerPosition, true);
 
         ApplyKnockback(
             hit.attackerPosition,

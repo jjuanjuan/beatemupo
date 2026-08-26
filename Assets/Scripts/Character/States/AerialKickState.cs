@@ -90,7 +90,7 @@ public class AerialKickState : CharacterState
 
         if (target != null)
         {
-            context.Targeting.FaceTarget(target);
+            context.Motor.FaceTarget(target, true);
         }
     }
 

@@ -2,26 +2,30 @@ using UnityEngine;
 
 public class CharacterTargeting : MonoBehaviour
 {
-    [Header("Vision Cone")]
-    [SerializeField] private float visionRange = 4f;
-    [SerializeField, Range(1f, 180f)]
-    private float visionAngle = 90f;
-
     [Header("Detection")]
+    [SerializeField] private float detectionRange = 10f;
     [SerializeField] private LayerMask characterLayer;
 
     private readonly Collider[] results = new Collider[32];
 
     public Character FindClosestCharacter()
     {
+        return FindClosestCharacter(detectionRange);
+    }
+
+    public Character FindClosestCharacter(float range)
+    {
         int count = Physics.OverlapSphereNonAlloc(
             transform.position,
-            visionRange,
+            range,
             results,
             characterLayer);
 
         Character closest = null;
         float closestDistanceSqr = float.MaxValue;
+
+        Character self =
+            GetComponent<Character>();
 
         for (int i = 0; i < count; i++)
         {
@@ -36,7 +40,7 @@ public class CharacterTargeting : MonoBehaviour
             if (character == null)
                 continue;
 
-            if (character == GetComponent<Character>())
+            if (character == self)
                 continue;
 
             Vector3 direction =
@@ -45,21 +49,10 @@ public class CharacterTargeting : MonoBehaviour
 
             direction.y = 0f;
 
-            if (direction.sqrMagnitude < 0.001f)
-                continue;
-
             float distanceSqr =
                 direction.sqrMagnitude;
 
-            Vector3 normalizedDirection =
-                direction.normalized;
-
-            float angle =
-                Vector3.Angle(
-                    transform.forward,
-                    normalizedDirection);
-
-            if (angle > visionAngle * 0.5f)
+            if (distanceSqr < 0.001f)
                 continue;
 
             if (distanceSqr < closestDistanceSqr)
@@ -70,58 +63,5 @@ public class CharacterTargeting : MonoBehaviour
         }
 
         return closest;
-    }
-
-    public void FaceTarget(Character target)
-    {
-        if (target == null)
-            return;
-
-        Vector3 direction =
-            target.transform.position -
-            transform.position;
-
-        direction.y = 0f;
-
-        if (direction.sqrMagnitude < 0.001f)
-            return;
-
-        transform.rotation =
-            Quaternion.LookRotation(direction);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Vector3 origin = transform.position;
-        origin.y += 0.1f;
-
-        Gizmos.color = Color.yellow;
-
-        Vector3 forward =
-            transform.forward;
-
-        Vector3 left =
-            Quaternion.Euler(
-                0f,
-                -visionAngle * 0.5f,
-                0f) * forward;
-
-        Vector3 right =
-            Quaternion.Euler(
-                0f,
-                visionAngle * 0.5f,
-                0f) * forward;
-
-        Gizmos.DrawLine(
-            origin,
-            origin + left * visionRange);
-
-        Gizmos.DrawLine(
-            origin,
-            origin + right * visionRange);
-
-        Gizmos.DrawLine(
-            origin,
-            origin + forward * visionRange);
     }
 }

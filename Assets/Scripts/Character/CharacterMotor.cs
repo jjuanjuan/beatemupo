@@ -266,7 +266,7 @@ public class CharacterMotor : MonoBehaviour
 
         desiredVelocity = direction * moveSpeed;
 
-        RotateTowards(direction);
+        RotateTowards(direction, false);
     }
     public void Jump()
     {
@@ -276,7 +276,7 @@ public class CharacterMotor : MonoBehaviour
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
     }
 
-    public void RotateTowards(Vector3 direction)
+    public void RotateTowards(Vector3 direction, bool instant)
     {
         direction.y = 0;
 
@@ -285,10 +285,18 @@ public class CharacterMotor : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-        transform.rotation = Quaternion.RotateTowards(
-            transform.rotation,
-            targetRotation,
-            rotationSpeed * Time.deltaTime);
+        if (instant)
+        {
+            transform.rotation =
+                Quaternion.LookRotation(direction);
+        }
+        else
+        {
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime);
+        }
     }
 
     private void UpdateHorizontalVelocity()
@@ -505,17 +513,28 @@ public class CharacterMotor : MonoBehaviour
         attackImpulseVelocity = Vector3.zero;
     }
 
-    public void FacePosition(Vector3 position)
+    public void FaceTarget(
+        Character target, bool instant)
     {
-        Vector3 direction = position - transform.position;
+        if (target == null)
+            return;
+
+        FacePosition(
+            target.transform.position, instant);
+    }
+
+    public void FacePosition(Vector3 position,
+        bool instant)
+    {
+        Vector3 direction =
+            position - transform.position;
 
         direction.y = 0f;
 
         if (direction.sqrMagnitude < 0.001f)
             return;
 
-        transform.rotation =
-            Quaternion.LookRotation(direction);
+        RotateTowards(direction, instant);
     }
 
     public void DisableCharacterController()
@@ -630,7 +649,7 @@ public class CharacterMotor : MonoBehaviour
         wallJumpWindowOpen = false;
         wallJumpWindowTimer = 0f;
 
-        RotateTowards(direction);
+        RotateTowards(direction, false);
 
         ResetAerialAttack();
     }

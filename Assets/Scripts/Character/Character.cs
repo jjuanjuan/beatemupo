@@ -12,6 +12,7 @@ public class Character : MonoBehaviour
     CharacterStats stats;
     CharacterStates states;
     CharacterTargeting targeting;
+    CharacterInteraction interaction;
     public CharacterContext Context { get; private set; }
     public CharacterStateMachine StateMachine { get; private set; }
 
@@ -23,6 +24,7 @@ public class Character : MonoBehaviour
         combat = GetComponent<CharacterCombat>();
         damage = GetComponent<CharacterDamage>();
         targeting = GetComponent<CharacterTargeting>();
+        interaction = GetComponent<CharacterInteraction>();
 
         states = new CharacterStates();
 
@@ -36,13 +38,12 @@ public class Character : MonoBehaviour
             damage,
             brain,
             targeting,
+            interaction,
             stats,
             states);
 
-        if (damage != null)
-        {
-            damage.Initialize(Context);
-        }
+        damage.Initialize(Context);
+        interaction.Initialize(Context);
 
         states.Idle = new IdleState(Context, StateMachine);
         states.Move = new MoveState(Context, StateMachine);
@@ -66,6 +67,8 @@ public class Character : MonoBehaviour
     void Update()
     {
         StateMachine.Update();
+
+        Context.Interaction.Tick();
 
         Context.Motor.Tick();
     }

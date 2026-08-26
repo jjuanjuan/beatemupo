@@ -13,4 +13,6 @@ public class NpcBrain : MonoBehaviour, ICharacterBrain
     public bool KickPressed { get; private set; }
 
     public bool RollPressed { get; private set; }
+    
+    public bool InteractPressed { get; private set; }
 }

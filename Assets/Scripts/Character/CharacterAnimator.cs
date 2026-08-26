@@ -1,4 +1,3 @@
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
@@ -11,8 +10,18 @@ public class CharacterAnimator : MonoBehaviour
     [SerializeField] public AnimationDefinition SplatAnimation;
     [SerializeField] public AnimationDefinition SplatDownAnimation;
     [SerializeField] public AnimationDefinition SplatGetUpAnimation;
-    
+
     [SerializeField] public AnimationDefinition RollAnimation;
+
+    [Header("For IK")]
+    [SerializeField] private float lookTargetHeight = 1.5f;
+    [SerializeField] private float lookTransitionTime = 3f;
+
+    [SerializeField] private float lookWeight = 1f;
+    [SerializeField] private float lookBodyWeight = 0.2f;
+    [SerializeField] private float lookHeadWeight = 1f;
+    [SerializeField] private float lookEyesWeight = 0f;
+    [SerializeField] private float lookClampWeight = 0.5f;
 
     private int currentState;
 
@@ -22,6 +31,9 @@ public class CharacterAnimator : MonoBehaviour
         Animator.StringToHash("FallTime");
     private static readonly int LandingIntensityHash =
         Animator.StringToHash("LandingIntensity");
+
+    private Character lookTarget;
+    private float currentLookWeight;
 
     public void Play(
         string state,
@@ -75,4 +87,51 @@ public class CharacterAnimator : MonoBehaviour
             intensity);
     }
 
+    public void LookAtCharacter(
+    Character character)
+    {
+        lookTarget = character;
+    }
+
+    public void ClearLookTarget()
+    {
+        lookTarget = null;
+    }
+
+    private void OnAnimatorIK(int layerIndex)
+    {
+        float targetWeight =
+            lookTarget != null
+                ? lookWeight
+                : 0f;
+
+        currentLookWeight =
+            Mathf.MoveTowards(
+                currentLookWeight,
+                targetWeight,
+                lookTransitionTime * Time.deltaTime);
+
+        if (currentLookWeight <= 0f)
+        {
+            animator.SetLookAtWeight(0f);
+            return;
+        }
+
+        if (lookTarget != null)
+        {
+            Vector3 lookPosition =
+                lookTarget.transform.position +
+                Vector3.up * lookTargetHeight;
+
+            animator.SetLookAtPosition(
+                lookPosition);
+        }
+
+        animator.SetLookAtWeight(
+            currentLookWeight,
+            lookBodyWeight,
+            lookHeadWeight,
+            lookEyesWeight,
+            lookClampWeight);
+    }
 }
