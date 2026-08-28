@@ -8,11 +8,9 @@ public class NpcBrain : MonoBehaviour, ICharacterBrain
     public Vector2 LookInput { get; private set; }
 
     public bool JumpPressed { get; private set; }
-
     public bool PunchPressed { get; private set; }
     public bool KickPressed { get; private set; }
-
     public bool RollPressed { get; private set; }
-    
     public bool InteractPressed { get; private set; }
+    public bool ProjectionPressed { get; private set; }
 }

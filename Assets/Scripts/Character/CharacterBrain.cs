@@ -9,4 +9,5 @@ public abstract class CharacterBrain : MonoBehaviour, ICharacterBrain
     public abstract bool KickPressed { get; }
     public abstract bool RollPressed { get; }
     public abstract bool InteractPressed { get; }
+    public abstract bool ProjectionPressed { get; }
 }

@@ -39,6 +39,8 @@ public class SplatState : CharacterState
         context.Animator.Play(
             splatAnimation.animationState,
             0.08f);
+
+        context.Projection.Deactivate();
     }
 
     public override void Update()

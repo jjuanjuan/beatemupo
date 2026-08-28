@@ -13,6 +13,7 @@ public class Character : MonoBehaviour
     CharacterStates states;
     CharacterTargeting targeting;
     CharacterInteraction interaction;
+    CharacterProjection projection;
     public CharacterContext Context { get; private set; }
     public CharacterStateMachine StateMachine { get; private set; }
 
@@ -25,6 +26,7 @@ public class Character : MonoBehaviour
         damage = GetComponent<CharacterDamage>();
         targeting = GetComponent<CharacterTargeting>();
         interaction = GetComponent<CharacterInteraction>();
+        projection = GetComponent<CharacterProjection>();
 
         states = new CharacterStates();
 
@@ -39,11 +41,13 @@ public class Character : MonoBehaviour
             brain,
             targeting,
             interaction,
+            projection,
             stats,
             states);
 
         damage.Initialize(Context);
         interaction.Initialize(Context);
+        projection.Initialize(this);
 
         states.Idle = new IdleState(Context, StateMachine);
         states.Move = new MoveState(Context, StateMachine);

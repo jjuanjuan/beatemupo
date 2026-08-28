@@ -29,6 +29,8 @@ public class HitState : CharacterState
             0f);
 
         context.Motor.LockMovement();
+
+        context.Projection.Deactivate();
     }
 
     public override void Update()

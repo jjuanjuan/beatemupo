@@ -41,6 +41,8 @@ public class LandingState : CharacterState
         context.Animator.Play(
             "Landing",
             0.05f);
+
+        context.Projection.Deactivate();
     }
 
     public override void Update()

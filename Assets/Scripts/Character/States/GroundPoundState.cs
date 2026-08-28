@@ -187,6 +187,8 @@ public class GroundPoundState : CharacterState
         context.Combat.GroundPoundParticles.Play();
 
         context.Combat.BeginImpactHitbox();
+
+        context.Projection.Deactivate();
     }
 
     private void UpdateGettingUp()

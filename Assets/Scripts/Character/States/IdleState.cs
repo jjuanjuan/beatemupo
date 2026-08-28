@@ -22,6 +22,11 @@ public class IdleState : CharacterState
 
         context.Motor.Move(Vector3.zero);
 
+        if (context.Brain.ProjectionPressed)
+        {
+            context.Projection.Toggle();
+        }
+
         if (context.Brain.PunchPressed)
         {
             FaceAttackTarget();

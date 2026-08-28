@@ -25,6 +25,11 @@ public class MoveState : CharacterState
             return;
         }
 
+        if (context.Brain.ProjectionPressed)
+        {
+            context.Projection.Toggle();
+        }
+
         if (context.Brain.JumpPressed &&
             context.Motor.CanJump)
         {

@@ -18,6 +18,7 @@ public class CharacterAnimator : MonoBehaviour
     [SerializeField] private float lookTransitionTime = 3f;
 
     private int currentState;
+    public int CurrentState => currentState;
 
     private static readonly int SpeedHash =
         Animator.StringToHash("Speed");
