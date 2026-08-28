@@ -11,6 +11,15 @@ public class IdleState : CharacterState
 
     public override void Update()
     {
+        if (!context.Motor.Grounded &&
+             !context.Motor.CanJump)
+        {
+            stateMachine.ChangeState(
+                context.States.Fall);
+
+            return;
+        }
+
         context.Motor.Move(Vector3.zero);
 
         if (context.Brain.PunchPressed)
