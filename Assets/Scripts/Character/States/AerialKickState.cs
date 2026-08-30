@@ -43,8 +43,6 @@ public class AerialKickState : CharacterState
         context.Combat.EndTrail();
         trailActive = false;
 
-        FaceAttackTarget();
-
         context.Combat.StartAttack(attack);
 
         context.Animator.PlayAttack(
@@ -63,7 +61,6 @@ public class AerialKickState : CharacterState
         context.Combat.EndAttack();
         context.Motor.EndAttack();
 
-
         stateMachine.ChangeState(
             context.States.Fall);
     }
@@ -74,17 +71,6 @@ public class AerialKickState : CharacterState
         context.Combat.EndTrail();
         context.Motor.StopAttackMovement();
         context.Motor.EndAttack();
-    }
-
-    private void FaceAttackTarget()
-    {
-        Character target =
-            context.Targeting.FindClosestCharacter();
-
-        if (target != null)
-        {
-            context.Motor.FaceTarget(target, true);
-        }
     }
 
     private void UpdatePhase(AttackDefinition attack)

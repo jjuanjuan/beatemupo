@@ -56,6 +56,12 @@ public class PlayerBrain : MonoBehaviour, ICharacterBrain
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+        if (input.Debug.SpawnEnemy.WasPressedThisFrame())
+        {
+            var spawner = FindAnyObjectByType<EnemySpawner>();
+            spawner.Spawn();
+        }
     }
 
     private void UpdateMoveDirection()

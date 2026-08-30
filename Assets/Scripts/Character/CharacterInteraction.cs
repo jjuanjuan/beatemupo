@@ -58,11 +58,10 @@ public class CharacterInteraction : MonoBehaviour
         if (!CanTalkTo(target))
             return;
 
-        context.Motor.FaceTarget(
-            target, false);
-
         if (context.Brain.InteractPressed)
         {
+            context.Motor.FaceTarget(
+                target, false);
             StartDialogue();
         }
     }
@@ -71,8 +70,6 @@ public class CharacterInteraction : MonoBehaviour
     {
         Debug.Log(
             $"{name} starts dialogue with {target.name}");
-
-        // Acá posteriormente entra tu sistema de diálogo.
     }
 
     private bool CanTalkTo(Character target)

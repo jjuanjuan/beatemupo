@@ -391,6 +391,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpawnEnemy"",
+                    ""type"": ""Button"",
+                    ""id"": ""e59eb0ec-3d5f-4474-a084-97daffdc46b9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -402,6 +411,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Reset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""22360121-7b52-49e1-b15d-4de084fbc5cb"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpawnEnemy"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -422,6 +442,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // Debug
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
         m_Debug_Reset = m_Debug.FindAction("Reset", throwIfNotFound: true);
+        m_Debug_SpawnEnemy = m_Debug.FindAction("SpawnEnemy", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -666,6 +687,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Debug;
     private List<IDebugActions> m_DebugActionsCallbackInterfaces = new List<IDebugActions>();
     private readonly InputAction m_Debug_Reset;
+    private readonly InputAction m_Debug_SpawnEnemy;
     /// <summary>
     /// Provides access to input actions defined in input action map "Debug".
     /// </summary>
@@ -681,6 +703,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Debug/Reset".
         /// </summary>
         public InputAction @Reset => m_Wrapper.m_Debug_Reset;
+        /// <summary>
+        /// Provides access to the underlying input action "Debug/SpawnEnemy".
+        /// </summary>
+        public InputAction @SpawnEnemy => m_Wrapper.m_Debug_SpawnEnemy;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -710,6 +736,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Reset.started += instance.OnReset;
             @Reset.performed += instance.OnReset;
             @Reset.canceled += instance.OnReset;
+            @SpawnEnemy.started += instance.OnSpawnEnemy;
+            @SpawnEnemy.performed += instance.OnSpawnEnemy;
+            @SpawnEnemy.canceled += instance.OnSpawnEnemy;
         }
 
         /// <summary>
@@ -724,6 +753,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Reset.started -= instance.OnReset;
             @Reset.performed -= instance.OnReset;
             @Reset.canceled -= instance.OnReset;
+            @SpawnEnemy.started -= instance.OnSpawnEnemy;
+            @SpawnEnemy.performed -= instance.OnSpawnEnemy;
+            @SpawnEnemy.canceled -= instance.OnSpawnEnemy;
         }
 
         /// <summary>
@@ -828,5 +860,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnReset(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SpawnEnemy" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSpawnEnemy(InputAction.CallbackContext context);
     }
 }

@@ -30,7 +30,7 @@ public class NpcBrain : MonoBehaviour, ICharacterBrain
     {
         if (target == null)
         {
-            MoveDirection = Vector3.zero;
+            target = GameObject.FindWithTag("Player").GetComponent<Character>();
             return;
         }
 
