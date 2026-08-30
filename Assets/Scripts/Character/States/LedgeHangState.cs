@@ -18,8 +18,6 @@ public class LedgeHangState : CharacterState
         context.Animator.Play(
             "LedgeHang",
             0.05f);
-
-        context.Projection.Deactivate();
     }
 
     public override void Update()

@@ -24,8 +24,6 @@ public class RollState : CharacterState
         context.Motor.TryRoll();
 
         context.Damage.SetImmunity(true);
-
-        context.Projection.Deactivate();
     }
 
     public override void Update()

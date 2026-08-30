@@ -12,7 +12,6 @@ public class CharacterContext
     public ICharacterBrain Brain { get; }
     public CharacterTargeting Targeting { get; }
     public CharacterInteraction Interaction { get; }
-    public CharacterProjection Projection { get; }
     public CharacterStats Stats { get; }
     public CharacterStates States { get; }
 
@@ -25,7 +24,6 @@ public class CharacterContext
         ICharacterBrain brain,
         CharacterTargeting targeting,
         CharacterInteraction interaction,
-        CharacterProjection projection,
         CharacterStats stats,
         CharacterStates states
         )
@@ -38,7 +36,6 @@ public class CharacterContext
         Brain = brain;
         Targeting = targeting;
         Interaction = interaction;
-        Projection = projection;
         Stats = stats;
         States = states;
     }

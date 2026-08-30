@@ -246,27 +246,10 @@ public class CharacterMotor : MonoBehaviour
 
     public void Move(Vector2 input)
     {
-        if (cameraTransform == null)
-            return;
+        Vector3 direction =
+            InputToWorldDirection(input);
 
-        Vector3 forward = cameraTransform.forward;
-        Vector3 right = cameraTransform.right;
-
-        // Ignorar la inclinación de la cámara
-        forward.y = 0f;
-        right.y = 0f;
-
-        forward.Normalize();
-        right.Normalize();
-
-        Vector3 direction = forward * input.y + right * input.x;
-
-        if (direction.sqrMagnitude > 1f)
-            direction.Normalize();
-
-        desiredVelocity = direction * moveSpeed;
-
-        RotateTowards(direction, false);
+        MoveWorldDirection(direction);
     }
     public void Jump()
     {
@@ -878,6 +861,20 @@ public class CharacterMotor : MonoBehaviour
         desiredVelocity.z = 0f;
 
         return true;
+    }
+
+    public void MoveWorldDirection(
+    Vector3 direction)
+    {
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude > 1f)
+            direction.Normalize();
+
+        desiredVelocity =
+            direction * moveSpeed;
+
+        RotateTowards(direction, false);
     }
 
     /// GIZMOS /////////////////////////////////////////

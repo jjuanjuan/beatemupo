@@ -25,11 +25,6 @@ public class MoveState : CharacterState
             return;
         }
 
-        if (context.Brain.ProjectionPressed)
-        {
-            context.Projection.Toggle();
-        }
-
         if (context.Brain.JumpPressed &&
             context.Motor.CanJump)
         {
@@ -83,11 +78,9 @@ public class MoveState : CharacterState
             return;
         }
 
-        Vector2 input =
-            context.Brain.MoveInput;
-
-        if (input.sqrMagnitude < 0.01f)
+        if (context.Brain.MoveDirection.sqrMagnitude < 0.01f)
         {
+            context.Animator.SetSpeed(0f);
             stateMachine.ChangeState(
                 context.States.Idle);
 
@@ -99,7 +92,8 @@ public class MoveState : CharacterState
             context.Motor.MoveSpeed;
 
         context.Animator.SetSpeed(speed);
-        context.Motor.Move(input);
+        context.Motor.MoveWorldDirection(
+            context.Brain.MoveDirection);
     }
 
     private void FaceAttackTarget()

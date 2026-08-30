@@ -22,11 +22,6 @@ public class IdleState : CharacterState
 
         context.Motor.Move(Vector3.zero);
 
-        if (context.Brain.ProjectionPressed)
-        {
-            context.Projection.Toggle();
-        }
-
         if (context.Brain.PunchPressed)
         {
             FaceAttackTarget();
@@ -57,7 +52,7 @@ public class IdleState : CharacterState
             return;
         }
 
-        if (context.Brain.MoveInput.sqrMagnitude > 0.01f)
+        if (context.Brain.MoveDirection.sqrMagnitude > 0.01f)
         {
             stateMachine.ChangeState(
                 context.States.Move);
