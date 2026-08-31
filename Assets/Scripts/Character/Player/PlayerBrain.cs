@@ -18,6 +18,8 @@ public class PlayerBrain : MonoBehaviour, ICharacterBrain
 
     private PlayerInput input;
 
+    public Vector3 JumpDirection => MoveDirection;
+
     void Awake()
     {
         input = new PlayerInput();

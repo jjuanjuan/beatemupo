@@ -109,13 +109,12 @@ public class FallState : CharacterState
             return;
         }
 
-        Vector2 input = context.Brain.MoveInput;
-
         float speed =
             context.Motor.HorizontalSpeed /
             context.Motor.MoveSpeed;
 
         context.Animator.SetSpeed(speed);
-        context.Motor.Move(input);
+        context.Motor.MoveWorldDirection(
+            context.Brain.MoveDirection);
     }
 }

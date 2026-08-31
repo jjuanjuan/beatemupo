@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4189082110418342745}
   - component: {fileID: 5287375988709750145}
   - component: {fileID: 2209830464429296270}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Breakable_Box_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,6 +52,7 @@ MonoBehaviour:
   maxHealth: 10
   Model: {fileID: 5273229498265705321}
   HitModel: {fileID: 2619559521139108722}
+  DestroyedModel: {fileID: 0}
   ShakeIntensity: 0.1
   ShakeTime: 0.1
   DestroyParticles: {fileID: 6188593803055263619}

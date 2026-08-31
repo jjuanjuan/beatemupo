@@ -16,7 +16,7 @@ TagManager:
   - ClimbableWalls
   - UnclimbableWalls
   - ClimbableLedge
-  - 
+  - UnclimbableObstacle
   - 
   - 
   - 

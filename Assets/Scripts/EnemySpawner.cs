@@ -8,6 +8,6 @@ public class EnemySpawner : MonoBehaviour
 
     public void Spawn()
     {
-        Instantiate(prefab, transform.position, transform.rotation);
+        Instantiate(prefab, transform.position, transform.rotation, transform);
     }
 }
