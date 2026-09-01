@@ -4,7 +4,9 @@ public class JumpState : CharacterState
 {
     Vector3 jumpDirection;
 
-    public JumpState(CharacterContext context, CharacterStateMachine stateMachine)
+    public JumpState(
+        CharacterContext context,
+        CharacterStateMachine stateMachine)
         : base(context, stateMachine)
     {
     }
@@ -88,6 +90,7 @@ public class JumpState : CharacterState
         {
             stateMachine.ChangeState(
                 context.States.AerialKick);
+
             return;
         }
 
@@ -96,12 +99,15 @@ public class JumpState : CharacterState
         {
             stateMachine.ChangeState(
                 context.States.GroundPound);
+
             return;
         }
 
         if (context.Motor.Falling)
         {
-            stateMachine.ChangeState(context.States.Fall);
+            stateMachine.ChangeState(
+                context.States.Fall);
+
             return;
         }
 
@@ -110,7 +116,8 @@ public class JumpState : CharacterState
             context.Motor.MoveSpeed;
 
         context.Animator.SetSpeed(speed);
+
         context.Motor.MoveWorldDirection(
-            jumpDirection);
+            context.Brain.MoveDirection);
     }
 }

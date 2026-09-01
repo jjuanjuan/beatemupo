@@ -27,6 +27,9 @@ public class NpcBrain : MonoBehaviour, ICharacterBrain
     [SerializeField]
     private float stopDistance = 2f;
 
+    [Header("Jump")]
+    [SerializeField] private float jumpCooldown = 0.5f;
+
     [Header("Obstacle Detection")]
     [SerializeField] private float obstacleCheckDistance = 0.8f;
 
@@ -36,6 +39,8 @@ public class NpcBrain : MonoBehaviour, ICharacterBrain
     [SerializeField] private LayerMask climbableWalls;
     [SerializeField] private LayerMask unclimbableWalls;
     [SerializeField] private LayerMask climbableLedge;
+
+    private float jumpCooldownTimer;
 
     private void Awake()
     {
@@ -55,6 +60,9 @@ public class NpcBrain : MonoBehaviour, ICharacterBrain
         KickPressed = false;
         RollPressed = false;
         InteractPressed = false;
+
+        if (jumpCooldownTimer > 0f)
+            jumpCooldownTimer -= Time.deltaTime;
 
         UpdateMovement();
         UpdateJumpDecision();
@@ -109,20 +117,32 @@ public class NpcBrain : MonoBehaviour, ICharacterBrain
             transform.position +
             Vector3.up * 0.1f;
 
+        int obstacleMask =
+            climbableWalls |
+            unclimbableWalls |
+            climbableLedge;
+
         if (!Physics.Raycast(
                 lowerOrigin,
                 direction,
                 out RaycastHit hit,
-                obstacleCheckDistance))
+                obstacleCheckDistance,
+                obstacleMask))
         {
             return;
         }
 
         jumpDirection = direction;
 
-        JumpPressed = true;
-    }
+        if (IsLowObstacle(direction))
+        {
+            JumpPressed = true;
+            return;
+        }
 
+        CheckWallType(hit);
+    }
+    
     private bool IsLowObstacle(
         Vector3 direction)
     {
@@ -153,6 +173,7 @@ public class NpcBrain : MonoBehaviour, ICharacterBrain
                 climbableWalls))
         {
             JumpPressed = true;
+            jumpCooldownTimer = jumpCooldown;
             return;
         }
 
@@ -161,6 +182,7 @@ public class NpcBrain : MonoBehaviour, ICharacterBrain
                 climbableLedge))
         {
             JumpPressed = true;
+            jumpCooldownTimer = jumpCooldown;
             return;
         }
 
