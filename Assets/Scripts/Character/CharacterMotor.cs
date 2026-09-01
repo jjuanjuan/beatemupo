@@ -187,7 +187,6 @@ public class CharacterMotor : MonoBehaviour
     public void EndFall()
     {
         lastFallTime = fallTime;
-        Debug.Log("last fall time: " + lastFallTime);
     }
 
     public void StartLandingMovement()
