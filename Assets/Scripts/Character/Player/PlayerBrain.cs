@@ -18,7 +18,17 @@ public class PlayerBrain : MonoBehaviour, ICharacterBrain
 
     private PlayerInput input;
 
-    public Vector3 JumpDirection => MoveDirection;
+    public Vector3 JumpDirection =>
+    MoveDirection;
+
+    public bool HasJumpTarget => false;
+
+    public Vector3 JumpTarget =>
+        Vector3.zero;
+
+    public void ConsumeJumpTarget()
+    {
+    }
 
     void Awake()
     {

@@ -15,9 +15,11 @@ public class NpcBrain : MonoBehaviour, ICharacterBrain
 
     private Vector3 jumpDirection;
 
-    public Vector3 JumpDirection => jumpDirection;
+    public Vector3 JumpDirection =>
+        jumpDirection;
 
     private NavMeshAgent agent;
+    private CharacterMotor motor;
 
     [Header("Target")]
     [SerializeField]
@@ -27,29 +29,46 @@ public class NpcBrain : MonoBehaviour, ICharacterBrain
     [SerializeField]
     private float stopDistance = 2f;
 
-    [Header("Jump")]
-    [SerializeField] private float jumpCooldown = 0.5f;
+    [Header("Off Mesh Link")]
+    [SerializeField]
+    private float linkArrivalDistance = 0.5f;
 
-    [Header("Obstacle Detection")]
-    [SerializeField] private float obstacleCheckDistance = 0.8f;
+    private bool traversingOffMeshLink;
+    private bool waitingForPathRefresh;
 
-    [SerializeField] private float lowObstacleHeight = 0.6f;
-    [SerializeField] private float highObstacleCheckHeight = 1.5f;
+    private Vector3 offMeshEndPosition;
 
-    [SerializeField] private LayerMask climbableWalls;
-    [SerializeField] private LayerMask unclimbableWalls;
-    [SerializeField] private LayerMask climbableLedge;
+    private Vector3 jumpTarget;
+    private bool hasJumpTarget;
 
-    private float jumpCooldownTimer;
+    public Vector3 JumpTarget =>
+        jumpTarget;
+
+    public bool HasJumpTarget =>
+        hasJumpTarget;
+
+    public void ConsumeJumpTarget()
+    {
+        hasJumpTarget = false;
+    }
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        agent =
+            GetComponent<NavMeshAgent>();
+
+        motor =
+            GetComponent<CharacterMotor>();
+
+        agent.updatePosition = false;
+        agent.updateRotation = false;
+        agent.autoTraverseOffMeshLink = false;
 
         if (target == null)
         {
-            target = GameObject.FindWithTag("Player").GetComponent<Character>();
-            return;
+            target =
+                GameObject.FindWithTag("Player")
+                    .GetComponent<Character>();
         }
     }
 
@@ -61,17 +80,39 @@ public class NpcBrain : MonoBehaviour, ICharacterBrain
         RollPressed = false;
         InteractPressed = false;
 
-        if (jumpCooldownTimer > 0f)
-            jumpCooldownTimer -= Time.deltaTime;
+        UpdateOffMeshLink();
+        UpdateOffMeshLinkCompletion();
+
+        if (waitingForPathRefresh)
+            return;
 
         UpdateMovement();
-        UpdateJumpDecision();
     }
 
     private void UpdateMovement()
     {
+        if (traversingOffMeshLink)
+        {
+            MoveDirection = Vector3.zero;
+            return;
+        }
+
         agent.nextPosition =
             transform.position;
+
+        float distanceToTarget =
+            Vector3.Distance(
+                transform.position,
+                target.transform.position);
+
+        if (distanceToTarget <= stopDistance)
+        {
+            MoveDirection = Vector3.zero;
+
+            agent.ResetPath();
+
+            return;
+        }
 
         agent.SetDestination(
             target.transform.position);
@@ -81,167 +122,160 @@ public class NpcBrain : MonoBehaviour, ICharacterBrain
 
         direction.y = 0f;
 
-        if (Vector3.Distance(
-                transform.position,
-                target.transform.position)
-            <= stopDistance)
+        if (direction.sqrMagnitude > 0.01f)
         {
-            MoveDirection = Vector3.zero;
+            MoveDirection =
+                direction.normalized;
+        }
+        else
+        {
+            MoveDirection =
+                Vector3.zero;
+        }
+    }
+
+    private void UpdateOffMeshLink()
+    {
+        if (!agent.isOnOffMeshLink)
             return;
+
+        if (traversingOffMeshLink)
+            return;
+
+        OffMeshLinkData link =
+            agent.currentOffMeshLinkData;
+
+        traversingOffMeshLink = true;
+
+        offMeshEndPosition =
+            link.endPos;
+
+        Vector3 direction =
+            offMeshEndPosition -
+            transform.position;
+
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude > 0.01f)
+        {
+            direction.Normalize();
+
+            jumpDirection =
+                direction;
+
+            MoveDirection =
+                direction;
         }
 
+        jumpTarget =
+            offMeshEndPosition;
+
+        hasJumpTarget =
+            true;
+
+        JumpPressed =
+            true;
+    }
+
+    private void UpdateOffMeshLinkCompletion()
+    {
+        if (!traversingOffMeshLink)
+            return;
+
+        if (!motor.Grounded)
+            return;
+
+        Vector3 currentPosition =
+            transform.position;
+
+        Vector3 endPosition =
+            offMeshEndPosition;
+
+        currentPosition.y = 0f;
+        endPosition.y = 0f;
+
+        float distance =
+            Vector3.Distance(
+                currentPosition,
+                endPosition);
+
+        if (distance > linkArrivalDistance)
+            return;
+
+        CompleteCurrentOffMeshLink();
+    }
+
+    private void CompleteCurrentOffMeshLink()
+    {
+        waitingForPathRefresh =
+            true;
+
+        traversingOffMeshLink =
+            false;
+
+        hasJumpTarget =
+            false;
+
         MoveDirection =
-            direction.normalized;
+            Vector3.zero;
+
+        jumpDirection =
+            Vector3.zero;
+
+        agent.CompleteOffMeshLink();
+
+        agent.ResetPath();
+
+        agent.Warp(
+            transform.position);
+
+        Invoke(
+            nameof(RefreshPath),
+            0.05f);
+    }
+
+    private void RefreshPath()
+    {
+        agent.ResetPath();
+
+        agent.Warp(
+            transform.position);
+
+        agent.SetDestination(
+            target.transform.position);
+
+        waitingForPathRefresh =
+            false;
     }
 
     public void SetTarget(
         Character newTarget)
     {
-        target = newTarget;
+        target =
+            newTarget;
     }
 
-    private void UpdateJumpDecision()
+    private void OnDrawGizmos()
     {
-        Vector3 direction =
-            target.transform.position -
-            transform.position;
-
-        direction.y = 0f;
-
-        if (direction.sqrMagnitude < 0.01f)
+        if (agent == null)
             return;
 
-        direction.Normalize();
+        if (!agent.hasPath)
+            return;
 
-        Vector3 lowerOrigin =
-            transform.position +
-            Vector3.up * 0.1f;
+        Gizmos.color =
+            Color.green;
 
-        int obstacleMask =
-            climbableWalls |
-            unclimbableWalls |
-            climbableLedge;
+        Vector3[] corners =
+            agent.path.corners;
 
-        if (!Physics.Raycast(
-                lowerOrigin,
-                direction,
-                out RaycastHit hit,
-                obstacleCheckDistance,
-                obstacleMask))
+        for (int i = 0;
+             i < corners.Length - 1;
+             i++)
         {
-            return;
+            Gizmos.DrawLine(
+                corners[i],
+                corners[i + 1]);
         }
-
-        jumpDirection = direction;
-
-        if (IsLowObstacle(direction))
-        {
-            JumpPressed = true;
-            return;
-        }
-
-        CheckWallType(hit);
-    }
-    
-    private bool IsLowObstacle(
-        Vector3 direction)
-    {
-        Vector3 upperOrigin =
-            transform.position +
-            Vector3.up * lowObstacleHeight;
-
-        int obstacleMask =
-            climbableWalls |
-            unclimbableWalls |
-            climbableLedge;
-
-        return !Physics.Raycast(
-            upperOrigin,
-            direction,
-            obstacleCheckDistance,
-            obstacleMask);
-    }
-
-    private void CheckWallType(
-        RaycastHit hit)
-    {
-        int hitLayer =
-            hit.collider.gameObject.layer;
-
-        if (IsInLayerMask(
-                hitLayer,
-                climbableWalls))
-        {
-            JumpPressed = true;
-            jumpCooldownTimer = jumpCooldown;
-            return;
-        }
-
-        if (IsInLayerMask(
-                hitLayer,
-                climbableLedge))
-        {
-            JumpPressed = true;
-            jumpCooldownTimer = jumpCooldown;
-            return;
-        }
-
-        if (IsInLayerMask(
-                hitLayer,
-                unclimbableWalls))
-        {
-            return;
-        }
-    }
-
-    private bool IsInLayerMask(
-    int layer,
-    LayerMask mask)
-    {
-        return
-            (mask.value & (1 << layer)) != 0;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Vector3 direction =
-            MoveDirection;
-
-        if (direction.sqrMagnitude < 0.01f &&
-            target != null)
-        {
-            direction =
-                target.transform.position -
-                transform.position;
-
-            direction.y = 0f;
-        }
-
-        if (direction.sqrMagnitude < 0.01f)
-            return;
-
-        direction.Normalize();
-
-        Vector3 lowerOrigin =
-            transform.position +
-            Vector3.up * 0.1f;
-
-        Vector3 upperOrigin =
-            transform.position +
-            Vector3.up * lowObstacleHeight;
-
-        Gizmos.color = Color.red;
-
-        Gizmos.DrawLine(
-            lowerOrigin,
-            lowerOrigin +
-            direction * obstacleCheckDistance);
-
-        Gizmos.color = Color.yellow;
-
-        Gizmos.DrawLine(
-            upperOrigin,
-            upperOrigin +
-            direction * obstacleCheckDistance);
     }
 }

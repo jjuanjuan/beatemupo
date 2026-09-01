@@ -3,6 +3,7 @@ using UnityEngine;
 public class JumpState : CharacterState
 {
     Vector3 jumpDirection;
+    bool ballisticJump;
 
     public JumpState(
         CharacterContext context,
@@ -13,6 +14,9 @@ public class JumpState : CharacterState
 
     public override void Enter()
     {
+        ballisticJump =
+            context.Brain.HasJumpTarget;
+
         jumpDirection =
             context.Brain.JumpDirection;
 
@@ -29,7 +33,17 @@ public class JumpState : CharacterState
 
         context.Animator.Play("Jump", .05f);
 
-        context.Motor.Jump();
+        if (ballisticJump)
+        {
+            context.Motor.JumpTowards(
+                context.Brain.JumpTarget);
+
+            context.Brain.ConsumeJumpTarget();
+        }
+        else
+        {
+            context.Motor.Jump();
+        }
     }
 
     public override void Update()
@@ -117,6 +131,9 @@ public class JumpState : CharacterState
 
         context.Animator.SetSpeed(speed);
 
+        if (ballisticJump)
+            return;
+            
         context.Motor.MoveWorldDirection(
             context.Brain.MoveDirection);
     }

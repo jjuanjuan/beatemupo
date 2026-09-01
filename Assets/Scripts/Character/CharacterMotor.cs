@@ -877,6 +877,87 @@ public class CharacterMotor : MonoBehaviour
         RotateTowards(direction, false);
     }
 
+    // salto de npc
+    public void JumpTowards(
+    Vector3 targetPosition)
+    {
+        Vector3 startPosition =
+            transform.position;
+
+        Vector3 horizontalTarget =
+            targetPosition;
+
+        horizontalTarget.y =
+            startPosition.y;
+
+        Vector3 horizontalDirection =
+            horizontalTarget -
+            startPosition;
+
+        float horizontalDistance =
+            horizontalDirection.magnitude;
+
+        if (horizontalDistance < 0.01f)
+        {
+            Jump();
+            return;
+        }
+
+        horizontalDirection.Normalize();
+
+        float verticalVelocity =
+            Mathf.Sqrt(
+                jumpHeight *
+                -2f *
+                gravity);
+
+        float gravityMagnitude =
+            -gravity;
+
+        float flightTime =
+            (verticalVelocity +
+             Mathf.Sqrt(
+                 verticalVelocity *
+                 verticalVelocity +
+                 2f *
+                 gravityMagnitude *
+                 (startPosition.y -
+                  targetPosition.y)))
+            /
+            gravityMagnitude;
+
+        if (flightTime <= 0f)
+        {
+            Jump();
+            return;
+        }
+
+        float horizontalSpeed =
+            horizontalDistance /
+            flightTime;
+
+        velocity.x =
+            horizontalDirection.x *
+            horizontalSpeed;
+
+        velocity.z =
+            horizontalDirection.z *
+            horizontalSpeed;
+
+        velocity.y =
+            verticalVelocity;
+
+        desiredVelocity =
+            new Vector3(
+                velocity.x,
+                0f,
+                velocity.z);
+
+        RotateTowards(
+            horizontalDirection,
+            true);
+    }
+
     /// GIZMOS /////////////////////////////////////////
     private void OnDrawGizmosSelected()
     {
