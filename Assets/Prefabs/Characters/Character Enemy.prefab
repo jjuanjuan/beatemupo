@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  stopDistance: 2
+  stopDistance: 0.75
   linkArrivalDistance: 0.5
 --- !u!195 &-5128425789786138649
 NavMeshAgent:

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BreakableObject : MonoBehaviour, IDamageable
 {
@@ -20,6 +21,7 @@ public class BreakableObject : MonoBehaviour, IDamageable
     public int MaxHealth => maxHealth;
 
     float timer;
+    NavMeshObstacle navMeshObstacle;
 
     void Awake()
     {
@@ -30,6 +32,8 @@ public class BreakableObject : MonoBehaviour, IDamageable
         Collider = GetComponent<Collider>();
         timer = ShakeTime;
         DestroyParticles.Stop();
+
+        navMeshObstacle = GetComponent<NavMeshObstacle>();
     }
 
     public bool IsDead => currentHealth <= 0;
@@ -80,5 +84,7 @@ public class BreakableObject : MonoBehaviour, IDamageable
         Collider.enabled = false;
         if (DestroyParticles)
             DestroyParticles.Play();
+        if (navMeshObstacle)
+            navMeshObstacle.enabled = false;
     }
 }
