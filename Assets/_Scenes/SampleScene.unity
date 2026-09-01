@@ -710,8 +710,8 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
+  m_VoxelSize: 0.1
+  m_MinRegionArea: 0.35
   m_NavMeshData: {fileID: 23800000, guid: e1132f736a3450c459123a8520d36efe, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &197178797
@@ -7646,7 +7646,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_StartPoint: {x: 0, y: -2.83, z: 6.09}
+  m_StartPoint: {x: 0, y: -2.83, z: 6}
   m_EndPoint: {x: 0, y: 0, z: 2.5}
   m_Width: 2
   m_CostModifier: 0

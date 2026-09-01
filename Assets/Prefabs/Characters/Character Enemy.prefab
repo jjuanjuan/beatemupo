@@ -111,18 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   stopDistance: 2
-  obstacleCheckDistance: 1
-  lowObstacleHeight: 1
-  highObstacleCheckHeight: 2
-  climbableWalls:
-    serializedVersion: 2
-    m_Bits: 128
-  unclimbableWalls:
-    serializedVersion: 2
-    m_Bits: 1280
-  climbableLedge:
-    serializedVersion: 2
-    m_Bits: 512
+  linkArrivalDistance: 0.5
 --- !u!195 &-5128425789786138649
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -132,7 +121,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6606891955024348570}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Speed: 10
   m_Acceleration: 8
   avoidancePriority: 50
