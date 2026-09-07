@@ -4,6 +4,7 @@ public class Building : MonoBehaviour
 {
     [SerializeField] Transform interiorRoot;
     [SerializeField] Transform exteriorRoot;
+    [SerializeField] GameObject cameraParent;
 
     private bool playerInside;
     private Renderer[] interiorRenderers;
@@ -15,8 +16,8 @@ public class Building : MonoBehaviour
             interiorRoot.GetComponentsInChildren<Renderer>(true);
         exteriorRenderers =
             exteriorRoot.GetComponentsInChildren<Renderer>(true);
-
-        //SetInteriorVisible(false);
+        if (cameraParent != null)
+            cameraParent.SetActive(false);
     }
 
     public void EnterBuilding()
@@ -28,6 +29,8 @@ public class Building : MonoBehaviour
 
         VisibilityManager.Instance.SetInteriorBuilding(this);
         VisibilityManager.Instance.SetExteriorVisible(false);
+        if (cameraParent != null)
+            cameraParent.SetActive(true);
     }
 
     public void ExitBuilding()
@@ -39,6 +42,8 @@ public class Building : MonoBehaviour
 
         VisibilityManager.Instance.ResetBuildingInteriors();
         VisibilityManager.Instance.SetExteriorVisible(true);
+        if (cameraParent != null)
+            cameraParent.SetActive(false);
     }
 
     public void SetInteriorVisible(bool visible)
